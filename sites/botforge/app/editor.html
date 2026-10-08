@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor - Stitch-sites | Visual Flow Editor</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230284c7'/><path d='M25 50 L75 30 L60 70 L48 56 L42 66 Z' fill='white'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0b1120;
+            color: #f8fafc;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+    <!-- Desktop Sidebar -->
+    <aside class="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between hidden md:flex shrink-0">
+        <div class="p-6 space-y-8">
+            <div class="flex items-center space-x-3">
+                <a href="../index.html" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-gray-900 shadow-md shadow-sky-500/20">
+                        <i data-lucide="telegram-plane" class="fab"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">Bot<span class="text-sky-400">Forge</span></span>
+                </a>
+            </div>
+            <div class="space-y-1">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-4 mb-2">Bot Management</div>
+                
+        <a href="index.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="th-large" class="fas w-5 text-center text-base"></i>
+            <span>Dashboard</span>
+        </a>
+        
+        <a href="editor.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm bg-sky-500/20 text-sky-400 font-semibold border-r-2 border-sky-400">
+            <i data-lucide="project-diagram" class="fas w-5 text-center text-base"></i>
+            <span>Flow Editor</span>
+        </a>
+        
+        <a href="notifications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="bell" class="fas w-5 text-center text-base"></i>
+            <span>Notifications</span>
+        </a>
+        
+        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="user" class="fas w-5 text-center text-base"></i>
+            <span>Profile</span>
+        </a>
+        
+        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="cog" class="fas w-5 text-center text-base"></i>
+            <span>Settings</span>
+        </a>
+        
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-800 space-y-3">
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center font-bold text-xs text-gray-900">PH</div>
+                <div class="flex-grow min-w-0">
+                    <div class="text-xs font-semibold text-gray-900 truncate">Pavlo Havras</div>
+                    <div class="text-[10px] text-emerald-400 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1"></span> Pro Studio</div>
+                </div>
+            </div>
+            <a href="login.html" class="flex items-center justify-center space-x-2 w-full py-2 text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-slate-950 rounded-lg transition">
+                <i data-lucide="sign-out-alt" class="fas"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-grow flex flex-col min-w-0">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-900/60 backdrop-blur border-b border-slate-800 px-6 flex items-center justify-between shrink-0">
+            <div class="flex items-center space-x-4">
+                <button id="mobile-toggle" class="md:hidden text-slate-400 hover:text-gray-900 p-2">
+                    <i data-lucide="menu" class="fas"></i>
+                </button>
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="text-slate-400">Workspace:</span>
+                    <span class="font-bold text-gray-900 flex items-center">
+                        <i data-lucide="telegram" class="fab text-sky-400 mr-1.5"></i> Apex Fitness Bot
+                    </span>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono">ONLINE</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="hidden sm:inline-flex items-center text-xs text-slate-400 hover:text-gray-900 transition">
+                    <i data-lucide="external-link-alt" class="fas mr-1.5"></i> Marketing Site
+                </a>
+                <a href="notifications.html" class="relative text-slate-400 hover:text-gray-900 p-2">
+                    <i data-lucide="bell" class="fas"></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-sky-400"></span>
+                </a>
+                <div class="relative group">
+                    <button class="w-8 h-8 rounded-full bg-gradient-to-tr   flex items-center justify-center font-bold text-xs text-gray-900">
+                        PH
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="hidden group-hover:block absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl py-2 z-50">
+                        <a href="profile.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Your Profile</a>
+                        <a href="settings.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Settings &amp; Billing</a>
+                        <div class="border-t border-slate-800 my-1"></div>
+                        <a href="login.html" class="block px-4 py-2 text-xs text-rose-400 hover:bg-slate-800">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page body -->
+        <main class="flex-grow p-6 overflow-y-auto">
+            
+<div class="h-[calc(100vh-7rem)] flex flex-col space-y-4">
+    <!-- Editor Header Toolbar -->
+    <div class="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 shrink-0">
+        <div class="flex items-center space-x-4">
+            <span class="font-bold text-gray-900 text-sm flex items-center">
+                <i data-lucide="project-diagram" class="fas text-sky-400 mr-2"></i> Onboarding &amp; Membership Flow
+            </span>
+            <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 font-mono">v3.4.2</span>
+            <span class="text-xs text-emerald-400 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span> Changes Auto-saved</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <button class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition">
+                <i data-lucide="play" class="fas text-xs text-sky-400 mr-1"></i> Test in Sandbox
+            </button>
+            <button class="px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-gray-900 text-xs font-semibold shadow transition">
+                <i data-lucide="cloud-upload-alt" class="fas mr-1"></i> Publish to BotFather
+            </button>
+        </div>
+    </div>
+
+    <!-- Canvas Layout: 3 Columns (Node Palette | Visual Graph Canvas | Node Inspector) -->
+    <div class="flex-grow grid grid-cols-12 gap-4 min-h-0">
+        <!-- Node Palette (Left) -->
+        <div class="col-span-12 lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-4 overflow-y-auto space-y-4">
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Node Palette</div>
+            <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-lg bg-slate-800 border border-slate-700 hover:border-sky-500 cursor-pointer transition flex items-center space-x-2">
+                    <i data-lucide="zap" class="fas text-sky-400"></i>
+                    <div>
+                        <div class="font-bold text-gray-900">Trigger Node</div>
+                        <div class="text-[10px] text-slate-400">Commands, keywords</div>
+                    </div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-800 border border-slate-700 hover:border-sky-500 cursor-pointer transition flex items-center space-x-2">
+                    <i data-lucide="comment-alt" class="fas text-blue-400"></i>
+                    <div>
+                        <div class="font-bold text-gray-900">Send Message</div>
+                        <div class="text-[10px] text-slate-400">Text &amp; inline buttons</div>
+                    </div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-800 border border-slate-700 hover:border-sky-500 cursor-pointer transition flex items-center space-x-2">
+                    <i data-lucide="code-branch" class="fas text-emerald-400"></i>
+                    <div>
+                        <div class="font-bold text-gray-900">Condition / Branch</div>
+                        <div class="text-[10px] text-slate-400">If / Else variables</div>
+                    </div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-800 border border-slate-700 hover:border-sky-500 cursor-pointer transition flex items-center space-x-2">
+                    <i data-lucide="brain" class="fas text-purple-400"></i>
+                    <div>
+                        <div class="font-bold text-gray-900">AI Agent (LLM)</div>
+                        <div class="text-[10px] text-slate-400">RAG knowledge fallback</div>
+                    </div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-800 border border-slate-700 hover:border-sky-500 cursor-pointer transition flex items-center space-x-2">
+                    <i data-lucide="star" class="fas text-amber-400"></i>
+                    <div>
+                        <div class="font-bold text-gray-900">Stars Invoice</div>
+                        <div class="text-[10px] text-slate-400">Digital payment flow</div>
+                    </div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-800 border border-slate-700 hover:border-sky-500 cursor-pointer transition flex items-center space-x-2">
+                    <i data-lucide="network-wired" class="fas text-cyan-400"></i>
+                    <div>
+                        <div class="font-bold text-gray-900">Webhook Request</div>
+                        <div class="text-[10px] text-slate-400">External REST call</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Canvas Area (Center) -->
+        <div class="col-span-12 lg:col-span-7 bg-slate-950 border border-slate-800 rounded-xl p-6 relative overflow-auto space-y-8 bg-mesh">
+            <div class="flex items-center space-x-2 absolute top-4 right-4 z-10 bg-slate-900/90 border border-slate-800 rounded-lg p-1 text-xs">
+                <button class="px-2 py-1 text-slate-300 hover:text-gray-900"><i data-lucide="search-plus" class="fas"></i></button>
+                <button class="px-2 py-1 text-slate-300 hover:text-gray-900"><i data-lucide="search-minus" class="fas"></i></button>
+                <button class="px-2 py-1 text-slate-300 hover:text-gray-900"><i data-lucide="expand" class="fas"></i></button>
+            </div>
+
+            <!-- Connected Nodes Diagram -->
+            <div class="space-y-6 max-w-xl mx-auto pt-6">
+                <!-- Node 1: Start Trigger -->
+                <div class="bg-slate-900 border-2 border-sky-500 rounded-xl p-4 shadow-lg space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-sky-400 flex items-center"><i data-lucide="zap" class="fas mr-1.5"></i> Trigger: /start</span>
+                        <span class="text-[10px] bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded font-mono">Entry Point</span>
+                    </div>
+                    <p class="text-xs text-slate-300">User opens bot and hits the Start command.</p>
+                </div>
+
+                <div class="flex justify-center text-slate-600">
+                    <i data-lucide="arrow-down" class="fas text-lg"></i>
+                </div>
+
+                <!-- Node 2: Welcome Message -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-lg space-y-3">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-gray-900 flex items-center"><i data-lucide="comment-alt" class="fas text-blue-400 mr-1.5"></i> Welcome Card</span>
+                        <span class="text-[10px] text-slate-400 font-mono">node_02</span>
+                    </div>
+                    <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-xs text-slate-300">
+                        "Welcome to Apex Fitness Club, {{user.first_name}}! 🏋️ What can I assist you with?"
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="p-2 bg-slate-800 rounded border border-slate-700 text-sky-300 flex items-center justify-between">
+                            <span>📅 Book Session</span>
+                            <i data-lucide="link" class="fas text-[10px] text-slate-500"></i>
+                        </div>
+                        <div class="p-2 bg-slate-800 rounded border border-sky-500/50 text-amber-300 flex items-center justify-between">
+                            <span>⭐ Memberships</span>
+                            <i data-lucide="link" class="fas text-[10px] text-amber-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center text-slate-600">
+                    <i data-lucide="arrow-down" class="fas text-lg"></i>
+                </div>
+
+                <!-- Node 3: Stars Invoice -->
+                <div class="bg-slate-900 border-2 border-amber-500/60 rounded-xl p-4 shadow-lg space-y-3">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-amber-400 flex items-center"><i data-lucide="star" class="fas mr-1.5"></i> Telegram Stars Invoice</span>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-mono">Invoice Node</span>
+                    </div>
+                    <div class="text-xs text-slate-300 space-y-1">
+                        <div>Title: <span class="font-semibold text-gray-900">Apex Gold Monthly Pass</span></div>
+                        <div>Price: <span class="font-mono text-amber-400 font-bold">500 Stars</span></div>
+                        <div>Success Webhook: <span class="font-mono text-slate-400">https://api.apexfitness.concept/stars</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node Inspector Panel (Right) -->
+        <div class="col-span-12 lg:col-span-3 bg-slate-900 border border-slate-800 rounded-xl p-4 overflow-y-auto space-y-4">
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Node Inspector</div>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">Node Title</label>
+                    <input type="text" value="Telegram Stars Invoice" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-gray-900 text-xs">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Item Title</label>
+                    <input type="text" value="Apex Gold Monthly Pass" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-gray-900 text-xs">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Stars Amount</label>
+                    <input type="number" value="500" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-gray-900 text-xs font-mono">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Success Action</label>
+                    <select class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-gray-900 text-xs">
+                        <option>Grant VIP Telegram Group Access</option>
+                        <option>Send Digital Ticket File</option>
+                        <option>Trigger Custom Webhook</option>
+                    </select>
+                </div>
+                <div class="pt-4 border-t border-slate-800">
+                    <button class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-gray-900 rounded-lg font-medium transition">
+                        Update Node
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </main>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

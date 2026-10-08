@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Signup - Stitch-sites | Request Client Workspace</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0F19'/%3E%3Cpath d='M16 6l9 5.2v10.4L16 26.8 7 21.6V11.2L16 6zm0 4.2L10.5 13.4v6.2L16 22.8l5.5-3.2v-6.2L16 10.2z' fill='%2306B6D4'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #FAFAF7; --text: #111111; --primary: #3D4B8C; --accent: #B5542F; --surface: #F0F0EA; --border: #E0E0D8;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--surface);
+            color: #E5E7EB;
+            overflow-x: hidden;
+        }
+        .bg-cyber { background-color: var(--primary); }
+        .bg-cyber-panel { background-color: var(--surface); }
+        .text-cyan-brand { color: var(--accent); }
+        .bg-cyan-brand { background-color: var(--accent); }
+        .bg-cyan-brand:hover { background-color: var(--accent-hover); }
+        .border-cyber { border-color: var(--border); }
+        .font-tnum { font-feature-settings: "tnum" 1, "cv05" 1; }
+        .tab-btn.active {
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-black flex min-h-screen items-center justify-center p-4">
+    <div class="max-w-md w-full bg-gray-900 rounded-2xl border border-gray-800 p-8 space-y-4 text-xs">
+        <h1 class="text-xl font-bold text-white text-center">New Client Workspace</h1>
+        <form onsubmit="event.preventDefault(); window.location.href='index.html';" class="space-y-3">
+            <div><label class="block text-gray-400 mb-1">Company Name</label><input type="text" required class="w-full p-2 bg-gray-950 border border-gray-800 rounded text-white"></div>
+            <div><label class="block text-gray-400 mb-1">Admin Email</label><input type="email" required class="w-full p-2 bg-gray-950 border border-gray-800 rounded text-white"></div>
+            <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black py-2.5 rounded font-bold">Initialize Workspace</button>
+        </form>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

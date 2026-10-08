@@ -1,0 +1,98 @@
+[
+ {
+  "id": "air65",
+  "name": "BetaFPV Air65 (1S Whoop)",
+  "cls": "whoop",
+  "mass_g": 22.6,
+  "kv": 27000,
+  "prop_mm": 31,
+  "cells": 1,
+  "mah": 300,
+  "twr": 4.6,
+  "spinup_ms": 7.0
+ },
+ {
+  "id": "meteor75_pro",
+  "name": "BetaFPV Meteor75 Pro (1S analog)",
+  "cls": "whoop",
+  "mass_g": 30.5,
+  "kv": 21000,
+  "prop_mm": 45,
+  "cells": 1,
+  "mah": 580,
+  "twr": 5.0,
+  "spinup_ms": 10.0
+ },
+ {
+  "id": "mobula7_1s",
+  "name": "HappyModel Mobula7 (1S 75mm whoop)",
+  "cls": "whoop",
+  "mass_g": 24.0,
+  "kv": 20000,
+  "prop_mm": 40,
+  "cells": 1,
+  "mah": 450,
+  "twr": 4.0,
+  "spinup_ms": 8.0
+ },
+ {
+  "id": "pavo_pico_2s",
+  "name": "BetaFPV Pavo Pico (2S cinewhoop)",
+  "cls": "cinewhoop",
+  "mass_g": 78.0,
+  "kv": 14000,
+  "prop_mm": 45,
+  "cells": 2,
+  "mah": 450,
+  "twr": 2.8,
+  "spinup_ms": 12.0
+ },
+ {
+  "id": "crux35_4s",
+  "name": "HappyModel Crux35 (4S 3.5\")",
+  "cls": "toothpick",
+  "mass_g": 87.0,
+  "kv": 3000,
+  "prop_mm": 89,
+  "cells": 4,
+  "mah": 850,
+  "twr": 7.5,
+  "spinup_ms": 20.0
+ },
+ {
+  "id": "racer5_6s",
+  "name": "5\" Racer 6S (2207 1950KV)",
+  "cls": "racer5",
+  "mass_g": 580.0,
+  "kv": 1950,
+  "prop_mm": 127,
+  "cells": 6,
+  "mah": 1300,
+  "twr": 13.0,
+  "spinup_ms": 45.0
+ },
+ {
+  "id": "freestyle5_6s",
+  "name": "5\" Freestyle 6S (2207 1800KV)",
+  "cls": "freestyle5",
+  "mass_g": 650.0,
+  "kv": 1800,
+  "prop_mm": 130,
+  "cells": 6,
+  "mah": 1300,
+  "twr": 9.5,
+  "spinup_ms": 22.0
+ },
+ {
+  "id": "longrange7_6s",
+  "name": "7\" Long Range 6S (2807 1300KV)",
+  "cls": "longrange7",
+  "mass_g": 1100.0,
+  "kv": 1300,
+  "prop_mm": 178,
+  "cells": 6,
+  "mah": 3000,
+  "twr": 5.0,
+  "spinup_ms": 60.0
+ }
+]

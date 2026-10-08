@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Stitch-sites | Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230284c7'/><path d='M25 50 L75 30 L60 70 L48 56 L42 66 Z' fill='white'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0b1120;
+            color: #f8fafc;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+    <!-- Desktop Sidebar -->
+    <aside class="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between hidden md:flex shrink-0">
+        <div class="p-6 space-y-8">
+            <div class="flex items-center space-x-3">
+                <a href="../index.html" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-gray-900 shadow-md shadow-sky-500/20">
+                        <i data-lucide="telegram-plane" class="fab"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">Bot<span class="text-sky-400">Forge</span></span>
+                </a>
+            </div>
+            <div class="space-y-1">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-4 mb-2">Bot Management</div>
+                
+        <a href="index.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm bg-sky-500/20 text-sky-400 font-semibold border-r-2 border-sky-400">
+            <i data-lucide="th-large" class="fas w-5 text-center text-base"></i>
+            <span>Dashboard</span>
+        </a>
+        
+        <a href="editor.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="project-diagram" class="fas w-5 text-center text-base"></i>
+            <span>Flow Editor</span>
+        </a>
+        
+        <a href="notifications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="bell" class="fas w-5 text-center text-base"></i>
+            <span>Notifications</span>
+        </a>
+        
+        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="user" class="fas w-5 text-center text-base"></i>
+            <span>Profile</span>
+        </a>
+        
+        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-gray-900 hover:bg-slate-900 transition">
+            <i data-lucide="cog" class="fas w-5 text-center text-base"></i>
+            <span>Settings</span>
+        </a>
+        
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-800 space-y-3">
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center font-bold text-xs text-gray-900">PH</div>
+                <div class="flex-grow min-w-0">
+                    <div class="text-xs font-semibold text-gray-900 truncate">Pavlo Havras</div>
+                    <div class="text-[10px] text-emerald-400 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1"></span> Pro Studio</div>
+                </div>
+            </div>
+            <a href="login.html" class="flex items-center justify-center space-x-2 w-full py-2 text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-slate-950 rounded-lg transition">
+                <i data-lucide="sign-out-alt" class="fas"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-grow flex flex-col min-w-0">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-900/60 backdrop-blur border-b border-slate-800 px-6 flex items-center justify-between shrink-0">
+            <div class="flex items-center space-x-4">
+                <button id="mobile-toggle" class="md:hidden text-slate-400 hover:text-gray-900 p-2">
+                    <i data-lucide="menu" class="fas"></i>
+                </button>
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="text-slate-400">Workspace:</span>
+                    <span class="font-bold text-gray-900 flex items-center">
+                        <i data-lucide="telegram" class="fab text-sky-400 mr-1.5"></i> Apex Fitness Bot
+                    </span>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono">ONLINE</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="hidden sm:inline-flex items-center text-xs text-slate-400 hover:text-gray-900 transition">
+                    <i data-lucide="external-link-alt" class="fas mr-1.5"></i> Marketing Site
+                </a>
+                <a href="notifications.html" class="relative text-slate-400 hover:text-gray-900 p-2">
+                    <i data-lucide="bell" class="fas"></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-sky-400"></span>
+                </a>
+                <div class="relative group">
+                    <button class="w-8 h-8 rounded-full bg-gradient-to-tr   flex items-center justify-center font-bold text-xs text-gray-900">
+                        PH
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="hidden group-hover:block absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl py-2 z-50">
+                        <a href="profile.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Your Profile</a>
+                        <a href="settings.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Settings &amp; Billing</a>
+                        <div class="border-t border-slate-800 my-1"></div>
+                        <a href="login.html" class="block px-4 py-2 text-xs text-rose-400 hover:bg-slate-800">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page body -->
+        <main class="flex-grow p-6 overflow-y-auto">
+            
+<div class="max-w-7xl mx-auto space-y-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Telegram Bots Dashboard</h1>
+            <p class="text-xs text-slate-400 mt-1">Real-time webhook traffic, conversations, and transaction metrics.</p>
+        </div>
+        <div class="flex space-x-3">
+            <a href="editor.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-gray-900 text-xs font-semibold shadow transition">
+                <i data-lucide="plus" class="fas mr-1.5"></i> New Flow
+            </a>
+            <a href="settings.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition">
+                <i data-lucide="key" class="fas mr-1.5 text-amber-400"></i> BotFather Token
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>Total Messages Today</span>
+                <i data-lucide="comment-dots" class="fas text-sky-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-gray-900 font-mono">18,429</div>
+            <div class="text-[11px] text-emerald-400 flex items-center">
+                <i data-lucide="arrow-up" class="fas mr-1"></i> +14.2% vs yesterday
+            </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>Active Telegram Users</span>
+                <i data-lucide="users" class="fas text-purple-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-gray-900 font-mono">3,120</div>
+            <div class="text-[11px] text-emerald-400 flex items-center">
+                <i data-lucide="arrow-up" class="fas mr-1"></i> +8.5% this week
+            </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>Stars &amp; Revenue</span>
+                <i data-lucide="star" class="fas text-amber-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-gray-900 font-mono">8,450 ⭐ <span class="text-sm font-normal text-slate-400">($169)</span></div>
+            <div class="text-[11px] text-emerald-400 flex items-center">
+                <i data-lucide="arrow-up" class="fas mr-1"></i> 24 purchases today
+            </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>Avg Webhook Latency</span>
+                <i data-lucide="zap" class="fas text-emerald-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-emerald-400 font-mono">36 ms</div>
+            <div class="text-[11px] text-slate-400 flex items-center">
+                <i data-lucide="check-circle" class="fas mr-1 text-emerald-400"></i> Edge Frankfurt Node
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold text-gray-900">Message Volume (Past 7 Days)</h2>
+            <span class="text-xs text-slate-400">Updated 2 minutes ago</span>
+        </div>
+        <div class="h-64">
+            <canvas id="trafficChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Active Bots Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold text-gray-900">Configured Telegram Bots</h2>
+            <a href="editor.html" class="text-xs text-sky-400 hover:underline">Manage All</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+                <thead class="text-slate-400 border-b border-slate-800">
+                    <tr>
+                        <th class="py-3 px-4">Bot Handle</th>
+                        <th class="py-3 px-4">Active Flow</th>
+                        <th class="py-3 px-4">Status</th>
+                        <th class="py-3 px-4">Today's Chats</th>
+                        <th class="py-3 px-4">Webhook Health</th>
+                        <th class="py-3 px-4 text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60">
+                    <tr>
+                        <td class="py-3 px-4 font-semibold text-gray-900 flex items-center">
+                            <span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center mr-2 text-[10px]">🤖</span>
+                            @ApexFitnessBot
+                        </td>
+                        <td class="py-3 px-4 text-slate-400 font-mono">v3_membership_funnel</td>
+                        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-medium">LIVE</span></td>
+                        <td class="py-3 px-4 font-mono">1,420</td>
+                        <td class="py-3 px-4 text-emerald-400 font-mono">99.99% (32ms)</td>
+                        <td class="py-3 px-4 text-right">
+                            <a href="editor.html" class="text-sky-400 hover:underline font-medium">Open Canvas</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-4 font-semibold text-gray-900 flex items-center">
+                            <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center mr-2 text-[10px]">🛍️</span>
+                            @ApexShopBot
+                        </td>
+                        <td class="py-3 px-4 text-slate-400 font-mono">merch_stars_store</td>
+                        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-medium">LIVE</span></td>
+                        <td class="py-3 px-4 font-mono">680</td>
+                        <td class="py-3 px-4 text-emerald-400 font-mono">100.0% (41ms)</td>
+                        <td class="py-3 px-4 text-right">
+                            <a href="editor.html" class="text-sky-400 hover:underline font-medium">Open Canvas</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-4 font-semibold text-gray-900 flex items-center">
+                            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mr-2 text-[10px]">💬</span>
+                            @ApexSupportHelpBot
+                        </td>
+                        <td class="py-3 px-4 text-slate-400 font-mono">ai_tier1_helpdesk</td>
+                        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 font-medium">STAGING</span></td>
+                        <td class="py-3 px-4 font-mono">48</td>
+                        <td class="py-3 px-4 text-amber-400 font-mono">98.5% (85ms)</td>
+                        <td class="py-3 px-4 text-right">
+                            <a href="editor.html" class="text-sky-400 hover:underline font-medium">Open Canvas</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', function() {
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed'],
+                datasets: [{
+                    label: 'Incoming Telegram Messages',
+                    data: [12400, 14200, 11800, 13100, 16900, 17800, 18429],
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    });
+</script>
+
+        </main>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

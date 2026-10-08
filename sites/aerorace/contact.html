@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroRace League | Contact & Media</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#F2F0EB',
+                        red: '#C3352B',
+                        black: '#151515',
+                        sand: '#D8C7A5'
+                    },
+                    fontFamily: {
+                        anton: ['Anton', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F2F0EB; color: #151515; font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-anton { font-family: 'Anton', sans-serif; font-weight: normal; text-transform: uppercase; }
+        .border-grid { border: 1px solid #151515; }
+        .border-grid-t { border-top: 1px solid #151515; }
+        .border-grid-b { border-bottom: 1px solid #151515; }
+        .border-grid-l { border-left: 1px solid #151515; }
+        .border-grid-r { border-right: 1px solid #151515; }
+    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-red selection:text-bg">
+    
+    <!-- Navigation -->
+    <nav class="border-grid-b bg-bg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <i data-lucide="crosshair" class="w-6 h-6 text-red"></i>
+                <span class="font-anton text-2xl tracking-wide pt-1">AERORACE</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-6 font-semibold text-sm">
+                <a href="product.html" class="hover:text-red transition-colors">Season '26</a>
+                <a href="pricing.html" class="hover:text-red transition-colors">Tickets</a>
+                <a href="cases.html" class="hover:text-red transition-colors">Standings</a>
+                <a href="docs.html" class="hover:text-red transition-colors">Rules & Sim</a>
+                <a href="about.html" class="hover:text-red transition-colors">About</a>
+                <a href="contact.html" class="hover:text-red transition-colors">Contact</a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="p-2 text-black hover:text-red transition-colors">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-black bg-sand font-semibold flex flex-col">
+            <a href="product.html" class="p-4 border-b border-black">Season '26</a>
+            <a href="pricing.html" class="p-4 border-b border-black">Tickets</a>
+            <a href="cases.html" class="p-4 border-b border-black">Standings</a>
+            <a href="docs.html" class="p-4 border-b border-black">Rules & Sim</a>
+            <a href="about.html" class="p-4 border-b border-black">About</a>
+            <a href="contact.html" class="p-4 border-b border-black">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+<div class="max-w-7xl mx-auto border-grid-l border-grid-r bg-bg min-h-[60vh]">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="p-8 md:p-16 border-grid-b lg:border-grid-b-0 lg:border-grid-r flex flex-col justify-center bg-sand">
+            <span class="text-sm font-bold text-red uppercase tracking-widest mb-4">Connect With League</span>
+            <h1 class="font-anton text-6xl md:text-7xl mb-6 leading-[0.9]">PILOT &amp; SPONSOR INQUIRIES</h1>
+            <p class="text-lg mb-12">
+                Are you a licensed FAI competitive pilot applying for the 2026 World Tour grid, or a brand seeking global esports broadcast sponsorship?
+            </p>
+            
+            <div class="space-y-6 text-sm font-medium border-t border-black pt-8">
+                <div>
+                    <h3 class="font-anton text-2xl mb-1">PADDOCK HEADQUARTERS</h3>
+                    <p>AeroRace Global HQ, Hangar 4<br>Silicon Docks, Concept City CC-1040</p>
+                </div>
+                <div>
+                    <h3 class="font-anton text-2xl mb-1">CONTACTS</h3>
+                    <p>Pilots: pilots@aerorace.concept<br>Media: press@aerorace.concept</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-8 md:p-16 flex flex-col justify-center border-grid-b lg:border-grid-b-0">
+            <h2 class="font-anton text-3xl mb-8">SUBMIT INQUIRY</h2>
+            <form id="contact-form" class="space-y-6" onsubmit="event.preventDefault(); submitContact();">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-2">Full Name</label>
+                        <input type="text" required class="w-full border-b-2 border-black bg-transparent py-2 px-0 focus:outline-none focus:border-red transition-colors text-lg rounded-none" placeholder="Elena Rostova">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-2">Email</label>
+                        <input type="email" required class="w-full border-b-2 border-black bg-transparent py-2 px-0 focus:outline-none focus:border-red transition-colors text-lg rounded-none" placeholder="elena@example.com">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-2">Inquiry Type</label>
+                    <select class="w-full border-b-2 border-black bg-transparent py-2 px-0 focus:outline-none focus:border-red transition-colors text-lg rounded-none">
+                        <option>Pilot Application / Grid Wildcard</option>
+                        <option>Constructor Team Entry</option>
+                        <option>Sponsorship &amp; Brand Partnership</option>
+                        <option>Media &amp; Press Pass</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-2">Message</label>
+                    <textarea required rows="4" class="w-full border-b-2 border-black bg-transparent py-2 px-0 focus:outline-none focus:border-red transition-colors text-lg rounded-none" placeholder="Your message here..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-red text-bg font-anton text-2xl py-4 hover:bg-black transition-colors">
+                    DISPATCH INQUIRY
+                </button>
+            </form>
+            <div id="contact-success" class="hidden mt-6 p-6 border-2 border-black bg-sand text-center font-bold text-lg">
+                INQUIRY DISPATCHED TO RACE OPERATIONS.
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function submitContact() {
+        document.getElementById('contact-form').classList.add('hidden');
+        document.getElementById('contact-success').classList.remove('hidden');
+    }
+</script>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-grid-t bg-black text-bg pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <a href="index.html" class="flex items-center gap-2 text-bg group">
+                        <i data-lucide="crosshair" class="w-6 h-6 text-red"></i>
+                        <span class="font-anton text-2xl tracking-wide pt-1">AERORACE</span>
+                    </a>
+                    <p class="text-sm opacity-80 max-w-sm">
+                        The premier championship for first-person view drone racing. Supersonic carbon fiber frames navigating multi-level arena circuits at 200 km/h.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-anton text-xl mb-4 text-sand">CIRCUITS</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="product.html" class="hover:text-red transition-colors">Tokyo Neo Dome</a></li>
+                        <li><a href="product.html" class="hover:text-red transition-colors">Berlin Bunker</a></li>
+                        <li><a href="product.html" class="hover:text-red transition-colors">Dubai Marina</a></li>
+                        <li><a href="product.html" class="hover:text-red transition-colors">Vegas Neon Bowl</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-anton text-xl mb-4 text-sand">LEAGUE</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="cases.html" class="hover:text-red transition-colors">Leaderboard</a></li>
+                        <li><a href="docs.html" class="hover:text-red transition-colors">Regulations</a></li>
+                        <li><a href="pricing.html" class="hover:text-red transition-colors">Tickets & Passes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-anton text-xl mb-4 text-sand">CONNECT</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="about.html" class="hover:text-red transition-colors">About</a></li>
+                        <li><a href="contact.html" class="hover:text-red transition-colors">Contact & Media</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-bg/20 pt-8 flex flex-col md:flex-row justify-between items-center text-xs opacity-60">
+                <p>&copy; 2026 AeroRace. Editorial concept design.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <span>FAI Compliant</span>
+                    <span>Safety Code</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script>
+        lucide.createIcons();
+        
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Counters
+            gsap.utils.toArray('.js-counter').forEach(el => {
+                const text = el.textContent.trim();
+                const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+                if(!isNaN(num) && text.match(/[0-9]/)) {
+                    const isDec = text.includes('.');
+                    const suffix = text.replace(/[0-9.]/g, '');
+                    let obj = { val: 0 };
+                    gsap.to(obj, {
+                        val: num,
+                        duration: 2,
+                        ease: "power2.out",
+                        scrollTrigger: { trigger: el, start: "top 90%" },
+                        onUpdate: function() {
+                            let current = isDec ? obj.val.toFixed(1) : Math.round(obj.val);
+                            el.textContent = current + suffix;
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

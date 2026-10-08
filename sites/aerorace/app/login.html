@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stitch-sites | Pilot Cockpit Access</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230e7490'/><circle cx='50' cy='50' r='20' fill='%2322c55e'/><path d='M20 50 L80 50 M50 20 L50 80' stroke='white' stroke-width='6'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-900 border border-cyan-900/40 rounded-2xl p-8 shadow-2xl space-y-6">
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-white text-2xl font-bold mx-auto shadow-lg shadow-cyan-500/20">
+                <i data-lucide="crosshairs" class="fas"></i>
+            </div>
+            <h1 class="text-2xl font-black text-white uppercase tracking-wider">Pilot Cockpit</h1>
+            <p class="text-xs text-slate-400 font-mono">Authenticate FAI Pilot Super License</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); window.location.href='index.html';" class="space-y-4 text-xs">
+            <div>
+                <label class="block text-slate-300 mb-1 font-mono">Pilot Call Sign / Email</label>
+                <input type="text" required value="VORTEX" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-cyan-500 font-mono">
+            </div>
+            <div>
+                <label class="block text-slate-300 mb-1 font-mono">License PIN</label>
+                <input type="password" required value="••••••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-cyan-500 font-mono">
+            </div>
+            <button type="submit" class="w-full py-3    hover: hover: text-slate-950 rounded-xl font-bold uppercase tracking-wider transition shadow-lg shadow-cyan-500/25">
+                Arm Cockpit &amp; Connect Telemetry
+            </button>
+        </form>
+
+        <div class="text-center text-xs text-slate-400 pt-2 font-mono">
+            Applying for a race license? <a href="signup.html" class="text-cyan-400 hover:underline">Register Pilot</a>
+        </div>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

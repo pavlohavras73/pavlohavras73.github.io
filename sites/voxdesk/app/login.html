@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stitch-sites | Reception Console Login</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%236366f1'/><path d='M30 45 Q50 25 70 45 T70 65 Q50 80 30 65 Z' fill='white'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6">
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-white text-2xl font-bold mx-auto shadow-lg shadow-indigo-500/20">
+                <i data-lucide="headset" class="fas"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white">VoxDesk Console</h1>
+            <p class="text-xs text-slate-400">AI Telephony Receptionist Manager</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); window.location.href='index.html';" class="space-y-4 text-xs">
+            <div>
+                <label class="block text-slate-300 mb-1">Business Email</label>
+                <input type="email" required value="pavlo.havras@voxdesk.concept" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+            </div>
+            <div>
+                <label class="block text-slate-300 mb-1">Password</label>
+                <input type="password" required value="••••••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+            </div>
+            <button type="submit" class="w-full py-3    hover: hover: text-white rounded-xl font-semibold transition shadow-lg shadow-indigo-500/25">
+                Enter Receptionist Console
+            </button>
+        </form>
+
+        <div class="text-center text-xs text-slate-400 pt-2">
+            Need to set up a new location? <a href="signup.html" class="text-indigo-400 hover:underline">Start 14-Day Trial</a>
+        </div>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

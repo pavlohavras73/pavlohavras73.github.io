@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quant Terminal — live markets analytics &amp; backtesting</title>
+<meta name="description" content="A working markets analytics terminal: live candlestick chart, order book, watchlist, KPIs and an SMA-crossover backtester with honest CAGR, drawdown and Sharpe. Demo on simulated data.">
+<meta name="theme-color" content="#0b0e14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quant Terminal — markets analytics & backtesting">
+<meta property="og:description" content="Live candles, depth, watchlist and an SMA backtester with parameter heatmap. Runs entirely in the browser on simulated data.">
+<meta property="og:image" content="og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e14'/%3E%3Cpath d='M9 8v16M16 6v20M23 10v12' stroke='%23334155' stroke-width='2'/%3E%3Crect x='7' y='12' width='4' height='8' rx='1' fill='%2322c55e'/%3E%3Crect x='14' y='9' width='4' height='9' rx='1' fill='%23ef4444'/%3E%3Crect x='21' y='13' width='4' height='6' rx='1' fill='%2322c55e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>try{var t=localStorage.getItem('qt-theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#chart-panel">Skip to chart</a>
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M9 8v16M16 6v20M23 10v12" stroke="currentColor" stroke-opacity=".35" stroke-width="2"/><rect x="7" y="12" width="4" height="8" rx="1" fill="var(--up)"/><rect x="14" y="9" width="4" height="9" rx="1" fill="var(--down)"/><rect x="21" y="13" width="4" height="6" rx="1" fill="var(--up)"/></svg>
+      <span>Quant<b>Terminal</b></span>
+    </div>
+    <div class="sym" id="sym-title" aria-live="polite">
+      <strong id="sym-name">ORBX/USD</strong>
+      <span class="sym__px" id="sym-px">—</span>
+      <span class="chg" id="sym-chg">—</span>
+    </div>
+    <div class="top__right">
+      <span class="feed" id="feed" title="Space to pause"><i></i><span id="feed-label">SIM FEED · 1s</span></span>
+      <time class="clock" id="clock">--:--:--</time>
+      <button class="icon-btn" id="btn-pause" aria-label="Pause live feed (Space)" aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor"/></svg></button>
+      <button class="icon-btn" id="btn-theme" aria-label="Toggle light/dark theme (T)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+      <button class="icon-btn" id="btn-help" aria-label="Keyboard shortcuts (?)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 10h1M9 10h1M12 10h1M15 10h1M18 10h0M7 14h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    </div>
+  </header>
+
+  <section class="kpis" aria-label="Key metrics for selected market">
+    <div class="kpi"><p>Last price</p><b id="k-last">—</b><span id="k-last-sub">USD</span></div>
+    <div class="kpi"><p>Session change</p><b id="k-chg">—</b><span id="k-chg-sub">since open</span></div>
+    <div class="kpi"><p>Session range</p><b id="k-range">—</b><span id="k-range-sub">low – high</span></div>
+    <div class="kpi"><p>Session volume</p><b id="k-vol">—</b><span id="k-vol-sub">base units</span></div>
+    <div class="kpi"><p>Realized vol</p><b id="k-rv">—</b><span>annualized, 1m returns</span></div>
+    <div class="kpi"><p>Spread</p><b id="k-spr">—</b><span id="k-spr-sub">top of book</span></div>
+  </section>
+
+  <main class="grid" id="grid">
+    <aside class="panel watch" id="watch" aria-label="Watchlist">
+      <div class="panel__head">
+        <h2>Watchlist</h2>
+        <button class="mini-btn collapse" data-collapse="watch" aria-label="Collapse watchlist ([)" aria-expanded="true">⟨</button>
+      </div>
+      <ul class="wl" id="wl" role="listbox" aria-label="Markets"></ul>
+    </aside>
+    <div class="gutter gutter--v" data-resize="left" role="separator" aria-orientation="vertical" aria-label="Resize watchlist" tabindex="0"></div>
+
+    <div class="center" id="center">
+      <section class="panel chart-panel" id="chart-panel" aria-label="Price chart">
+        <div class="panel__head chart-head">
+          <div class="seg" role="group" aria-label="Candle interval" id="intervals">
+            <button data-iv="5">5s</button><button data-iv="15">15s</button><button data-iv="60" class="is-on">1m</button><button data-iv="300">5m</button>
+          </div>
+          <div class="legend" id="legend">
+            <button class="lg is-on" data-series="fast" aria-pressed="true"><i class="sw sw--fast"></i>SMA <span id="lg-fast-n">9</span> <b id="lg-fast">—</b></button>
+            <button class="lg is-on" data-series="slow" aria-pressed="true"><i class="sw sw--slow"></i>SMA <span id="lg-slow-n">21</span> <b id="lg-slow">—</b></button>
+          </div>
+          <p class="ohlc" id="ohlc" aria-live="off"></p>
+        </div>
+        <div class="chart-wrap" id="chart-wrap">
+          <canvas id="chart" role="img" aria-label="Candlestick chart with volume for the selected market"></canvas>
+          <div class="tip" id="chart-tip" hidden></div>
+        </div>
+      </section>
+      <div class="gutter gutter--h" data-resize="bottom" role="separator" aria-orientation="horizontal" aria-label="Resize backtest panel" tabindex="0"></div>
+      <section class="panel bt" id="bt" aria-label="Strategy backtest">
+        <div class="panel__head">
+          <h2>Backtest · SMA crossover <span class="muted" id="bt-sym">ORBX daily</span></h2>
+          <button class="mini-btn collapse" data-collapse="bt" aria-label="Collapse backtest" aria-expanded="true">⌄</button>
+        </div>
+        <div class="bt__body">
+          <form class="bt__form" id="bt-form">
+            <label>Fast SMA<input type="number" id="bt-fast" min="2" max="150" value="20" inputmode="numeric"></label>
+            <label>Slow SMA<input type="number" id="bt-slow" min="3" max="300" value="60" inputmode="numeric"></label>
+            <label>Fee (bps)<input type="number" id="bt-fee" min="0" max="100" value="10" inputmode="numeric"></label>
+            <label>Lookback<select id="bt-look"><option value="365">1 year</option><option value="730">2 years</option><option value="1460" selected>4 years</option></select></label>
+            <label class="tgl"><input type="checkbox" id="bt-short"> <span>Allow short</span></label>
+            <button class="btn" type="submit">Run backtest <kbd>B</kbd></button>
+            <p class="bt__err" id="bt-err" role="alert"></p>
+          </form>
+          <div class="bt__results">
+            <dl class="metrics" id="metrics"></dl>
+            <div class="eq">
+              <div class="eq__legend"><span><i class="sw sw--eq"></i>Strategy</span><span><i class="sw sw--bh"></i>Buy &amp; hold</span><span class="muted">Drawdown below · start $10,000</span></div>
+              <div class="eq__wrap"><canvas id="equity" role="img" aria-label="Equity curve of the strategy versus buy and hold, with drawdown"></canvas><div class="tip" id="eq-tip" hidden></div></div>
+            </div>
+            <div class="heat">
+              <p class="heat__title">Sharpe by parameters <span class="muted">· click a cell to load</span></p>
+              <div class="heat__grid" id="heat" role="grid" aria-label="Sharpe ratio heatmap by fast and slow SMA"></div>
+              <div class="heat__scale" aria-hidden="true"><span>−1.2</span><i></i><span>0</span><i class="pos"></i><span>+1.2</span></div>
+              <p class="heat__note">In-sample sweep — great for intuition, dangerous for parameter picking (overfitting).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="gutter gutter--v" data-resize="right" role="separator" aria-orientation="vertical" aria-label="Resize order book" tabindex="0"></div>
+    <aside class="panel book" id="book" aria-label="Order book and trades">
+      <div class="panel__head">
+        <h2>Order book</h2>
+        <button class="mini-btn collapse" data-collapse="book" aria-label="Collapse order book (])" aria-expanded="true">⟩</button>
+      </div>
+      <div class="ob" id="ob">
+        <div class="ob__hdr"><span>Price</span><span>Size</span><span>Total</span></div>
+        <div class="ob__side ob__asks" id="asks"></div>
+        <div class="ob__mid" id="ob-mid"><b>—</b><span>spread —</span></div>
+        <div class="ob__side ob__bids" id="bids"></div>
+      </div>
+      <div class="panel__head panel__head--sub"><h2>Trades</h2></div>
+      <div class="tape" id="tape"><div class="ob__hdr"><span>Price</span><span>Size</span><span>Time</span></div><div id="tape-rows"></div></div>
+    </aside>
+  </main>
+
+  <footer class="foot">
+    <p><b class="demo-badge">Demo — simulated data</b> Random-walk feed generated in your browser. Not market data, not financial advice.</p>
+    <p>Press <kbd>?</kbd> for shortcuts · Designed &amp; built by <a href="https://github.com/pavlohavras73">Pavlo Havras</a></p>
+  </footer>
+</div>
+
+<dialog class="help" id="help" aria-labelledby="help-title">
+  <h2 id="help-title">Keyboard shortcuts</h2>
+  <dl>
+    <div><dt><kbd>1</kbd>–<kbd>6</kbd></dt><dd>Select market</dd></div>
+    <div><dt><kbd>↑</kbd> <kbd>↓</kbd></dt><dd>Previous / next market</dd></div>
+    <div><dt><kbd>I</kbd></dt><dd>Cycle candle interval</dd></div>
+    <div><dt><kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd></dt><dd>Zoom in / out / reset chart</dd></div>
+    <div><dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Pan chart</dd></div>
+    <div><dt><kbd>B</kbd></dt><dd>Run backtest</dd></div>
+    <div><dt><kbd>[</kbd> <kbd>]</kbd></dt><dd>Collapse watchlist / order book</dd></div>
+    <div><dt><kbd>T</kbd></dt><dd>Toggle theme</dd></div>
+    <div><dt><kbd>Space</kbd></dt><dd>Pause / resume feed</dd></div>
+    <div><dt><kbd>?</kbd> / <kbd>Esc</kbd></dt><dd>Show / hide this panel</dd></div>
+  </dl>
+  <p class="muted">Mouse: scroll to zoom, drag to pan, double-click to reset. Drag panel edges to resize.</p>
+  <form method="dialog"><button class="btn">Got it</button></form>
+</dialog>
+<script src="app.js"></script>
+</body>
+</html>

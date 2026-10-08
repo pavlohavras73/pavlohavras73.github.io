@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroRace League | Championship</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#F2F0EB',
+                        red: '#C3352B',
+                        black: '#151515',
+                        sand: '#D8C7A5'
+                    },
+                    fontFamily: {
+                        anton: ['Anton', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F2F0EB; color: #151515; font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-anton { font-family: 'Anton', sans-serif; font-weight: normal; text-transform: uppercase; }
+        .border-grid { border: 1px solid #151515; }
+        .border-grid-t { border-top: 1px solid #151515; }
+        .border-grid-b { border-bottom: 1px solid #151515; }
+        .border-grid-l { border-left: 1px solid #151515; }
+        .border-grid-r { border-right: 1px solid #151515; }
+    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-red selection:text-bg">
+    
+    <!-- Navigation -->
+    <nav class="border-grid-b bg-bg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <i data-lucide="crosshair" class="w-6 h-6 text-red"></i>
+                <span class="font-anton text-2xl tracking-wide pt-1">AERORACE</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-6 font-semibold text-sm">
+                <a href="product.html" class="hover:text-red transition-colors">Season '26</a>
+                <a href="pricing.html" class="hover:text-red transition-colors">Tickets</a>
+                <a href="cases.html" class="hover:text-red transition-colors">Standings</a>
+                <a href="docs.html" class="hover:text-red transition-colors">Rules & Sim</a>
+                <a href="about.html" class="hover:text-red transition-colors">About</a>
+                <a href="contact.html" class="hover:text-red transition-colors">Contact</a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="p-2 text-black hover:text-red transition-colors">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-black bg-sand font-semibold flex flex-col">
+            <a href="product.html" class="p-4 border-b border-black">Season '26</a>
+            <a href="pricing.html" class="p-4 border-b border-black">Tickets</a>
+            <a href="cases.html" class="p-4 border-b border-black">Standings</a>
+            <a href="docs.html" class="p-4 border-b border-black">Rules & Sim</a>
+            <a href="about.html" class="p-4 border-b border-black">About</a>
+            <a href="contact.html" class="p-4 border-b border-black">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+<div class="max-w-7xl mx-auto border-grid-l border-grid-r bg-bg">
+    <!-- Hero Poster Section -->
+    <div class="grid grid-cols-1 md:grid-cols-12 border-grid-b">
+        <div class="md:col-span-8 p-8 md:p-16 border-grid-b md:border-grid-b-0 md:border-grid-r flex flex-col justify-center bg-sand">
+            <div class="inline-flex items-center gap-2 border border-black px-3 py-1 text-xs font-bold uppercase mb-8 self-start bg-bg">
+                <div class="w-2 h-2 rounded-full bg-red"></div>
+                2026 World Championship &bull; Round 04
+            </div>
+            <h1 class="font-anton text-6xl md:text-8xl lg:text-9xl leading-[0.85] mb-6">
+                SUPERSONIC SPEED.<br>
+                <span class="text-red">ZERO GRAVITY.</span>
+            </h1>
+            <p class="text-lg md:text-xl font-medium max-w-2xl border-t border-black pt-6">
+                AeroRace League is the pinnacle of first-person view drone racing. Top pilots pilot custom 6S carbon quads through gates at 200 km/h with 4G G-forces and sub-3ms digital HD telemetry.
+            </p>
+        </div>
+        <div class="md:col-span-4 bg-red text-bg p-8 flex flex-col justify-between">
+            <div>
+                <h3 class="font-anton text-3xl mb-4 border-b border-bg/30 pb-4">RACE METRICS</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-bg/20 pb-2">
+                        <span class="text-xs uppercase tracking-wider">0-100 km/h</span>
+                        <span class="font-anton text-2xl js-counter">1.1s</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-bg/20 pb-2">
+                        <span class="text-xs uppercase tracking-wider">Video Latency</span>
+                        <span class="font-anton text-2xl js-counter">2.8ms</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-bg/20 pb-2">
+                        <span class="text-xs uppercase tracking-wider">Top Speed</span>
+                        <span class="font-anton text-2xl"><span class="js-counter">212</span> km/h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-12">
+                <a href="pricing.html" class="block text-center border-2 border-bg text-bg font-anton text-2xl py-4 hover:bg-bg hover:text-red transition-colors uppercase">
+                    Buy GP Tickets
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Telemetry Editorial -->
+    <div class="grid grid-cols-1 md:grid-cols-2 border-grid-b">
+        <div class="p-8 md:p-12 border-grid-b md:border-grid-b-0 md:border-grid-r flex flex-col justify-center">
+            <h2 class="font-anton text-5xl mb-6">LIVE TELEMETRY</h2>
+            <p class="text-lg mb-8">Access the cockpit in real-time. Witness the G-forces, throttle inputs, and lap times of the elite pilots as they navigate multi-tiered vertical courses.</p>
+            <div class="bg-black text-sand p-6 font-mono text-sm border-l-4 border-red">
+                <div class="flex justify-between mb-4 border-b border-sand/20 pb-2">
+                    <span>PILOT: HAVRAS [07]</span>
+                    <span class="text-red">P1 LEADER</span>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>SPEED: 184 KM/H</div>
+                    <div>G-FORCE: 4.2 G</div>
+                    <div>THROTTLE: 88%</div>
+                    <div>LAP: 18.42s</div>
+                </div>
+            </div>
+        </div>
+        <div class="p-8 md:p-12 flex flex-col justify-center bg-sand text-center">
+            <h3 class="font-anton text-8xl mb-2 text-black js-counter">24</h3>
+            <span class="text-xl font-bold uppercase tracking-widest border-t border-black pt-2 inline-block">Elite Pilots</span>
+            
+            <h3 class="font-anton text-8xl mb-2 text-black mt-12 js-counter">8</h3>
+            <span class="text-xl font-bold uppercase tracking-widest border-t border-black pt-2 inline-block">Global Arenas</span>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-grid-t bg-black text-bg pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <a href="index.html" class="flex items-center gap-2 text-bg group">
+                        <i data-lucide="crosshair" class="w-6 h-6 text-red"></i>
+                        <span class="font-anton text-2xl tracking-wide pt-1">AERORACE</span>
+                    </a>
+                    <p class="text-sm opacity-80 max-w-sm">
+                        The premier championship for first-person view drone racing. Supersonic carbon fiber frames navigating multi-level arena circuits at 200 km/h.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-anton text-xl mb-4 text-sand">CIRCUITS</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="product.html" class="hover:text-red transition-colors">Tokyo Neo Dome</a></li>
+                        <li><a href="product.html" class="hover:text-red transition-colors">Berlin Bunker</a></li>
+                        <li><a href="product.html" class="hover:text-red transition-colors">Dubai Marina</a></li>
+                        <li><a href="product.html" class="hover:text-red transition-colors">Vegas Neon Bowl</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-anton text-xl mb-4 text-sand">LEAGUE</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="cases.html" class="hover:text-red transition-colors">Leaderboard</a></li>
+                        <li><a href="docs.html" class="hover:text-red transition-colors">Regulations</a></li>
+                        <li><a href="pricing.html" class="hover:text-red transition-colors">Tickets & Passes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-anton text-xl mb-4 text-sand">CONNECT</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="about.html" class="hover:text-red transition-colors">About</a></li>
+                        <li><a href="contact.html" class="hover:text-red transition-colors">Contact & Media</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-bg/20 pt-8 flex flex-col md:flex-row justify-between items-center text-xs opacity-60">
+                <p>&copy; 2026 AeroRace. Editorial concept design.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <span>FAI Compliant</span>
+                    <span>Safety Code</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script>
+        lucide.createIcons();
+        
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Counters
+            gsap.utils.toArray('.js-counter').forEach(el => {
+                const text = el.textContent.trim();
+                const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+                if(!isNaN(num) && text.match(/[0-9]/)) {
+                    const isDec = text.includes('.');
+                    const suffix = text.replace(/[0-9.]/g, '');
+                    let obj = { val: 0 };
+                    gsap.to(obj, {
+                        val: num,
+                        duration: 2,
+                        ease: "power2.out",
+                        scrollTrigger: { trigger: el, start: "top 90%" },
+                        onUpdate: function() {
+                            let current = isDec ? obj.val.toFixed(1) : Math.round(obj.val);
+                            el.textContent = current + suffix;
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

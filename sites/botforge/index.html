@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BotForge — No-Code Telegram Bot Builder & Automation Engine</title>
+    <meta name="description" content="Visually build, deploy, and scale high-performance Telegram bots with AI fallbacks and payment integration.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230284c7'/><path d='M25 50 L75 30 L60 70 L48 56 L42 66 Z' fill='white'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b1120;
+            color: #f8fafc;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .bg-mesh {
+            background-image: radial-gradient(at 10% 20%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+                              radial-gradient(at 90% 80%, rgba(59, 130, 246, 0.12) 0px, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+    
+    <nav class="bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="flex items-center space-x-3 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-gray-900 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition transform">
+                            <i class="fab fa-telegram-plane text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-gray-900">Bot<span class="text-sky-400">Forge</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-sm py-1 text-sky-400 font-semibold border-b-2 border-sky-400">Home</a>
+<a href="product.html" class="text-sm py-1 text-gray-600 hover:text-gray-900 transition">Features</a>
+<a href="pricing.html" class="text-sm py-1 text-gray-600 hover:text-gray-900 transition">Pricing</a>
+<a href="cases.html" class="text-sm py-1 text-gray-600 hover:text-gray-900 transition">Case Studies</a>
+<a href="docs.html" class="text-sm py-1 text-gray-600 hover:text-gray-900 transition">Docs</a>
+<a href="about.html" class="text-sm py-1 text-gray-600 hover:text-gray-900 transition">About</a>
+<a href="contact.html" class="text-sm py-1 text-gray-600 hover:text-gray-900 transition">Contact</a>
+
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="app/login.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Sign In</a>
+                    <a href="app/signup.html" class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-gray-900 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 rounded-lg shadow-lg shadow-sky-500/25 transition">
+                        Get Started Free
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-500 hover:text-gray-900 focus:outline-none p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 text-gray-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-1">
+            <a href="index.html" class="block px-3 py-2 rounded-md text-base bg-sky-500/20 text-sky-400 font-semibold">Home</a>
+<a href="product.html" class="block px-3 py-2 rounded-md text-base text-gray-600 hover:bg-slate-800">Features</a>
+<a href="pricing.html" class="block px-3 py-2 rounded-md text-base text-gray-600 hover:bg-slate-800">Pricing</a>
+<a href="cases.html" class="block px-3 py-2 rounded-md text-base text-gray-600 hover:bg-slate-800">Case Studies</a>
+<a href="docs.html" class="block px-3 py-2 rounded-md text-base text-gray-600 hover:bg-slate-800">Docs</a>
+<a href="about.html" class="block px-3 py-2 rounded-md text-base text-gray-600 hover:bg-slate-800">About</a>
+<a href="contact.html" class="block px-3 py-2 rounded-md text-base text-gray-600 hover:bg-slate-800">Contact</a>
+
+            <div class="pt-4 border-t border-slate-800 flex flex-col space-y-2">
+                <a href="app/login.html" class="text-center py-2 text-sm font-medium text-gray-600 hover:text-gray-900">Sign In</a>
+                <a href="app/signup.html" class="text-center py-2 text-sm font-semibold text-gray-900 bg-sky-500 hover:bg-sky-400 rounded-lg">Get Started Free</a>
+            </div>
+        </div>
+    </nav>
+    <script>
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
+            document.getElementById('mobile-menu')?.classList.toggle('hidden');
+        });
+    </script>
+    
+    <main class="flex-grow">
+        
+<div class="relative overflow-hidden bg-mesh py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6 order-2 lg:order-2">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold tracking-wide uppercase">
+                    <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+                    <span>No-Code Telegram Automation 2.0</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+                    Build smart Telegram bots <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">without writing code</span>
+                </h1>
+                <p class="text-lg text-slate-300 max-w-2xl leading-relaxed">
+                    Connect your BotFather token, visually orchestrate workflows, plug in OpenAI or Claude for natural replies, and process payments effortlessly.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
+                    <a href="app/signup.html" class="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-gray-900 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 rounded-xl shadow-lg shadow-sky-500/25 transition">
+                        <i class="fas fa-play mr-2 text-xs"></i> Start Building Free
+                    </a>
+                    <a href="app/editor.html" class="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-slate-200 bg-white border-b border-gray-200 text-gray-900 hover:bg-slate-800 border border-slate-700 rounded-xl transition">
+                        <i class="fas fa-project-diagram mr-2 text-sky-400"></i> Open Flow Canvas
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6 pt-6 text-xs text-slate-400 border-t border-slate-800/80">
+                    <div class="flex items-center"><i class="fas fa-check text-sky-400 mr-2"></i> Free tier with 2,000 msgs</div>
+                    <div class="flex items-center"><i class="fas fa-check text-sky-400 mr-2"></i> Telegram Stars & Stripe ready</div>
+                    <div class="flex items-center"><i class="fas fa-check text-sky-400 mr-2"></i> Webhook latency < 45ms</div>
+                </div>
+            </div>
+            <div class="lg:col-span-5 order-1 lg:order-1">
+
+<!-- SIGNATURE ELEMENT: Phone Mockup Chat -->
+<div class="relative w-full max-w-sm mx-auto mt-8 bg-gray-50 rounded-[3rem] border-[14px] border-gray-900 shadow-2xl h-[500px] overflow-hidden flex flex-col z-10 text-left">
+    <div class="bg-violet-600 text-white p-4 pt-8 text-center font-bold relative">
+        <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-20 h-4 bg-gray-900 rounded-b-xl"></div>
+        BotForge Pizza
+    </div>
+    <div class="flex-1 p-4 flex flex-col space-y-3 overflow-y-auto" id="chat-container">
+        <!-- Chat bubbles -->
+    </div>
+    <div class="p-3 bg-white border-t border-gray-200">
+        <div class="bg-gray-100 rounded-full px-4 py-2 text-sm text-gray-400">Typing...</div>
+    </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const chat = document.getElementById('chat-container');
+    const messages = [
+        {text: "Hi! Welcome to PizzaBot. What can I get for you?", type: "bot"},
+        {text: "I'd like a large Pepperoni.", type: "user"},
+        {text: "Great! That's $15. Any drinks?", type: "bot"},
+        {text: "No thanks.", type: "user"},
+        {text: "Order confirmed! ETA: 30 mins 🍕", type: "bot"}
+    ];
+    
+    let current = 0;
+    function typeNext() {
+        if(current >= messages.length) return;
+        const m = messages[current];
+        const div = document.createElement('div');
+        div.className = `max-w-[80%] rounded-2xl px-4 py-2 text-sm ${m.type === 'bot' ? 'bg-gray-200 text-gray-800 self-start' : 'bg-violet-500 text-white self-end'}`;
+        div.textContent = m.text;
+        div.style.opacity = '0';
+        div.style.transform = 'translateY(10px)';
+        div.style.transition = 'all 0.3s ease';
+        chat.appendChild(div);
+        
+        setTimeout(() => {
+            div.style.opacity = '1';
+            div.style.transform = 'translateY(0)';
+            chat.scrollTop = chat.scrollHeight;
+        }, 50);
+        
+        current++;
+        setTimeout(typeNext, m.type === 'bot' ? 1500 : 1000);
+    }
+    
+    setTimeout(typeNext, 1000);
+});
+</script>
+
+                <!-- Interactive Telegram simulator preview -->
+                <div class="bg-white border-b border-gray-200 text-gray-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden max-w-md mx-auto">
+                    <div class="bg-slate-800/90 px-4 py-3 flex items-center justify-between border-b border-slate-700">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-sky-500 flex items-center justify-center text-gray-900 font-bold text-sm">
+                                BF
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900 flex items-center">
+                                    BotForge Assistant
+                                    <i class="fas fa-check-circle text-sky-400 ml-1.5 text-xs"></i>
+                                </div>
+                                <div class="text-xs text-sky-300">bot &bull; online</div>
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-400 font-mono">TG Engine 8.1</span>
+                    </div>
+                    <div class="p-4 space-y-3 bg-slate-950/70 h-80 overflow-y-auto font-sans text-sm">
+                        <div class="flex justify-end">
+                            <div class="bg-sky-600 text-gray-900 rounded-2xl rounded-tr-sm px-4 py-2 max-w-xs text-xs">
+                                /start
+                            </div>
+                        </div>
+                        <div class="flex justify-start">
+                            <div class="bg-slate-800 text-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs text-xs space-y-2 border border-slate-700/60">
+                                <p class="font-semibold text-sky-300">Welcome to Apex Fitness Club! 🏋️</p>
+                                <p>I am your 24/7 concierge. How can I help you today?</p>
+                                <div class="pt-2 grid grid-cols-2 gap-2">
+                                    <button class="bg-slate-700 hover:bg-slate-600 text-slate-200 py-1.5 px-2 rounded-lg text-xs font-medium text-center border border-slate-600 transition">📅 Book Session</button>
+                                    <button class="bg-slate-700 hover:bg-slate-600 text-slate-200 py-1.5 px-2 rounded-lg text-xs font-medium text-center border border-slate-600 transition">💳 Memberships</button>
+                                    <button class="bg-slate-700 hover:bg-slate-600 text-slate-200 py-1.5 px-2 rounded-lg text-xs font-medium text-center border border-slate-600 transition col-span-2">🤖 Talk to AI Coach</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="bg-sky-600 text-gray-900 rounded-2xl rounded-tr-sm px-4 py-2 max-w-xs text-xs">
+                                💳 Memberships
+                            </div>
+                        </div>
+                        <div class="flex justify-start">
+                            <div class="bg-slate-800 text-slate-100 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-xs text-xs border border-slate-700/60 space-y-1.5">
+                                <p class="text-slate-300">Choose your membership tier below:</p>
+                                <div class="bg-white border-b border-gray-200 text-gray-900/80 p-2 rounded border border-slate-700 text-xs">
+                                    <span class="text-amber-400 font-bold">Gold Pass</span> — 500 Stars / mo ($9.99)
+                                </div>
+                                <button class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 text-gray-900 font-semibold py-1 rounded text-center text-xs">⭐ Pay with Telegram Stars</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-white border-b border-gray-200 text-gray-900 border-t border-slate-800 flex items-center space-x-2">
+                        <input type="text" placeholder="Type a message..." disabled class="flex-grow bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-400 focus:outline-none">
+                        <button class="w-8 h-8 rounded-xl bg-sky-500 text-gray-900 flex items-center justify-center text-xs"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Strip -->
+<div class="border-y border-slate-800 bg-white border-b border-gray-200 text-gray-900/50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+                <div class="text-3xl font-extrabold text-gray-900 font-mono">14.8M+</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Messages Processed</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-sky-400 font-mono">4,350+</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Active Telegram Bots</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-gray-900 font-mono">99.98%</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Webhook Uptime SLA</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-sky-400 font-mono">&lt; 38ms</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Average Edge Latency</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Core Features Grid -->
+<div class="py-24 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <h2 class="text-xs font-bold tracking-widest text-sky-400 uppercase">Engineered For Telegram</h2>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Everything you need to automate conversations</h3>
+            <p class="text-slate-400 text-base">From interactive multi-tier keyboards to deep database lookups, build rich Telegram apps in minutes.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-8 rounded-2xl bg-white border-b border-gray-200 text-gray-900/70 border border-slate-800 hover:border-sky-500/50 transition duration-300 space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-xl">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900">Visual Flow Canvas</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Connect commands, buttons, condition branches, and delay timers with a smooth node-based drag-and-drop builder.
+                </p>
+                <a href="app/editor.html" class="inline-flex items-center text-xs font-semibold text-sky-400 hover:text-sky-300">Launch Visual Editor <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            <div class="p-8 rounded-2xl bg-white border-b border-gray-200 text-gray-900/70 border border-slate-800 hover:border-sky-500/50 transition duration-300 space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900">Hybrid LLM Fallbacks</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    When user input goes off-script, seamlessly transition to GPT-4o or Claude 3.5 Sonnet equipped with your custom knowledge base.
+                </p>
+                <a href="product.html" class="inline-flex items-center text-xs font-semibold text-purple-400 hover:text-purple-300">Learn about AI nodes <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            <div class="p-8 rounded-2xl bg-white border-b border-gray-200 text-gray-900/70 border border-slate-800 hover:border-sky-500/50 transition duration-300 space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900">Telegram Stars & Invoices</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Native digital goods monetization via Telegram Stars, Stripe Checkout webhooks, and crypto payment gateways.
+                </p>
+                <a href="product.html" class="inline-flex items-center text-xs font-semibold text-amber-400 hover:text-amber-300">Explore Payments <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Prebuilt Templates Section -->
+<div class="py-20 bg-white border-b border-gray-200 text-gray-900/40 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <h2 class="text-xs font-bold tracking-widest text-sky-400 uppercase">Pre-built Blueprints</h2>
+                <h3 class="text-3xl font-extrabold text-gray-900 mt-2">Deploy production bots in 60 seconds</h3>
+            </div>
+            <a href="docs.html" class="mt-4 md:mt-0 text-sm font-semibold text-sky-400 hover:text-sky-300">Browse all 28 templates &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white border-b border-gray-200 text-gray-900 rounded-xl p-6 border border-slate-800 hover:border-slate-700 transition">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-2xl">🛍️</span>
+                    <span class="text-xs font-mono bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded border border-sky-500/20">E-Commerce</span>
+                </div>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Telegram Mini-Store</h4>
+                <p class="text-xs text-slate-400 mb-4">Product catalog, shopping cart, inline address collection, and Telegram Stars checkout.</p>
+                <a href="app/signup.html" class="text-xs font-semibold text-sky-400 hover:underline">Use this template &rarr;</a>
+            </div>
+            <div class="bg-white border-b border-gray-200 text-gray-900 rounded-xl p-6 border border-slate-800 hover:border-slate-700 transition">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-2xl">🔐</span>
+                    <span class="text-xs font-mono bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20">Community</span>
+                </div>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Paid Channel Gatekeeper</h4>
+                <p class="text-xs text-slate-400 mb-4">Auto-kick non-paying subscribers, verify recurring memberships, and issue single-use invite links.</p>
+                <a href="app/signup.html" class="text-xs font-semibold text-sky-400 hover:underline">Use this template &rarr;</a>
+            </div>
+            <div class="bg-white border-b border-gray-200 text-gray-900 rounded-xl p-6 border border-slate-800 hover:border-slate-700 transition">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-2xl">🎧</span>
+                    <span class="text-xs font-mono bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">Helpdesk</span>
+                </div>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">AI Tier-1 Support Agent</h4>
+                <p class="text-xs text-slate-400 mb-4">Answers FAQs from Notion/Zendesk docs, opens tickets in Jira, and escalates to human agents in group chat.</p>
+                <a href="app/signup.html" class="text-xs font-semibold text-sky-400 hover:underline">Use this template &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA banner -->
+<div class="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+    <div class="max-w-5xl mx-auto px-4 text-center space-y-6">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-gray-900">Ready to forge your next Telegram bot?</h2>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">Get your bot live in under 5 minutes. No credit card required, instant BotFather verification.</p>
+        <div class="pt-4 flex justify-center space-x-4">
+            <a href="app/signup.html" class="px-8 py-3.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-gray-900 font-semibold rounded-xl shadow-xl shadow-sky-500/25 transition">
+                Start Building Free
+            </a>
+            <a href="pricing.html" class="px-8 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition">
+                View Pricing
+            </a>
+        </div>
+    </div>
+</div>
+
+    </main>
+    
+    <footer class="bg-slate-950 text-gray-500 border-t border-slate-800/80 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-gray-900">
+                            <i class="fab fa-telegram-plane"></i>
+                        </div>
+                        <span class="text-lg font-bold text-gray-900">Bot<span class="text-sky-400">Forge</span></span>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        The visual drag-and-drop Telegram bot engine for modern SaaS, e-commerce, and community leaders. Build AI-driven assistants without code.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="index.html" class="text-gray-500 hover:text-sky-400 transition"><i class="fab fa-telegram text-lg"></i></a>
+                        <a href="index.html" class="text-gray-500 hover:text-sky-400 transition"><i class="fab fa-github text-lg"></i></a>
+                        <a href="index.html" class="text-gray-500 hover:text-sky-400 transition"><i class="fab fa-twitter text-lg"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="product.html" class="hover:text-sky-400 transition">Visual Builder</a></li>
+                        <li><a href="product.html" class="hover:text-sky-400 transition">AI Agents & LLMs</a></li>
+                        <li><a href="product.html" class="hover:text-sky-400 transition">Telegram Payments</a></li>
+                        <li><a href="pricing.html" class="hover:text-sky-400 transition">Pricing Plans</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="docs.html" class="hover:text-sky-400 transition">BotFather Quickstart</a></li>
+                        <li><a href="docs.html" class="hover:text-sky-400 transition">API & Webhooks</a></li>
+                        <li><a href="cases.html" class="hover:text-sky-400 transition">Customer Cases</a></li>
+                        <li><a href="app/index.html" class="hover:text-sky-400 transition">Live Demo Sandbox</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-sky-400 transition">About BotForge</a></li>
+                        <li><a href="about.html" class="hover:text-sky-400 transition">Engineering Team</a></li>
+                        <li><a href="contact.html" class="hover:text-sky-400 transition">Contact & Support</a></li>
+                        <li><a href="contact.html" class="hover:text-sky-400 transition">Enterprise Inquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800/80 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 space-y-4 sm:space-y-0">
+                <div class="space-y-1">
+                    <p class="text-gray-600 font-medium">Concept design by Pavlo Havras</p>
+                    <p>© 2026 BotForge — Konzeptprojekt</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="index.html" class="hover:text-gray-600 transition">Privacy Policy</a>
+                    <a href="index.html" class="hover:text-gray-600 transition">Terms of Service</a>
+                    <a href="index.html" class="hover:text-gray-600 transition">Security Overview</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+<!-- Global Motion & GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf);
+
+        // Page transition
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => document.body.style.opacity = '1', 50);
+        
+        document.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', e => {
+                if(a.href && !a.href.startsWith('#') && !a.href.startsWith('javascript') && a.hostname === window.location.hostname && !a.closest('.app-sidebar')) {
+                    e.preventDefault();
+                    document.body.style.opacity = '0';
+                    setTimeout(() => window.location = a.href, 400);
+                }
+            });
+        });
+
+        // Animated numbers
+        gsap.utils.toArray('.font-tnum').forEach(el => {
+            const text = el.textContent.trim();
+            const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+            if(!isNaN(num) && text.match(/[0-9]/)) {
+                const isPercent = text.includes('%');
+                const isDec = text.includes('.');
+                const suffix = text.replace(/[0-9.]/g, '');
+                
+                gsap.fromTo(el, { innerHTML: 0 }, {
+                    innerHTML: num,
+                    duration: 2,
+                    ease: "power2.out",
+                    scrollTrigger: { trigger: el, start: "top 90%" },
+                    onUpdate: function() {
+                        let val = this.targets()[0].innerHTML;
+                        val = isDec ? Number(val).toFixed(1) : Math.round(val);
+                        el.textContent = val + suffix;
+                    }
+                });
+            }
+        });
+ }
+        requestAnimationFrame(raf);
+
+        // Page transition
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => document.body.style.opacity = '1', 50);
+        
+        document.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', e => {
+                if(a.href && !a.href.startsWith('#') && !a.href.startsWith('javascript') && a.hostname === window.location.hostname && !a.closest('.app-sidebar')) {
+                    e.preventDefault();
+                    document.body.style.opacity = '0';
+                    setTimeout(() => window.location = a.href, 400);
+                }
+            });
+        });
+
+        // Animated numbers
+        gsap.utils.toArray('.font-tnum').forEach(el => {
+            const text = el.textContent.trim();
+            const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+            if(!isNaN(num) && text.match(/[0-9]/)) {
+                const isPercent = text.includes('%');
+                const isDec = text.includes('.');
+                const suffix = text.replace(/[0-9.]/g, '');
+                
+                gsap.fromTo(el, { innerHTML: 0 }, {
+                    innerHTML: num,
+                    duration: 2,
+                    ease: "power2.out",
+                    scrollTrigger: { trigger: el, start: "top 90%" },
+                    onUpdate: function() {
+                        let val = this.targets()[0].innerHTML;
+                        val = isDec ? Number(val).toFixed(1) : Math.round(val);
+                        el.textContent = val + suffix;
+                    }
+                });
+            }
+        });
+
+        
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('section').forEach(sec => {
+            gsap.fromTo(sec, { opacity: 0, y: 30 }, {
+                opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+                scrollTrigger: { trigger: sec, start: "top 85%" }
+            });
+        });
+        
+        const header = document.querySelector('header');
+        if(header) {
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) {
+                    header.style.transform = 'scale(0.98)';
+                    header.style.borderRadius = '1rem';
+                    header.style.top = '10px';
+                    header.style.boxShadow = '0 10px 30px -10px rgba(0,0,0,0.3)';
+                } else {
+                    header.style.transform = 'scale(1)';
+                    header.style.borderRadius = '0';
+                    header.style.top = '0';
+                    header.style.boxShadow = 'none';
+                }
+            });
+            header.style.transition = 'all 0.3s ease';
+        }
+    });
+</script>
+
+</body>
+</html>

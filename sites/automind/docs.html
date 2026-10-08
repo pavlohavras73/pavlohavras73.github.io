@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMind — Enterprise AI Automation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { paper: '#FAFAF7', ink: '#111111', indigo: '#3D4B8C', rust: '#B5542F' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['"Fira Code"', 'monospace'] },
+                    spacing: { '2': '0.5rem', '4': '1rem', '6': '1.5rem', '8': '2rem', '12': '3rem', '16': '4rem', '24': '6rem', '32': '8rem' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.paper'); color: theme('colors.ink'); }
+        .nav-scroll::-webkit-scrollbar { width: 4px; }
+        .nav-scroll::-webkit-scrollbar-track { background: transparent; }
+        .nav-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased flex min-h-screen">
+    <!-- Left Nav Rail -->
+    <nav class="hidden lg:flex flex-col w-64 border-r border-gray-200 fixed h-full bg-paper z-40 p-6 nav-scroll overflow-y-auto">
+        <a href="index.html" class="flex items-center space-x-2 mb-12">
+            <i data-lucide="cpu" class="w-6 h-6 text-indigo"></i>
+            <span class="font-bold text-lg tracking-tight">AutoMind</span>
+        </a>
+        <div class="space-y-8">
+            <div>
+                <h4 class="text-xs font-mono font-semibold text-gray-500 mb-4 uppercase tracking-wider">Navigation</h4>
+                <div class="flex flex-col space-y-3 text-sm">
+                    <a href="index.html" class="font-medium hover:text-indigo transition-colors text-gray-600">Home</a>
+                    <a href="product.html" class="font-medium hover:text-indigo transition-colors text-gray-600">Solutions</a>
+                    <a href="pricing.html" class="font-medium hover:text-indigo transition-colors text-gray-600">Retainers</a>
+                    <a href="docs.html" class="font-medium hover:text-indigo transition-colors text-indigo">Architecture</a>
+                    <a href="cases.html" class="font-medium hover:text-indigo transition-colors text-gray-600">Case Studies</a>
+                    <a href="about.html" class="font-medium hover:text-indigo transition-colors text-gray-600">About</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-xs font-mono font-semibold text-gray-500 mb-4 uppercase tracking-wider">Portal</h4>
+                <div class="flex flex-col space-y-3 text-sm">
+                    <a href="app/login.html" class="flex items-center text-gray-600 hover:text-ink transition-colors">
+                        <i data-lucide="lock" class="w-4 h-4 mr-2"></i> Client Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-auto pt-8">
+            <a href="contact.html" class="flex items-center justify-center w-full py-2 bg-ink text-paper rounded text-sm font-medium hover:bg-gray-800 transition-colors">
+                <i data-lucide="zap" class="w-4 h-4 mr-2"></i> Book Audit
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Header -->
+    <div class="lg:hidden fixed top-0 left-0 right-0 h-16 border-b border-gray-200 bg-paper z-40 flex items-center justify-between px-4">
+        <a href="index.html" class="flex items-center space-x-2">
+            <i data-lucide="cpu" class="w-5 h-5 text-indigo"></i>
+            <span class="font-bold text-lg">AutoMind</span>
+        </a>
+        <button id="mobile-menu-btn" class="p-2 text-ink">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 top-16 bg-paper z-30 p-6 overflow-y-auto border-t border-gray-200">
+        <div class="flex flex-col space-y-4">
+            <a href="index.html" class="font-medium text-lg">Home</a>
+            <a href="product.html" class="font-medium text-lg">Solutions</a>
+            <a href="pricing.html" class="font-medium text-lg">Retainers</a>
+            <a href="docs.html" class="font-medium text-lg">Architecture</a>
+            <a href="cases.html" class="font-medium text-lg">Case Studies</a>
+            <a href="about.html" class="font-medium text-lg">About</a>
+            <hr class="border-gray-200 my-4">
+            <a href="app/login.html" class="flex items-center text-gray-600 text-lg">
+                <i data-lucide="lock" class="w-5 h-5 mr-2"></i> Client Portal
+            </a>
+            <a href="contact.html" class="flex items-center justify-center w-full py-3 mt-4 bg-ink text-paper rounded text-lg font-medium">
+                Book Audit
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 pt-16 lg:pt-0 pb-24">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-16 lg:pt-24">
+
+            <header class="mb-16">
+                <h1 class="text-4xl font-bold tracking-tight mb-6 text-ink">Architecture & Specifications</h1>
+                <p class="text-lg text-gray-600 leading-relaxed max-w-2xl">
+                    Technical documentation detailing our standard deployment patterns and infrastructure guarantees.
+                </p>
+            </header>
+            
+            <div class="prose prose-gray max-w-none font-sans">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-ink"><i data-lucide="server" class="w-6 h-6 mr-3 text-indigo"></i> Orchestration Layer</h2>
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    All workflows are orchestrated via dedicated instances of <strong>n8n Enterprise</strong>. We do not rely on Zapier or Make.com, ensuring no artificial execution limits and complete data sovereignty.
+                </p>
+                
+                <div class="bg-gray-100 p-6 rounded-lg font-mono text-sm mb-8 overflow-x-auto text-gray-800 border border-gray-200">
+                    <pre><code>// Typical Pipeline Specification
+{
+  "orchestrator": "n8n_enterprise",
+  "llm_provider": "anthropic_claude_3_5",
+  "vector_store": "pinecone",
+  "error_handling": {
+    "retry_attempts": 3,
+    "fallback_alert": "slack_ops_channel"
+  }
+}</code></pre>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-12 flex items-center text-ink"><i data-lucide="brain" class="w-6 h-6 mr-3 text-indigo"></i> Cognitive Engine</h2>
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    We utilize LangChain for agentic workflows, primarily relying on Claude 3.5 Sonnet for text synthesis and GPT-4o for complex reasoning tasks. All prompts are version-controlled and monitored for drift.
+                </p>
+
+                <h2 class="text-2xl font-bold mb-4 mt-12 flex items-center text-ink"><i data-lucide="lock" class="w-6 h-6 mr-3 text-indigo"></i> Security Posture</h2>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-8">
+                    <li>Zero Data Retention policies on intermediate processing nodes.</li>
+                    <li>SOC2 Type II compliant infrastructure via AWS.</li>
+                    <li>Secrets injected at runtime via Doppler.</li>
+                </ul>
+            </div>
+
+            <footer class="mt-32 pt-8 border-t border-gray-200 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
+                <p>© 2026 AutoMind — Konzeptprojekt</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="about.html" class="hover:text-ink transition-colors">Privacy</a>
+                    <a href="about.html" class="hover:text-ink transition-colors">Terms</a>
+                </div>
+            </footer>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        lucide.createIcons();
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Counter animation
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            gsap.utils.toArray('.js-counter').forEach(el => {
+                const finalVal = parseFloat(el.getAttribute('data-value'));
+                if(!isNaN(finalVal)) {
+                    gsap.fromTo(el, { innerHTML: 0 }, {
+                        innerHTML: finalVal,
+                        duration: 1.5,
+                        ease: "power2.out",
+                        scrollTrigger: el,
+                        onUpdate: function() {
+                            let val = this.targets()[0].innerHTML;
+                            el.textContent = Math.round(val);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

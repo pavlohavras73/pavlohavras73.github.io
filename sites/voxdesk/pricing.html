@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | VoxDesk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        porcelain: '#F7F7F5',
+                        aubergine: '#4A2C4F',
+                        lavender: '#A49BB0',
+                        gold: '#C8A14B',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F7F7F5; }
+        /* Hide numbers initially if GSAP runs */
+        .js-running .font-tnum { opacity: 0; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation (Max 6 items) -->
+    <nav class="sticky top-0 z-50 bg-[#F7F7F5]/90 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 text-2xl font-bold text-[#4A2C4F]">
+                <i data-lucide="mic" class="w-8 h-8 text-[#C8A14B]"></i>
+                VoxDesk
+            </a>
+            <div class="hidden md:flex items-center gap-8 font-medium text-[#4A2C4F]">
+                <a href="product.html" class="hover:text-[#C8A14B] transition">Product</a>
+                <a href="cases.html" class="hover:text-[#C8A14B] transition">Cases</a>
+                <a href="pricing.html" class="hover:text-[#C8A14B] transition">Pricing</a>
+                <a href="about.html" class="hover:text-[#C8A14B] transition">About</a>
+                <a href="docs.html" class="hover:text-[#C8A14B] transition">Docs</a>
+                <a href="contact.html" class="px-5 py-2 bg-[#4A2C4F] text-[#F7F7F5] rounded-lg hover:bg-opacity-90 transition">Contact</a>
+            </div>
+            <button class="md:hidden text-[#4A2C4F]">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <section class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h1 class="text-5xl font-bold text-[#4A2C4F] mb-6">Simple, Transparent Pricing</h1>
+                <p class="text-xl text-[#A49BB0]">Flat rates per location. No hidden fees. No overage charges.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
+                <!-- Standard Tier -->
+                <div class="flex-1 bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="text-2xl font-bold text-[#4A2C4F] mb-2">Standard</h3>
+                    <p class="text-gray-500 mb-6">Perfect for single locations</p>
+                    <div class="text-4xl font-bold text-[#4A2C4F] mb-8 font-tnum">$199<span class="text-lg font-normal text-gray-500">/mo</span></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-600"><i data-lucide="check" class="w-5 h-5 text-[#C8A14B]"></i> Unlimited calls</li>
+                        <li class="flex items-center gap-3 text-gray-600"><i data-lucide="check" class="w-5 h-5 text-[#C8A14B]"></i> Standard calendar sync</li>
+                        <li class="flex items-center gap-3 text-gray-600"><i data-lucide="check" class="w-5 h-5 text-[#C8A14B]"></i> Email support</li>
+                    </ul>
+                    <a href="contact.html" class="block w-full py-3 text-center border border-[#4A2C4F] text-[#4A2C4F] rounded-lg font-medium hover:bg-[#F7F7F5] transition">Get Started</a>
+                </div>
+                
+                <!-- Premium Tier -->
+                <div class="flex-1 bg-[#4A2C4F] p-8 rounded-2xl shadow-xl border border-[#4A2C4F] relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-6 transform -translate-y-1/2 bg-[#C8A14B] text-white px-3 py-1 text-sm font-bold rounded-full">Most Popular</div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Professional</h3>
+                    <p class="text-[#A49BB0] mb-6">For high volume & multi-location</p>
+                    <div class="text-4xl font-bold text-white mb-8 font-tnum">$499<span class="text-lg font-normal text-[#A49BB0]">/mo</span></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-200"><i data-lucide="check" class="w-5 h-5 text-[#C8A14B]"></i> Unlimited calls</li>
+                        <li class="flex items-center gap-3 text-gray-200"><i data-lucide="check" class="w-5 h-5 text-[#C8A14B]"></i> Advanced CRM integrations</li>
+                        <li class="flex items-center gap-3 text-gray-200"><i data-lucide="check" class="w-5 h-5 text-[#C8A14B]"></i> Custom voice tuning</li>
+                        <li class="flex items-center gap-3 text-gray-200"><i data-lucide="check" class="w-5 h-5 text-[#C8A14B]"></i> 24/7 Priority support</li>
+                    </ul>
+                    <a href="contact.html" class="block w-full py-3 text-center bg-[#C8A14B] text-white rounded-lg font-medium hover:bg-opacity-90 transition">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#4A2C4F] text-[#F7F7F5] py-12 border-t border-[#4A2C4F]">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 text-xl font-bold">
+                <i data-lucide="mic" class="w-6 h-6 text-[#C8A14B]"></i> VoxDesk
+            </div>
+            <div class="text-sm text-[#A49BB0]">
+                &copy; 2026 VoxDesk. Premium Voice AI.
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="text-[#A49BB0] hover:text-[#C8A14B] transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="text-[#A49BB0] hover:text-[#C8A14B] transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP and Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Safe GSAP animation for numbers
+            if (typeof gsap !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.body.classList.add('js-running');
+                
+                gsap.registerPlugin(ScrollTrigger);
+                
+                gsap.utils.toArray('.font-tnum').forEach(el => {
+                    const text = el.textContent.trim();
+                    const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+                    const suffix = text.replace(/[0-9.]/g, '');
+                    const isDec = text.includes('.');
+                    
+                    if(!isNaN(num)) {
+                        // Ensure it becomes visible
+                        gsap.set(el, { opacity: 1 });
+                        
+                        gsap.fromTo(el, { innerHTML: 0 }, {
+                            innerHTML: num,
+                            duration: 1.5,
+                            ease: "power2.out",
+                            scrollTrigger: { trigger: el, start: "top 90%" },
+                            onUpdate: function() {
+                                let val = this.targets()[0].innerHTML;
+                                val = isDec ? Number(val).toFixed(1) : Math.round(val);
+                                el.textContent = val + suffix;
+                            }
+                        });
+                    } else {
+                        gsap.set(el, { opacity: 1 });
+                    }
+                });
+                
+                // Gentle fade in for sections
+                gsap.utils.toArray('section').forEach(sec => {
+                    gsap.fromTo(sec, { opacity: 0, y: 20 }, {
+                        opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+                        scrollTrigger: { trigger: sec, start: "top 85%" }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

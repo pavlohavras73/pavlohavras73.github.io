@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stitch-sites | Sign In</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230284c7'/><path d='M25 50 L75 30 L60 70 L48 56 L42 66 Z' fill='white'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-gray-900 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6">
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-gray-900 text-2xl font-bold mx-auto shadow-lg shadow-sky-500/20">
+                <i data-lucide="telegram-plane" class="fab"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900">Sign In to BotForge</h1>
+            <p class="text-xs text-slate-400">Manage your Telegram bot flows and webhooks</p>
+        </div>
+
+        <!-- Telegram instant login simulation -->
+        <button onclick="window.location.href='index.html'" class="w-full py-2.5 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-gray-900 text-sm font-semibold flex items-center justify-center space-x-2 transition shadow-md shadow-sky-500/20">
+            <i data-lucide="telegram" class="fab text-lg"></i>
+            <span>Log in with Telegram</span>
+        </button>
+
+        <div class="flex items-center space-x-2 text-xs text-slate-500">
+            <div class="flex-grow border-t border-slate-800"></div>
+            <span>or email</span>
+            <div class="flex-grow border-t border-slate-800"></div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); window.location.href='index.html';" class="space-y-4 text-xs">
+            <div>
+                <label class="block text-slate-300 mb-1">Email Address</label>
+                <input type="email" required value="pavlo.havras@botforge.concept" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-gray-900 focus:outline-none focus:border-sky-500">
+            </div>
+            <div>
+                <label class="block text-slate-300 mb-1">Password</label>
+                <input type="password" required value="••••••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-gray-900 focus:outline-none focus:border-sky-500">
+            </div>
+            <button type="submit" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-gray-900 rounded-xl font-semibold transition border border-slate-700">
+                Sign In with Email
+            </button>
+        </form>
+
+        <div class="text-center text-xs text-slate-400 pt-2">
+            Don't have an account? <a href="signup.html" class="text-sky-400 hover:underline">Create free account</a>
+        </div>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Settings - Stitch-sites | Settings & Vault</title>
+    <meta name="description" content="AutoMind AI workflow monitoring and execution dashboard.">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0F19'/%3E%3Cpath d='M16 6l9 5.2v10.4L16 26.8 7 21.6V11.2L16 6zm0 4.2L10.5 13.4v6.2L16 22.8l5.5-3.2v-6.2L16 10.2z' fill='%2306B6D4'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #FAFAF7; --text: #111111; --primary: #3D4B8C; --accent: #B5542F; --surface: #F0F0EA; --border: #E0E0D8;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--surface);
+            color: #E5E7EB;
+            overflow-x: hidden;
+        }
+        .bg-cyber { background-color: var(--primary); }
+        .bg-cyber-panel { background-color: var(--surface); }
+        .text-cyan-brand { color: var(--accent); }
+        .bg-cyan-brand { background-color: var(--accent); }
+        .bg-cyan-brand:hover { background-color: var(--accent-hover); }
+        .border-cyber { border-color: var(--border); }
+        .font-tnum { font-feature-settings: "tnum" 1, "cv05" 1; }
+        .tab-btn.active {
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-950 flex h-screen overflow-hidden text-gray-200">
+    <aside id="app-sidebar" class="w-64 bg-gray-900 border-r border-gray-800 flex-shrink-0 flex flex-col justify-between hidden md:flex md:relative absolute inset-y-0 left-0 z-30 transition-all duration-300">
+        <div>
+            <div class="h-16 flex items-center px-6 border-b border-gray-800 space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center text-black font-bold">
+                    <i data-lucide="microchip" class=""></i>
+                </div>
+                <div class="flex-1">
+                    <span class="text-white font-bold block leading-none">AutoMind</span>
+                    <span class="text-xs text-cyan-400 font-mono">Ops Console v3.1</span>
+                </div>
+            </div>
+            <div class="px-4 py-4">
+                <div class="bg-gray-950 rounded-lg p-3 text-xs text-gray-300 border border-gray-800">
+                    <div class="flex items-center justify-between text-gray-400 mb-1">
+                        <span>Client Tenant:</span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 "></span>
+                    </div>
+                    <div class="font-semibold text-white truncate">Apex Logistics Inc.</div>
+                    <div class="text-gray-400 text-2xs mt-0.5">8 Active Workflows • 0 Failures</div>
+                </div>
+            </div>
+            <nav class="mt-2 space-y-1">
+                <a href="index.html" class="flex items-center px-4 py-3 text-sm transition-colors text-gray-400 hover:text-white hover:bg-gray-900"><i data-lucide="chart-line" class="w-6 text-base"></i><span>Pipeline Cockpit</span></a>
+<a href="workflows.html" class="flex items-center px-4 py-3 text-sm transition-colors text-gray-400 hover:text-white hover:bg-gray-900"><i data-lucide="diagram-project" class="w-6 text-base"></i><span>Active Pipelines</span></a>
+<a href="notifications.html" class="flex items-center px-4 py-3 text-sm transition-colors text-gray-400 hover:text-white hover:bg-gray-900"><i data-lucide="bell" class="w-6 text-base"></i><span>System Alerts</span><span class="ml-auto bg-cyan-600 text-black font-bold text-xs px-2 py-0.5 rounded-full font-mono">0 Err</span></a>
+<a href="settings.html" class="flex items-center px-4 py-3 text-sm transition-colors bg-cyan-950/60 text-cyan-300 border-l-4 border-cyan-400 font-semibold" style="background-color: var(--surface); color: var(--accent); border-left-color: var(--accent);"><i data-lucide="sliders" class="w-6 text-base"></i><span>Settings & Vault</span></a>
+<a href="profile.html" class="flex items-center px-4 py-3 text-sm transition-colors text-gray-400 hover:text-white hover:bg-gray-900"><i data-lucide="building" class="w-6 text-base"></i><span>Company Profile</span></a>
+<a href="404.html" class="flex items-center px-4 py-3 text-sm transition-colors text-gray-400 hover:text-white hover:bg-gray-900"><i data-lucide="box-archive" class="w-6 text-base"></i><span>Pipeline Archives</span></a>
+
+            </nav>
+        </div>
+        <div class="p-4 border-t border-gray-800">
+            <div class="flex items-center space-x-3 mb-3">
+                <div class="w-9 h-9 rounded-full bg-cyan-950 border border-cyan-500 text-cyan-300 flex items-center justify-center font-bold text-sm">
+                    PH
+                </div>
+                <div class="flex-1 truncate">
+                    <div class="text-sm font-medium text-white truncate">Pavlo Havras</div>
+                    <div class="text-xs text-gray-400 truncate">Lead Architect</div>
+                </div>
+            </div>
+            <a href="login.html" class="flex items-center text-xs text-gray-400 hover:text-red-400 transition-colors">
+                <i data-lucide="arrow-right-from-bracket" class="mr-2"></i>Sign Out
+            </a>
+            <div class="mt-4 pt-3 border-t border-gray-800 text-[10px] text-gray-500 flex flex-col items-center space-y-1 text-center">
+<span>© 2026 AutoMind</span>
+<span class="opacity-50">Pavlo Havras</span>
+</div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-gray-950">
+        <header class="h-16 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-4 sm:px-6 z-20">
+            <div class="flex items-center space-x-4">
+                <button id="toggle-sidebar-btn" class="md:hidden text-gray-400 hover:text-white focus:outline-none">
+                    <i data-lucide="menu" class="text-lg"></i>
+                </button>
+                <div class="relative w-64 sm:w-80">
+                    <i data-lucide="search" class="absolute left-3 top-2.5 text-gray-500 text-xs"></i>
+                    <input type="text" placeholder="Search workflow, run ID or webhook..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-gray-950 border border-gray-800 text-white rounded-lg focus:outline-none focus:border-cyan-500 transition">
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="hidden sm:inline-flex items-center text-xs text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 px-2.5 py-1.5 rounded transition">
+                    <i data-lucide="arrow-left" class="mr-1.5 text-2xs"></i>Agency Site
+                </a>
+                <a href="notifications.html" class="relative p-2 text-gray-400 hover:text-white transition">
+                    <i data-lucide="bell" class=""></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-cyan-400 rounded-full"></span>
+                </a>
+                <div class="relative">
+                    <button id="avatar-menu-btn" class="flex items-center space-x-2 focus:outline-none">
+                        <div class="w-8 h-8 rounded-full bg-cyan-600 text-black flex items-center justify-center font-bold text-xs">
+                            PH
+                        </div>
+                        <i data-lucide="chevron-down" class="text-2xs text-gray-400"></i>
+                    </button>
+                    <div id="avatar-menu" class="hidden absolute right-0 mt-2 w-48 bg-gray-900 rounded-lg shadow-xl border border-gray-800 py-1 text-xs z-50">
+                        <div class="px-4 py-2 border-b border-gray-800">
+                            <p class="font-semibold text-white">Pavlo Havras</p>
+                            <p class="text-gray-400">pavlo@automind.agency</p>
+                        </div>
+                        <a href="profile.html" class="block px-4 py-2 text-gray-300 hover:bg-gray-800"><i data-lucide="building" class="mr-2 text-gray-500"></i>Company Profile</a>
+                        <a href="settings.html" class="block px-4 py-2 text-gray-300 hover:bg-gray-800"><i data-lucide="sliders" class="mr-2 text-gray-500"></i>Settings & Vault</a>
+                        <div class="border-t border-gray-800 my-1"></div>
+                        <a href="login.html" class="block px-4 py-2 text-red-400 hover:bg-gray-800"><i data-lucide="power-off" class="mr-2"></i>Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+            
+<div class="max-w-4xl mx-auto space-y-6">
+    <h1 class="text-2xl font-bold text-white">Security & API Vault</h1>
+    <div class="flex border-b border-gray-800 bg-gray-900 rounded-t-xl px-4 text-xs">
+        <button onclick="switchTab('account')" id="tab-btn-account" class="tab-btn active py-3 px-4">Account</button>
+        <button onclick="switchTab('notifications')" id="tab-btn-notifications" class="tab-btn py-3 px-4">Alert Channels</button>
+        <button onclick="switchTab('security')" id="tab-btn-security" class="tab-btn py-3 px-4">SOC2 & Keys</button>
+        <button onclick="switchTab('billing')" id="tab-btn-billing" class="tab-btn py-3 px-4">Retainer</button>
+    </div>
+    <div id="tab-account" class="tab-pane bg-gray-900 p-6 rounded-b-xl border border-gray-800 text-xs"><p>Tenant ID and webhook secrets.</p></div>
+    <div id="tab-notifications" class="tab-pane hidden bg-gray-900 p-6 rounded-b-xl border border-gray-800 text-xs"><p>Slack alerting channel: #ops-automind-alerts configured.</p></div>
+    <div id="tab-security" class="tab-pane hidden bg-gray-900 p-6 rounded-b-xl border border-gray-800 text-xs"><p>API keys encrypted using AWS KMS hardware envelopes.</p></div>
+    <div id="tab-billing" class="tab-pane hidden bg-gray-900 p-6 rounded-b-xl border border-gray-800 text-xs"><p>Active Retainer: Growth Engine ($6,800/mo).</p></div>
+</div>
+<script>
+    function switchTab(name) {
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + name).classList.remove('hidden');
+        document.getElementById('tab-btn-' + name).classList.add('active');
+    }
+</script>
+
+        </main>
+    </div>
+
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
+
+    <script>
+        const sidebar = document.getElementById('app-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const toggleBtn = document.getElementById('toggle-sidebar-btn');
+        const avatarBtn = document.getElementById('avatar-menu-btn');
+        const avatarMenu = document.getElementById('avatar-menu');
+
+        toggleBtn?.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            overlay.classList.toggle('hidden');
+        });
+        overlay?.addEventListener('click', () => {
+            sidebar.classList.add('hidden');
+            overlay.classList.add('hidden');
+        });
+        avatarBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            avatarMenu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', () => {
+            avatarMenu?.classList.add('hidden');
+        });
+    </script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

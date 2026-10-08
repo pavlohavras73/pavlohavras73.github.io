@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AeroFlux FPV — Next-Gen Racing Drones &amp; Sim Ultra</title>
+<meta name="description" content="AeroFlux FPV: Championship-grade carbon racing drones with 12ms low-latency digital vision and a physics-true aerodynamic simulator. Explore 8 real platforms and configure your build.">
+<meta name="theme-color" content="#07090e">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AeroFlux FPV — Fly Ahead of Thought">
+<meta property="og:description" content="Championship FPV hardware launch. 8 real 3D carbon platforms, live build configurator, and high-fidelity aerodynamic simulator.">
+<meta property="og:image" content="og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307090e'/%3E%3Cpath d='M7 25 16 6l9 19h-4.5l-4.5-10-4.5 10z' fill='%2300f0ff'/%3E%3Ccircle cx='16' cy='18' r='2' fill='%23ff7a00'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mesh-bg" aria-hidden="true"></div>
+
+<!-- NAVIGATION -->
+<header class="nav" id="nav">
+  <div class="nav__inner wrap">
+    <a class="brand" href="#top" aria-label="AeroFlux home">
+      <svg class="brand__icon" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="#0f141d" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <path d="M7 24 16 7l9 17h-4.5l-4.5-9.5-4.5 9.5z" fill="#00f0ff"/>
+        <circle cx="16" cy="18.5" r="2.2" fill="#ff7a00"/>
+      </svg>
+      <div class="brand__text">
+        <span class="brand__name">AEROFLUX</span>
+        <span class="brand__sub">FPV // LABS</span>
+      </div>
+    </a>
+    <nav class="nav__links" id="nav-links" aria-label="Primary navigation">
+      <a href="#anatomy">Anatomy</a>
+      <a href="#lineup">Lineup</a>
+      <a href="#specs">Specs</a>
+      <a href="#build">Configurator</a>
+      <a href="#sim">Simulator</a>
+      <a href="#preorder">Pre-Order</a>
+    </nav>
+    <div class="nav__actions">
+      <div class="status-chip" title="Hardware link operational">
+        <span class="status-chip__dot"></span>
+        <span class="status-chip__text">ELRS 2.4G // ONLINE</span>
+      </div>
+      <a class="btn btn--cyan btn--sm" href="#preorder">Pre-order <span aria-hidden="true">↗</span></a>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- STORY SECTION: HERO + 3D EXPLODED ANATOMY -->
+  <section class="story" id="top" aria-label="AeroFlux Apex introduction and anatomical breakdown">
+    <span id="anatomy" class="anchor" aria-hidden="true"></span>
+    <div class="stage">
+      <div class="stage__grid" aria-hidden="true"></div>
+      <canvas id="drone" aria-label="Interactive 3D real-time model of AeroFlux Apex 6S racing drone" role="img"></canvas>
+      <div class="stage__hud-corner stage__hud-corner--tl" aria-hidden="true">SYS.SPEC // REV-04.2</div>
+      <div class="stage__hud-corner stage__hud-corner--tr" aria-hidden="true">FRAME // T700 TORAY UNIBODY</div>
+      <div class="tags" id="tags" aria-hidden="true"></div>
+
+      <!-- HERO OVERLAY COPY -->
+      <div class="hero" id="hero-copy">
+        <div class="hero__col-left">
+          <div class="hero__top">
+            <div class="hero__badge">
+              <span class="blip"></span>
+              <span>FLAGSHIP // APEX 5″ 6S · PRODUCTION BATCH 01</span>
+            </div>
+            <h1 class="hero__title">
+              <span class="hero__line"><span>FLY AHEAD</span></span>
+              <span class="hero__line"><span>OF <i>THOUGHT.</i></span></span>
+            </h1>
+          </div>
+          <div class="hero__bottom">
+            <div class="hero__row">
+              <p class="hero__sub">Championship-grade unibody carbon racing drone with 12&nbsp;ms low-latency digital vision, 13.0:1 thrust-to-weight, and a physics-true aerodynamic simulator.</p>
+              <div class="hero__cta">
+                <a class="btn btn--cyan" href="#build">Configure Build <span aria-hidden="true">→</span></a>
+                <a class="btn btn--line" href="#lineup">Explore 8 Drones</a>
+              </div>
+            </div>
+            <div class="hero__metrics">
+              <div class="metric"><span class="metric__k">TWR</span><span class="metric__v">13.0<small>:1</small></span></div>
+              <div class="metric__sep">/</div>
+              <div class="metric"><span class="metric__k">0→100 KM/H</span><span class="metric__v">1.1<small>s</small></span></div>
+              <div class="metric__sep">/</div>
+              <div class="metric"><span class="metric__k">LATENCY</span><span class="metric__v">12<small>ms</small></span></div>
+              <div class="metric__sep">/</div>
+              <div class="metric"><span class="metric__k">VOLTAGE</span><span class="metric__v">6S<small>LiPo</small></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANATOMY STEPS (SCROLL-DRIVEN) -->
+      <ol class="steps" id="steps" aria-label="Anatomical subsystems of the AeroFlux Apex">
+        <li class="step" data-step="1">
+          <p class="step__n">01 // CHASSIS ARCHITECTURE</p>
+          <h2>5 mm Toray T700 Unibody.</h2>
+          <p>Continuous aerospace-grade carbon fiber arms with CNC chamfered edges. Zero bolt fatigue, extreme torsion rigidity, and high survival rate in 180 km/h gate impacts.</p>
+        </li>
+        <li class="step" data-step="2">
+          <p class="step__n">02 // PROPULSION SYSTEM</p>
+          <h2>Flux-V 2207 · 1950KV.</h2>
+          <p>High-grade N52H curved arc neodymium magnets and a titanium hollow shaft. 1.55 kg of thrust per corner delivering 6.2 kg combined punch-out force on 6S power.</p>
+        </li>
+        <li class="step" data-step="3">
+          <p class="step__n">03 // AVIONICS &amp; FLIGHT STACK</p>
+          <h2>STM32H7 Core · 8 kHz Loop.</h2>
+          <p>480 MHz processing core paired with an ultra-low-noise ICM42688P gyro, 60A 4-in-1 DShot ESC, and bi-directional telemetry feedback. Every millimeter stick deflection honored.</p>
+        </li>
+        <li class="step" data-step="4">
+          <p class="step__n">04 // DIGITAL VISION LINK</p>
+          <h2>12 ms Glass-to-Glass.</h2>
+          <p>1/1.8″ ultra-low-light starlight optical sensor streaming 1080p at 100 FPS through high-gain RHCP circularly polarized antennas. Identify the split gap before committing the apex.</p>
+        </li>
+        <li class="step" data-step="5">
+          <p class="step__n">05 // POWER ARCHITECTURE</p>
+          <h2>6S 1300 mAh · 150C Graphene.</h2>
+          <p>High-discharge graphene cells locked in a rapid-swap top-mount carbon cage. Perfect center-of-gravity alignment along the thrust plane for zero pendulum pitch drift.</p>
+        </li>
+        <li class="step" data-step="6">
+          <p class="step__n">06 // AERODYNAMIC STAGING</p>
+          <h2>35° Launch Stance.</h2>
+          <p>Optimized wind-tunnel profile minimizing drag at 160+ km/h sustained velocities. Fully configured and arm-ready for championship heats or urban freestyle lines.</p>
+        </li>
+      </ol>
+
+      <!-- PROGRESS TRACKER -->
+      <div class="rail" aria-hidden="true">
+        <span class="rail__bar"><i id="rail-fill"></i></span>
+        <span class="rail__label" id="rail-label">00 // INTRO</span>
+      </div>
+      <p class="scrollhint" id="scrollhint" aria-hidden="true">Scroll to inspect subsystems <span>↓</span></p>
+    </div>
+  </section>
+
+  <!-- TELEMETRY TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker">
+      <div class="ticker__track" id="ticker">
+        <span>182 KM/H TOP SPEED</span><b>+</b>
+        <span>13.0:1 THRUST-TO-WEIGHT</span><b>+</b>
+        <span>12 MS DIGITAL LATENCY</span><b>+</b>
+        <span>8 KHZ GYRO LOOP</span><b>+</b>
+        <span>TORAY T700 CARBON</span><b>+</b>
+        <span>6S GRAPHENE POWER</span><b>+</b>
+        <span>182 KM/H TOP SPEED</span><b>+</b>
+        <span>13.0:1 THRUST-TO-WEIGHT</span><b>+</b>
+        <span>12 MS DIGITAL LATENCY</span><b>+</b>
+        <span>8 KHZ GYRO LOOP</span><b>+</b>
+        <span>TORAY T700 CARBON</span><b>+</b>
+        <span>6S GRAPHENE POWER</span><b>+</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECS SECTION -->
+  <section class="specs" id="specs">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">// AVIONICS BENCHMARKS</p>
+        <h2 class="sec-title">NUMBERS THAT<br><span class="highlight">FEEL LIKE G-FORCE.</span></h2>
+        <p class="sec-sub">Telemetry verified on calibrated test benches and real-world championship tracks. Every figure measured under full race load.</p>
+      </header>
+      <div class="spec-grid">
+        <article class="spec">
+          <div class="spec__head">
+            <p class="spec__k">Top Speed</p>
+            <span class="spec__pin">+</span>
+          </div>
+          <p class="spec__v"><span data-to="182">182</span><small>km/h</small></p>
+          <p class="spec__note">Measured in level flight sprint</p>
+          <div class="spec__bar"><i style="--v:.91"></i></div>
+        </article>
+        <article class="spec">
+          <div class="spec__head">
+            <p class="spec__k">0 → 100 km/h</p>
+            <span class="spec__pin">+</span>
+          </div>
+          <p class="spec__v"><span data-to="1.1" data-dec="1">1.1</span><small>s</small></p>
+          <p class="spec__note">Instantaneous brushless torque</p>
+          <div class="spec__bar"><i style="--v:.84"></i></div>
+        </article>
+        <article class="spec spec--cyan">
+          <div class="spec__head">
+            <p class="spec__k">Digital Latency</p>
+            <span class="spec__pin">+</span>
+          </div>
+          <p class="spec__v"><span data-to="12">12</span><small>ms</small></p>
+          <p class="spec__note">Glass-to-glass 1080p/100fps link</p>
+          <div class="spec__bar"><i style="--v:.95"></i></div>
+        </article>
+        <article class="spec">
+          <div class="spec__head">
+            <p class="spec__k">Dry Weight</p>
+            <span class="spec__pin">+</span>
+          </div>
+          <p class="spec__v"><span data-to="248">248</span><small>g</small></p>
+          <p class="spec__note">Full carbon frame + flight stack</p>
+          <div class="spec__bar"><i style="--v:.68"></i></div>
+        </article>
+        <article class="spec">
+          <div class="spec__head">
+            <p class="spec__k">Thrust-to-Weight</p>
+            <span class="spec__pin">+</span>
+          </div>
+          <p class="spec__v"><span data-to="13.4" data-dec="1">13.4</span><small>: 1</small></p>
+          <p class="spec__note">Peak burst thrust on 6S LiPo</p>
+          <div class="spec__bar"><i style="--v:.92"></i></div>
+        </article>
+        <article class="spec">
+          <div class="spec__head">
+            <p class="spec__k">PID Loop Rate</p>
+            <span class="spec__pin">+</span>
+          </div>
+          <p class="spec__v"><span data-to="8">8</span><small>kHz</small></p>
+          <p class="spec__note">Zero-jitter bi-directional DShot</p>
+          <div class="spec__bar"><i style="--v:1"></i></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINEUP SECTION: 8 REAL DRONE PLATFORMS -->
+  <section class="lineup" id="lineup">
+    <div class="wrap">
+      <header class="sec-head sec-head--split">
+        <div>
+          <p class="label">// FLEET ARSENAL · 8 PLATFORMS</p>
+          <h2 class="sec-title">CHOOSE YOUR CRAFT.<br><span class="highlight">DOMINATE EVERY AIRSPACE.</span></h2>
+          <p class="sec-sub">From 22g indoor micro-whoops to 1.1kg mountain-surfing 7-inch quadcopters. Select any craft to inspect its real 3D geometry and flight specs.</p>
+        </div>
+        <div class="lineup-filters" id="lineup-filters" role="tablist" aria-label="Drone class filters">
+          <button class="filter-pill is-active" data-filter="all" role="tab" aria-selected="true">All Crafts (8)</button>
+          <button class="filter-pill" data-filter="whoop" role="tab" aria-selected="false">Whoops (3)</button>
+          <button class="filter-pill" data-filter="cinewhoop" role="tab" aria-selected="false">Cinewhoop (1)</button>
+          <button class="filter-pill" data-filter="toothpick" role="tab" aria-selected="false">Toothpick (1)</button>
+          <button class="filter-pill" data-filter="racer5,freestyle5" role="tab" aria-selected="false">5″ Pro (2)</button>
+          <button class="filter-pill" data-filter="longrange7" role="tab" aria-selected="false">7″ Long Range (1)</button>
+        </div>
+      </header>
+
+      <!-- INTERACTIVE HANGAR STAGE -->
+      <div class="hangar">
+        <!-- 3D VIEWER CONTAINER -->
+        <div class="hangar__viewport">
+          <div class="hangar__canvas-wrap">
+            <canvas id="lineup-canvas" aria-label="Interactive 3D real-time model of selected AeroFlux drone" role="img"></canvas>
+            <div class="hangar__loading" id="lineup-loading" aria-hidden="true">
+              <span class="hangar__spinner"></span>
+              <p>LOADING AVIONICS MODEL...</p>
+            </div>
+          </div>
+          <!-- VIEWER OVERLAY HUD -->
+          <div class="hangar__hud">
+            <div class="hangar__hud-top">
+              <div class="status-chip">
+                <span class="status-chip__dot status-chip__dot--amber"></span>
+                <span id="lineup-hud-status">STATUS // TELEMETRY ARMED</span>
+              </div>
+              <span class="hud-coords" id="lineup-hud-coords">360° ORBIT ACTIVE</span>
+            </div>
+            <div class="hangar__hud-bottom">
+              <div class="hud-controls">
+                <button class="hud-btn" id="btn-spin-toggle" title="Toggle automatic rotation">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                  <span>Auto-Orbit</span>
+                </button>
+                <button class="hud-btn" id="btn-props-toggle" title="Toggle spinning propellers">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                  <span>Props Active</span>
+                </button>
+                <button class="hud-btn" id="btn-cam-reset" title="Reset camera viewpoint">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  <span>Reset View</span>
+                </button>
+              </div>
+              <p class="hud-hint">Click &amp; drag to inspect 360° · Scroll to zoom</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIVE CRAFT SPEC SHEET -->
+        <aside class="hangar__sheet" id="lineup-sheet">
+          <div class="sheet__header">
+            <div class="sheet__badge-row">
+              <span class="chip-badge" id="sheet-class">5″ PRO RACER</span>
+              <span class="sheet__id" id="sheet-id">ID // RACER5_6S</span>
+            </div>
+            <h3 class="sheet__name" id="sheet-name">5″ Racer 6S (2207 1950KV)</h3>
+            <p class="sheet__desc" id="sheet-desc">Championship flagship. 13.0:1 TWR, 0–100 km/h in 1.1s, 1950KV on 6S power. Designed exclusively for top-step podium racing.</p>
+          </div>
+
+          <!-- COMPARISON TELEMETRY METRICS -->
+          <div class="sheet__telemetry">
+            <div class="tele-item">
+              <div class="tele-item__head">
+                <span class="tele-item__k">All-Up Mass</span>
+                <span class="tele-item__v" id="sheet-mass">580.0 g</span>
+              </div>
+              <div class="tele-bar"><i id="bar-mass" style="width: 52%"></i></div>
+            </div>
+
+            <div class="tele-item">
+              <div class="tele-item__head">
+                <span class="tele-item__k">Thrust-to-Weight</span>
+                <span class="tele-item__v tele-item__v--highlight" id="sheet-twr">13.0 : 1</span>
+              </div>
+              <div class="tele-bar"><i id="bar-twr" style="width: 100%"></i></div>
+            </div>
+
+            <div class="tele-item">
+              <div class="tele-item__head">
+                <span class="tele-item__k">Motor KV Rating</span>
+                <span class="tele-item__v" id="sheet-kv">1,950 KV</span>
+              </div>
+              <div class="tele-bar"><i id="bar-kv" style="width: 15%"></i></div>
+            </div>
+
+            <div class="tele-item">
+              <div class="tele-item__head">
+                <span class="tele-item__k">Propeller Diameter</span>
+                <span class="tele-item__v" id="sheet-prop">127 mm (5.0″)</span>
+              </div>
+              <div class="tele-bar"><i id="bar-prop" style="width: 71%"></i></div>
+            </div>
+
+            <div class="tele-item">
+              <div class="tele-item__head">
+                <span class="tele-item__k">Battery Architecture</span>
+                <span class="tele-item__v" id="sheet-battery">6S · 1300 mAh</span>
+              </div>
+              <div class="tele-bar"><i id="bar-battery" style="width: 80%"></i></div>
+            </div>
+
+            <div class="tele-item">
+              <div class="tele-item__head">
+                <span class="tele-item__k">Spinup Response</span>
+                <span class="tele-item__v" id="sheet-spinup">45.0 ms</span>
+              </div>
+              <div class="tele-bar"><i id="bar-spinup" style="width: 75%"></i></div>
+            </div>
+          </div>
+
+          <div class="sheet__actions">
+            <a class="btn btn--cyan btn--block" id="btn-load-config" href="#build">Configure in Build Lab <span aria-hidden="true">→</span></a>
+            <a class="btn btn--line btn--block" href="#sim">Test in Sim Ultra</a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- CRAFT SELECTOR STRIP -->
+      <div class="fleet-grid" id="fleet-grid" role="region" aria-label="Drone model selector">
+        <div class="fleet-card" data-id="air65">
+          <div class="fleet-card__top"><span class="chip-badge">MICRO WHOOP · 1S</span><span class="fleet-card__twr">4.6:1 TWR</span></div>
+          <div class="fleet-card__name">BetaFPV Air65 (1S Whoop)</div>
+          <div class="fleet-card__meta"><span>22.6g AUW</span><span>1S · 27,000KV</span></div>
+        </div>
+        <div class="fleet-card" data-id="meteor75_pro">
+          <div class="fleet-card__top"><span class="chip-badge">MICRO WHOOP · 1S</span><span class="fleet-card__twr">5.0:1 TWR</span></div>
+          <div class="fleet-card__name">BetaFPV Meteor75 Pro (1S analog)</div>
+          <div class="fleet-card__meta"><span>30.5g AUW</span><span>1S · 21,000KV</span></div>
+        </div>
+        <div class="fleet-card" data-id="mobula7_1s">
+          <div class="fleet-card__top"><span class="chip-badge">MICRO WHOOP · 1S</span><span class="fleet-card__twr">4.0:1 TWR</span></div>
+          <div class="fleet-card__name">HappyModel Mobula7 (1S 75mm whoop)</div>
+          <div class="fleet-card__meta"><span>24.0g AUW</span><span>1S · 20,000KV</span></div>
+        </div>
+        <div class="fleet-card" data-id="pavo_pico_2s">
+          <div class="fleet-card__top"><span class="chip-badge">CINEWHOOP · 2S HD</span><span class="fleet-card__twr">2.8:1 TWR</span></div>
+          <div class="fleet-card__name">BetaFPV Pavo Pico (2S cinewhoop)</div>
+          <div class="fleet-card__meta"><span>78.0g AUW</span><span>2S · 14,000KV</span></div>
+        </div>
+        <div class="fleet-card" data-id="crux35_4s">
+          <div class="fleet-card__top"><span class="chip-badge">TOOTHPICK · 4S ULTRA</span><span class="fleet-card__twr">7.5:1 TWR</span></div>
+          <div class="fleet-card__name">HappyModel Crux35 (4S 3.5″)</div>
+          <div class="fleet-card__meta"><span>87.0g AUW</span><span>4S · 3,000KV</span></div>
+        </div>
+        <div class="fleet-card is-active" data-id="racer5_6s">
+          <div class="fleet-card__top"><span class="chip-badge">PRO RACER · 5″ 6S</span><span class="fleet-card__twr">13.0:1 TWR</span></div>
+          <div class="fleet-card__name">5″ Racer 6S (2207 1950KV)</div>
+          <div class="fleet-card__meta"><span>580.0g AUW</span><span>6S · 1,950KV</span></div>
+        </div>
+        <div class="fleet-card" data-id="freestyle5_6s">
+          <div class="fleet-card__top"><span class="chip-badge">FREESTYLE · 5″ 6S</span><span class="fleet-card__twr">9.5:1 TWR</span></div>
+          <div class="fleet-card__name">5″ Freestyle 6S (2207 1800KV)</div>
+          <div class="fleet-card__meta"><span>650.0g AUW</span><span>6S · 1,800KV</span></div>
+        </div>
+        <div class="fleet-card" data-id="longrange7_6s">
+          <div class="fleet-card__top"><span class="chip-badge">LONG RANGE · 7″ 6S</span><span class="fleet-card__twr">5.0:1 TWR</span></div>
+          <div class="fleet-card__name">7″ Long Range 6S (2807 1300KV)</div>
+          <div class="fleet-card__meta"><span>1100.0g AUW</span><span>6S · 1,300KV</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILD CONFIGURATOR -->
+  <section class="build" id="build">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">// CUSTOM HARDWARE LAB</p>
+        <h2 class="sec-title">YOUR AIRFRAME.<br><span class="highlight">YOUR AERODYNAMICS.</span></h2>
+        <p class="sec-sub">Swap the carbon chassis, stator sizes, and battery packs. Weight, thrust-to-weight, estimated hover duration, and speed recalculate live.</p>
+      </header>
+
+      <div class="cfg">
+        <form class="cfg__opts" id="cfg" aria-label="Drone build component options">
+          <div class="cfg__presets">
+            <span class="cfg__presets-label">Preset Specs:</span>
+            <button type="button" class="preset-btn is-active" data-preset="pro">Pro Racer</button>
+            <button type="button" class="preset-btn" data-preset="freestyle">Freestyle Bando</button>
+            <button type="button" class="preset-btn" data-preset="cine">Cinematic 3.5″</button>
+          </div>
+
+          <fieldset>
+            <legend><span>01</span> Chassis Frame</legend>
+            <div class="opts" data-group="frame">
+              <label class="opt">
+                <input type="radio" name="frame" value="0" checked>
+                <span class="opt__card"><span class="opt__card-info"><b>Razor 5″ Ultra</b><small>Competition Carbon · 5 mm · Low Drag</small></span><em>+$95</em></span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="frame" value="1">
+                <span class="opt__card"><span class="opt__card-info"><b>Apex 5″ Unibody</b><small>Freestyle T700 · 6 mm · HD Armor</small></span><em>+$125</em></span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="frame" value="2">
+                <span class="opt__card"><span class="opt__card-info"><b>Ghost 3.5″ Ducted</b><small>Cinewhoop Carbon · Full Duct Guard</small></span><em>+$105</em></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>02</span> Motor Propulsion</legend>
+            <div class="opts" data-group="motor">
+              <label class="opt">
+                <input type="radio" name="motor" value="0" checked>
+                <span class="opt__card"><span class="opt__card-info"><b>Flux-V 2207</b><small>1950 KV · 33 g · 1.55 kg Peak Thrust</small></span><em>+$98</em></span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="motor" value="1">
+                <span class="opt__card"><span class="opt__card-info"><b>Flux-R 2306</b><small>2450 KV · 31 g · 1.42 kg High RPM</small></span><em>+$88</em></span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="motor" value="2">
+                <span class="opt__card"><span class="opt__card-info"><b>Flux-M 1804</b><small>3500 KV · 18 g · 0.85 kg Light Whoop</small></span><em>+$74</em></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>03</span> Battery Architecture</legend>
+            <div class="opts" data-group="battery">
+              <label class="opt">
+                <input type="radio" name="battery" value="0" checked>
+                <span class="opt__card"><span class="opt__card-info"><b>6S 1300 Graphene</b><small>22.2 V · 185 g · 150 C High Burst</small></span><em>+$42</em></span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="battery" value="1">
+                <span class="opt__card"><span class="opt__card-info"><b>6S 1550 Endurance</b><small>22.2 V · 245 g · 120 C Extended</small></span><em>+$52</em></span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="battery" value="2">
+                <span class="opt__card"><span class="opt__card-info"><b>4S 1400 Freestyle</b><small>14.8 V · 150 g · 100 C Light Pack</small></span><em>+$32</em></span>
+              </label>
+            </div>
+          </fieldset>
+        </form>
+
+        <aside class="cfg__out" aria-live="polite">
+          <div class="cfg__viz">
+            <svg id="topview" viewBox="-160 -160 320 320" role="img" aria-label="Top-down schematic view of your configured drone"></svg>
+            <div class="cfg__viz-overlay">
+              <p class="cfg__name" id="cfg-name">AeroFlux · Razor 5″ Ultra · 2207 · 6S 1300 Graphene</p>
+              <span class="cfg__schematic-tag">TOP-DOWN SCHEMATIC // 1:1 SCALE</span>
+            </div>
+          </div>
+
+          <dl class="cfg__stats">
+            <div class="stat-cell">
+              <dt>All-Up Weight</dt>
+              <dd><b id="o-auw">497</b> <small>g</small></dd>
+              <span class="meter"><i id="m-auw" style="width: 66%"></i></span>
+            </div>
+            <div class="stat-cell">
+              <dt>Thrust / Weight</dt>
+              <dd><b id="o-twr">12.5</b> <small>: 1</small></dd>
+              <span class="meter"><i id="m-twr" style="width: 78%"></i></span>
+            </div>
+            <div class="stat-cell">
+              <dt>Race Flight Time</dt>
+              <dd><b id="o-time">7.6</b> <small>min</small></dd>
+              <span class="meter"><i id="m-time" style="width: 76%"></i></span>
+            </div>
+            <div class="stat-cell">
+              <dt>Calculated Speed</dt>
+              <dd><b id="o-speed">168</b> <small>km/h</small></dd>
+              <span class="meter"><i id="m-speed" style="width: 76%"></i></span>
+            </div>
+          </dl>
+
+          <div class="cfg__price">
+            <div class="cfg__price-meta">
+              <p class="cfg__price-label">Configured Total</p>
+              <p class="price"><span>$</span><b id="o-price">515</b></p>
+              <span class="cfg__quick-stats" id="cfg-quick-stats">12.5:1 TWR · 497g · 168 km/h</span>
+            </div>
+            <button type="button" class="btn btn--cyan" id="btn-reserve-build">Reserve Build <span aria-hidden="true">↗</span></button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULATOR SECTION & TRACK GALLERY -->
+  <section class="sim" id="sim">
+    <div class="wrap sim__wrap">
+      <header class="sec-head">
+        <p class="label">// AEROFLUX SIM ULTRA · AERODYNAMIC ENGINE</p>
+        <h2 class="sec-title">CRASH IN SIM.<br><span class="highlight">NOT ON RACE DAY.</span></h2>
+        <p class="sec-sub">1:1 Betaflight/AeroOS physics transfer with sub-millisecond USB-C radio controller input. Race against global ghost times on 5 precision circuits.</p>
+      </header>
+
+      <div class="sim__features-grid">
+        <div class="sim-card">
+          <div class="sim-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h4>1:1 Rate Profile Sync</h4>
+          <p>Export your exact RC rates, Expo, SuperRate, and PID tuning directly between your real physical craft and the simulator.</p>
+        </div>
+        <div class="sim-card">
+          <div class="sim-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          </div>
+          <h4>144Hz Real-Time Physics</h4>
+          <p>Sub-millisecond blade element momentum theory accounting for ground effect, prop wash turbulence, and drag coefficients.</p>
+        </div>
+        <div class="sim-card">
+          <div class="sim-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+          </div>
+          <h4>Direct USB-C Controller Link</h4>
+          <p>Plug-and-play driver support for Radiomaster TX16S, TBS Tango II, DJI FPV Remote Controller 2/3, and Jumper transmitters.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HORIZONTAL TRACK GALLERY -->
+    <div class="sim__pin">
+      <div class="sim__track" id="sim-track">
+        <div class="sim__intro">
+          <span class="chip-badge">OFFICIAL TRACK ROSTER</span>
+          <h3 class="sim__intro-title">CIRCUITS ENGINEERED FOR BLIND REFLEXES.</h3>
+          <p class="sim__intro-text">High-contrast LED gates, extreme elevation drop-ins, and tunnel weaves designed to train split-second peripheral awareness.</p>
+          <p class="sim__hint" aria-hidden="true">Drag or scroll horizontally <span>→</span></p>
+        </div>
+
+        <article class="track" data-track-index="0">
+          <canvas data-art="0" aria-hidden="true"></canvas>
+          <div class="track__meta">
+            <div class="track__meta-top">
+              <span class="track__num">TRACK 01 // 1.8 KM</span>
+              <span class="track__badge">TIGHT · INDOOR</span>
+            </div>
+            <h3 class="track__name">Neon Foundry</h3>
+            <p class="track__record">RECORD // 00:31.17 · PILOT_CYPHER</p>
+          </div>
+        </article>
+
+        <article class="track" data-track-index="1">
+          <canvas data-art="1" aria-hidden="true"></canvas>
+          <div class="track__meta">
+            <div class="track__meta-top">
+              <span class="track__num">TRACK 02 // 3.2 KM</span>
+              <span class="track__badge">HIGH SPEED · DESERT</span>
+            </div>
+            <h3 class="track__name">Dune Gate Canyons</h3>
+            <p class="track__record">RECORD // 00:38.29 · VALKYRIE_9</p>
+          </div>
+        </article>
+
+        <article class="track" data-track-index="2">
+          <canvas data-art="2" aria-hidden="true"></canvas>
+          <div class="track__meta">
+            <div class="track__meta-top">
+              <span class="track__num">TRACK 03 // 2.4 KM</span>
+              <span class="track__badge">TECHNICAL · ALPINE</span>
+            </div>
+            <h3 class="track__name">Cryo Spire Ridge</h3>
+            <p class="track__record">RECORD // 00:45.42 · VECTOR_X</p>
+          </div>
+        </article>
+
+        <article class="track" data-track-index="3">
+          <canvas data-art="3" aria-hidden="true"></canvas>
+          <div class="track__meta">
+            <div class="track__meta-top">
+              <span class="track__num">TRACK 04 // 2.1 KM</span>
+              <span class="track__badge">FLOW · URBAN</span>
+            </div>
+            <h3 class="track__name">Night Market Sector</h3>
+            <p class="track__record">RECORD // 00:34.81 · GHOST_FPV</p>
+          </div>
+        </article>
+
+        <article class="track" data-track-index="4">
+          <canvas data-art="4" aria-hidden="true"></canvas>
+          <div class="track__meta">
+            <div class="track__meta-top">
+              <span class="track__num">TRACK 05 // 4.0 KM</span>
+              <span class="track__badge">ENDURANCE · ZERO-G</span>
+            </div>
+            <h3 class="track__name">Orbital Station Yard</h3>
+            <p class="track__record">RECORD // 01:02.14 · OMEGA_FLIGHT</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING & PRE-ORDER TIERS -->
+  <section class="preorder" id="preorder">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">// HARDWARE PRODUCTION LAUNCH</p>
+        <h2 class="sec-title">PRE-ORDER BATCH 01.<br><span class="highlight">FIRST 500 UNITS.</span></h2>
+        <p class="sec-sub">Manufactured with aerospace-grade Toray T700 carbon and grade-5 titanium hardware. Every order includes immediate lifetime Sim Ultra access.</p>
+      </header>
+
+      <!-- BATCH PROGRESS METER -->
+      <div class="batch-meter">
+        <div class="batch-meter__info">
+          <span>BATCH 01 ALLOCATION: <strong>382 / 500 UNITS RESERVED</strong></span>
+          <span class="batch-meter__eta">SHIPPING Q1 2027</span>
+        </div>
+        <div class="batch-meter__bar"><i style="width: 76.4%"></i></div>
+      </div>
+
+      <!-- PRICING CARDS -->
+      <div class="pricing-grid">
+        <!-- TIER 1 -->
+        <article class="tier-card">
+          <div class="tier-card__header">
+            <span class="tier-card__label">BIND-AND-FLY</span>
+            <h3 class="tier-card__title">Apex 5″ BNF</h3>
+            <p class="tier-card__desc">For experienced pilots with their own radio controller and FPV goggles.</p>
+          </div>
+          <div class="tier-card__price">
+            <span class="tier-card__curr">$</span>
+            <span class="tier-card__amount">499</span>
+            <span class="tier-card__period">USD</span>
+          </div>
+          <ul class="tier-card__features">
+            <li><span>+</span> Fully assembled 5mm T700 unibody quad</li>
+            <li><span>+</span> F722 STM32 flight controller + 60A ESC</li>
+            <li><span>+</span> 4x Flux-V 2207 1950KV brushless motors</li>
+            <li><span>+</span> O3 HD digital optical transmission</li>
+            <li><span>+</span> ExpressLRS 2.4GHz Diversity RX</li>
+            <li><span>+</span> 4 sets HQ 5.1″ tri-blade racing props</li>
+            <li><span>+</span> AeroFlux Sim Ultra lifetime beta key</li>
+          </ul>
+          <button type="button" class="btn btn--line btn--block btn-preorder-trigger" data-tier="Apex BNF" data-price="499">Pre-Order BNF <span aria-hidden="true">→</span></button>
+        </article>
+
+        <!-- TIER 2: FEATURED -->
+        <article class="tier-card tier-card--featured">
+          <div class="tier-card__pill">RECOMMENDED ECOSYSTEM</div>
+          <div class="tier-card__header">
+            <span class="tier-card__label">READY-TO-FLY SYSTEM</span>
+            <h3 class="tier-card__title">Apex Pro RTF System</h3>
+            <p class="tier-card__desc">The complete turn-key flight package. Pre-bound, tuned, and tested before dispatch.</p>
+          </div>
+          <div class="tier-card__price">
+            <span class="tier-card__curr">$</span>
+            <span class="tier-card__amount">849</span>
+            <span class="tier-card__period">USD</span>
+          </div>
+          <ul class="tier-card__features">
+            <li><span>+</span> <strong>Everything in Apex BNF</strong>, fully factory flight-tested</li>
+            <li><span>+</span> AeroRadio TX-16 Hall Sensor Gimbal Controller</li>
+            <li><span>+</span> AeroVision HD OLED FPV Goggles (100 FPS)</li>
+            <li><span>+</span> 3x 6S 1300 mAh 150C Graphene LiPo batteries</li>
+            <li><span>+</span> Dual-channel 200W rapid balance field charger</li>
+            <li><span>+</span> Rugged ballistic nylon tactical carry backpack</li>
+            <li><span>+</span> AeroFlux Sim Ultra lifetime key + VIP league entry</li>
+          </ul>
+          <button type="button" class="btn btn--cyan btn--block btn-preorder-trigger" data-tier="Apex Pro RTF" data-price="849">Pre-Order RTF Bundle <span aria-hidden="true">↗</span></button>
+        </article>
+
+        <!-- TIER 3 -->
+        <article class="tier-card">
+          <div class="tier-card__header">
+            <span class="tier-card__label">ENGINEERING KIT</span>
+            <h3 class="tier-card__title">Apex Lab DIY Kit</h3>
+            <p class="tier-card__desc">For hardware builders who craft their own solder joints and bespoke firmware builds.</p>
+          </div>
+          <div class="tier-card__price">
+            <span class="tier-card__curr">$</span>
+            <span class="tier-card__amount">379</span>
+            <span class="tier-card__period">USD</span>
+          </div>
+          <ul class="tier-card__features">
+            <li><span>+</span> Raw T700 unibody chassis + titanium screw kit</li>
+            <li><span>+</span> 4x Flux-V 2207 stator &amp; bell motor set</li>
+            <li><span>+</span> Modular F722 stack with silicon wire harness</li>
+            <li><span>+</span> Custom TPU camera &amp; antenna mounting suite</li>
+            <li><span>+</span> AeroOS open telemetry developer firmware kit</li>
+            <li><span>+</span> Blackbox telemetry diagnostic logging cable</li>
+            <li><span>+</span> AeroFlux Sim Ultra lifetime developer build</li>
+          </ul>
+          <button type="button" class="btn btn--line btn--block btn-preorder-trigger" data-tier="Apex Lab DIY" data-price="379">Pre-Order DIY Kit <span aria-hidden="true">→</span></button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER / PILOT LIST DISPATCH -->
+  <section class="join" id="join">
+    <div class="wrap join__inner">
+      <div class="join__copy">
+        <p class="label">// PILOT ROSTER VIP ACCESS</p>
+        <h2 class="sec-title">CLAIM YOUR<br><span class="highlight">CALLSIGN.</span></h2>
+        <p class="sec-sub">Join the early pilot roster for Batch 01 dispatch priority, immediate simulator beta access keys, and invitations to closed weekly time trials.</p>
+        <div class="join__perks">
+          <div class="perk-item">
+            <span class="perk-item__dot"></span>
+            <p>Immediate AeroFlux Sim Ultra download link</p>
+          </div>
+          <div class="perk-item">
+            <span class="perk-item__dot"></span>
+            <p>Direct notification when Batch 01 begins shipping</p>
+          </div>
+          <div class="perk-item">
+            <span class="perk-item__dot"></span>
+            <p>Exclusive invite to weekly closed league trials</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="join-form" novalidate aria-label="Pilot list registration form">
+        <div class="field">
+          <label for="f-call">Pilot Callsign <span class="field__req">*</span></label>
+          <input id="f-call" name="callsign" type="text" autocomplete="nickname" placeholder="e.g. NIGHTSHADE" aria-describedby="e-call" required>
+          <p class="err" id="e-call"></p>
+        </div>
+
+        <div class="field">
+          <label for="f-mail">Pilot Dispatch Email <span class="field__req">*</span></label>
+          <input id="f-mail" name="email" type="email" autocomplete="email" placeholder="pilot@domain.tech" aria-describedby="e-mail" required>
+          <p class="err" id="e-mail"></p>
+        </div>
+
+        <div class="field">
+          <label for="f-level">Flight Experience Tier <span class="field__req">*</span></label>
+          <div class="select-wrap">
+            <select id="f-level" name="level" aria-describedby="e-level" required>
+              <option value="">Select your flight background</option>
+              <option value="first">First-time FPV pilot (Starting in sim)</option>
+              <option value="sim">Sim-only athlete (100+ hours stick time)</option>
+              <option value="freestyle">Freestyle &amp; bando pilot</option>
+              <option value="pro">Pro competitive racing &amp; league pilot</option>
+            </select>
+          </div>
+          <p class="err" id="e-level"></p>
+        </div>
+
+        <label class="check">
+          <input id="f-ok" type="checkbox" aria-describedby="e-ok" required>
+          <span>I agree to receive hardware launch dispatches and simulator keys. Unsubscribe anytime.</span>
+        </label>
+        <p class="err" id="e-ok"></p>
+
+        <button class="btn btn--cyan btn--block" type="submit">Join the Pilot Roster <span aria-hidden="true">→</span></button>
+        <div class="form__ok" id="join-ok" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- RESERVATION MODAL DRAWER -->
+<div class="modal" id="reserve-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal__backdrop" id="modal-backdrop"></div>
+  <div class="modal__dialog">
+    <button class="modal__close" id="modal-close" aria-label="Close reservation dialog">✕</button>
+    <div class="modal__header">
+      <span class="chip-badge">PRODUCTION RESERVATION</span>
+      <h3 id="modal-title">Confirm Build Reservation</h3>
+      <p id="modal-sub">Lock in Batch 01 priority. No upfront charge until dispatch.</p>
+    </div>
+    <div class="modal__body">
+      <div class="modal__summary" id="modal-summary">
+        <!-- Filled dynamically -->
+      </div>
+      <form class="modal__form" id="modal-form">
+        <div class="field">
+          <label for="m-email">Email Address</label>
+          <input type="email" id="m-email" placeholder="pilot@domain.tech" required>
+        </div>
+        <button type="submit" class="btn btn--cyan btn--block">Confirm Reservation Priority</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot__giant wrap" aria-hidden="true">
+    <span>AEROFLUX // FPV</span>
+  </div>
+  <div class="wrap foot__row">
+    <div class="foot__col-brand">
+      <p class="foot__copy">© 2026 AeroFlux FPV — Fictional high-performance hardware concept.</p>
+      <p class="foot__subcopy">Designed as a tribute to aerospace avionics, unibody composite manufacturing, and sim athletic racing.</p>
+    </div>
+    <nav class="foot__nav" aria-label="Footer navigation">
+      <a href="#anatomy">Anatomy</a>
+      <a href="#lineup">Fleet</a>
+      <a href="#specs">Specs</a>
+      <a href="#build">Configurator</a>
+      <a href="#sim">Sim Ultra</a>
+      <a href="#preorder">Pre-Order</a>
+    </nav>
+    <div class="foot__credit">
+      <p>Designed &amp; built by <a href="https://github.com/pavlohavras73" target="_blank" rel="noopener noreferrer">Pavlo Havras</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="app.js"></script>
+<script type="module" src="drone.js"></script>
+</body>
+</html>

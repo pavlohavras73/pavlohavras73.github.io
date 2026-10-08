@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calls - Stitch-sites | Live Transcripts</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%236366f1'/><path d='M30 45 Q50 25 70 45 T70 65 Q50 80 30 65 Z' fill='white'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f8fafc;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+    <!-- Desktop Sidebar -->
+    <aside class="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between hidden md:flex shrink-0">
+        <div class="p-6 space-y-8">
+            <div class="flex items-center space-x-3">
+                <a href="../index.html" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+                        <i data-lucide="headset" class="fas"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white tracking-tight">Vox<span class="text-indigo-400">Desk</span></span>
+                </a>
+            </div>
+            <div class="space-y-1">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-4 mb-2">Telephony Console</div>
+                
+        <a href="index.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="th-large" class="fas w-5 text-center text-base"></i>
+            <span>Dashboard</span>
+        </a>
+        
+        <a href="calls.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm bg-indigo-500/20 text-indigo-400 font-semibold border-r-2 border-indigo-500">
+            <i data-lucide="phone-volume" class="fas w-5 text-center text-base"></i>
+            <span>Live Transcripts</span>
+        </a>
+        
+        <a href="notifications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="bell" class="fas w-5 text-center text-base"></i>
+            <span>Notifications</span>
+        </a>
+        
+        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="user-circle" class="fas w-5 text-center text-base"></i>
+            <span>Reception Profile</span>
+        </a>
+        
+        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="sliders-h" class="fas w-5 text-center text-base"></i>
+            <span>Location Settings</span>
+        </a>
+        
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-800 space-y-3">
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr   flex items-center justify-center font-bold text-xs text-white">LS</div>
+                <div class="flex-grow min-w-0">
+                    <div class="text-xs font-semibold text-white truncate">Lumière Hair Salon</div>
+                    <div class="text-[10px] text-emerald-400 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1"></span> AI Bella Active</div>
+                </div>
+            </div>
+            <a href="login.html" class="flex items-center justify-center space-x-2 w-full py-2 text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-slate-950 rounded-lg transition">
+                <i data-lucide="sign-out-alt" class="fas"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-grow flex flex-col min-w-0">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-900/60 backdrop-blur border-b border-slate-800 px-6 flex items-center justify-between shrink-0">
+            <div class="flex items-center space-x-4">
+                <button id="mobile-toggle" class="md:hidden text-slate-400 hover:text-white p-2">
+                    <i data-lucide="menu" class="fas"></i>
+                </button>
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="text-slate-400">Line:</span>
+                    <span class="font-bold text-white flex items-center">
+                        <i data-lucide="phone-alt" class="fas text-indigo-400 mr-1.5"></i> +1 (415) 890-2194
+                    </span>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono">FORWARDING ACTIVE</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="hidden sm:inline-flex items-center text-xs text-slate-400 hover:text-white transition">
+                    <i data-lucide="external-link-alt" class="fas mr-1.5"></i> Marketing Site
+                </a>
+                <a href="notifications.html" class="relative text-slate-400 hover:text-white p-2">
+                    <i data-lucide="bell" class="fas"></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500"></span>
+                </a>
+                <div class="relative group">
+                    <button class="w-8 h-8 rounded-full bg-gradient-to-tr   flex items-center justify-center font-bold text-xs text-white">
+                        LS
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="hidden group-hover:block absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl py-2 z-50">
+                        <a href="profile.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Reception Profile</a>
+                        <a href="settings.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Voice Settings</a>
+                        <div class="border-t border-slate-800 my-1"></div>
+                        <a href="login.html" class="block px-4 py-2 text-xs text-rose-400 hover:bg-slate-800">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page body -->
+        <main class="flex-grow p-6 overflow-y-auto">
+            
+<div class="max-w-7xl mx-auto space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-white">Live Call Audio &amp; Transcripts</h1>
+            <p class="text-xs text-slate-400 mt-1">Review call recordings, speaker-by-speaker transcripts, extracted tags, and calendar sync logs.</p>
+        </div>
+        <div class="flex space-x-3">
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-2"></span>
+                SIP Telephony Trunk: Healthy
+            </span>
+        </div>
+    </div>
+
+    <!-- Active Call Transcript Player & Inspector -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Call Log & Audio Player (Left 8 cols) -->
+        <div class="lg:col-span-8 space-y-6">
+            <!-- Simulated Audio Player Bar -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-white">Call Recording: #VX-89240</div>
+                        <div class="text-xs text-slate-400">Caller: +1 (415) 302-9941 (Marcus Vance) &bull; Thu, 14:22</div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-400 font-mono text-xs font-semibold">2m 14s</span>
+                </div>
+                <!-- Playback controls -->
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <div class="flex items-center space-x-4">
+                        <button class="w-10 h-10 rounded-full    text-white flex items-center justify-center text-sm shadow-md">
+                            <i data-lucide="play" class="fas ml-0.5"></i>
+                        </button>
+                        <div class="flex-grow space-y-1">
+                            <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-indigo-500 rounded-full w-2/5"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                                <span>00:54</span>
+                                <span>02:14</span>
+                            </div>
+                        </div>
+                        <button class="text-slate-400 hover:text-white"><i data-lucide="volume-up" class="fas"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speaker Dialogue Stream -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Synchronized Transcript</h3>
+                <div class="space-y-4 text-xs">
+                    <!-- Turn 1 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 font-bold text-[10px]">AI</div>
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 flex-grow space-y-1">
+                            <div class="flex justify-between text-slate-400 text-[10px]">
+                                <span class="font-bold text-indigo-400">Bella (VoxDesk Receptionist)</span>
+                                <span class="font-mono">00:02</span>
+                            </div>
+                            <p class="text-slate-200">"Thank you for calling Lumière Hair Salon! This is Bella. How can I help you today?"</p>
+                        </div>
+                    </div>
+
+                    <!-- Turn 2 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 font-bold text-[10px]">MV</div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex-grow space-y-1">
+                            <div class="flex justify-between text-slate-400 text-[10px]">
+                                <span class="font-bold text-rose-400">Marcus Vance (Caller)</span>
+                                <span class="font-mono">00:11</span>
+                            </div>
+                            <p class="text-slate-300">"Hi Bella, I'd like to book an appointment with Sarah for a Balayage and blowout sometime this Thursday afternoon."</p>
+                        </div>
+                    </div>
+
+                    <!-- Turn 3 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 font-bold text-[10px]">AI</div>
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 flex-grow space-y-1">
+                            <div class="flex justify-between text-slate-400 text-[10px]">
+                                <span class="font-bold text-indigo-400">Bella (VoxDesk Receptionist)</span>
+                                <span class="font-mono">00:26</span>
+                            </div>
+                            <p class="text-slate-200">"Let me check Sarah's schedule for Thursday... Yes! She has an opening at 2:30 PM. The appointment takes approximately two hours. Would 2:30 PM work well for you?"</p>
+                        </div>
+                    </div>
+
+                    <!-- Turn 4 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 font-bold text-[10px]">MV</div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex-grow space-y-1">
+                            <div class="flex justify-between text-slate-400 text-[10px]">
+                                <span class="font-bold text-rose-400">Marcus Vance (Caller)</span>
+                                <span class="font-mono">00:44</span>
+                            </div>
+                            <p class="text-slate-300">"Yes, 2:30 is great. My name is Marcus Vance."</p>
+                        </div>
+                    </div>
+
+                    <!-- Turn 5 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 font-bold text-[10px]">AI</div>
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 flex-grow space-y-1">
+                            <div class="flex justify-between text-slate-400 text-[10px]">
+                                <span class="font-bold text-indigo-400">Bella (VoxDesk Receptionist)</span>
+                                <span class="font-mono">01:05</span>
+                            </div>
+                            <p class="text-slate-200">"Wonderful, Marcus! You're booked for Thursday, October 12th at 2:30 PM with Sarah. I have just texted a confirmation link to this mobile number. Is there anything else I can assist you with?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meta Inspector & CRM Action (Right 4 cols) -->
+        <div class="lg:col-span-4 space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 text-xs">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Extracted Call Details</h3>
+                <div class="space-y-3">
+                    <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+                        <div class="text-slate-400 text-[10px]">Client Name &amp; Phone</div>
+                        <div class="text-white font-bold text-sm mt-0.5">Marcus Vance</div>
+                        <div class="text-indigo-400 font-mono">+1 (415) 302-9941</div>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+                        <div class="text-slate-400 text-[10px]">Booked Service</div>
+                        <div class="text-white font-semibold mt-0.5">Balayage &amp; Blowout</div>
+                        <div class="text-slate-400">Staff: Sarah Miller &bull; $180.00 Est.</div>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+                        <div class="text-slate-400 text-[10px]">Calendar Slot</div>
+                        <div class="text-emerald-400 font-semibold mt-0.5">Thu, Oct 12 &bull; 14:30 - 16:30</div>
+                        <div class="text-slate-500 text-[10px]">Square Appointment ID: sq_app_991823</div>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+                        <div class="text-slate-400 text-[10px]">Intent Tags</div>
+                        <div class="flex flex-wrap gap-1.5 mt-1.5">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 text-[10px] font-mono">#appointment_booked</span>
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-mono">#sms_confirmed</span>
+                            <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 text-[10px] font-mono">#stylist_requested</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium transition border border-slate-700">
+                        Export Full Transcript (PDF / CSV)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </main>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Stitch-sites | Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%236366f1'/><path d='M30 45 Q50 25 70 45 T70 65 Q50 80 30 65 Z' fill='white'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f8fafc;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+    <!-- Desktop Sidebar -->
+    <aside class="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between hidden md:flex shrink-0">
+        <div class="p-6 space-y-8">
+            <div class="flex items-center space-x-3">
+                <a href="../index.html" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+                        <i data-lucide="headset" class="fas"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white tracking-tight">Vox<span class="text-indigo-400">Desk</span></span>
+                </a>
+            </div>
+            <div class="space-y-1">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-4 mb-2">Telephony Console</div>
+                
+        <a href="index.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm bg-indigo-500/20 text-indigo-400 font-semibold border-r-2 border-indigo-500">
+            <i data-lucide="th-large" class="fas w-5 text-center text-base"></i>
+            <span>Dashboard</span>
+        </a>
+        
+        <a href="calls.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="phone-volume" class="fas w-5 text-center text-base"></i>
+            <span>Live Transcripts</span>
+        </a>
+        
+        <a href="notifications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="bell" class="fas w-5 text-center text-base"></i>
+            <span>Notifications</span>
+        </a>
+        
+        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="user-circle" class="fas w-5 text-center text-base"></i>
+            <span>Reception Profile</span>
+        </a>
+        
+        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-900 transition">
+            <i data-lucide="sliders-h" class="fas w-5 text-center text-base"></i>
+            <span>Location Settings</span>
+        </a>
+        
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-800 space-y-3">
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr   flex items-center justify-center font-bold text-xs text-white">LS</div>
+                <div class="flex-grow min-w-0">
+                    <div class="text-xs font-semibold text-white truncate">Lumière Hair Salon</div>
+                    <div class="text-[10px] text-emerald-400 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1"></span> AI Bella Active</div>
+                </div>
+            </div>
+            <a href="login.html" class="flex items-center justify-center space-x-2 w-full py-2 text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-slate-950 rounded-lg transition">
+                <i data-lucide="sign-out-alt" class="fas"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-grow flex flex-col min-w-0">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-900/60 backdrop-blur border-b border-slate-800 px-6 flex items-center justify-between shrink-0">
+            <div class="flex items-center space-x-4">
+                <button id="mobile-toggle" class="md:hidden text-slate-400 hover:text-white p-2">
+                    <i data-lucide="menu" class="fas"></i>
+                </button>
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="text-slate-400">Line:</span>
+                    <span class="font-bold text-white flex items-center">
+                        <i data-lucide="phone-alt" class="fas text-indigo-400 mr-1.5"></i> +1 (415) 890-2194
+                    </span>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono">FORWARDING ACTIVE</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="hidden sm:inline-flex items-center text-xs text-slate-400 hover:text-white transition">
+                    <i data-lucide="external-link-alt" class="fas mr-1.5"></i> Marketing Site
+                </a>
+                <a href="notifications.html" class="relative text-slate-400 hover:text-white p-2">
+                    <i data-lucide="bell" class="fas"></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500"></span>
+                </a>
+                <div class="relative group">
+                    <button class="w-8 h-8 rounded-full bg-gradient-to-tr   flex items-center justify-center font-bold text-xs text-white">
+                        LS
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="hidden group-hover:block absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl py-2 z-50">
+                        <a href="profile.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Reception Profile</a>
+                        <a href="settings.html" class="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800">Voice Settings</a>
+                        <div class="border-t border-slate-800 my-1"></div>
+                        <a href="login.html" class="block px-4 py-2 text-xs text-rose-400 hover:bg-slate-800">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page body -->
+        <main class="flex-grow p-6 overflow-y-auto">
+            
+<div class="max-w-7xl mx-auto space-y-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-white">Live Reception Console</h1>
+            <p class="text-xs text-slate-400 mt-1">Lumière Hair Salon &bull; Downtown Branch &bull; Receptionist: Bella (AI)</p>
+        </div>
+        <div class="flex space-x-3">
+            <a href="calls.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-semibold shadow transition">
+                <i data-lucide="play-circle" class="fas mr-1.5"></i> Open Live Transcripts
+            </a>
+            <a href="settings.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition">
+                <i data-lucide="sliders-h" class="fas mr-1.5"></i> Adjust Voice Persona
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>Calls Handled Today</span>
+                <i data-lucide="phone-volume" class="fas text-indigo-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-white font-mono">42</div>
+            <div class="text-[11px] text-emerald-400 flex items-center">
+                <i data-lucide="check-circle" class="fas mr-1"></i> 100% Answered (0 Missed)
+            </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>Bookings Created</span>
+                <i data-lucide="calendar-check" class="fas text-rose-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-white font-mono">28</div>
+            <div class="text-[11px] text-emerald-400 flex items-center">
+                <i data-lucide="arrow-up" class="fas mr-1"></i> +$2,140 Est. Value Today
+            </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>Avg Call Duration</span>
+                <i data-lucide="clock" class="fas text-amber-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-white font-mono">1m 48s</div>
+            <div class="text-[11px] text-slate-400">
+                Resolution without human transfer: 94%
+            </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
+            <div class="text-xs text-slate-400 flex items-center justify-between">
+                <span>SMS Confirmations Sent</span>
+                <i data-lucide="comment-sms" class="fas text-emerald-400"></i>
+            </div>
+            <div class="text-2xl font-bold text-emerald-400 font-mono">28 / 28</div>
+            <div class="text-[11px] text-slate-400">
+                100% Delivery via Twilio
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Hourly Chart -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold text-white">Call Traffic &amp; Appointments by Hour</h2>
+            <span class="text-xs text-slate-400">Today (8 AM - 8 PM)</span>
+        </div>
+        <div class="h-64">
+            <canvas id="callChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Recent Calls Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold text-white">Recent Phone Calls</h2>
+            <a href="calls.html" class="text-xs text-indigo-400 hover:underline">View All Transcripts</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+                <thead class="text-slate-400 border-b border-slate-800">
+                    <tr>
+                        <th class="py-3 px-4">Time</th>
+                        <th class="py-3 px-4">Caller</th>
+                        <th class="py-3 px-4">Intent</th>
+                        <th class="py-3 px-4">Service Booked</th>
+                        <th class="py-3 px-4">Duration</th>
+                        <th class="py-3 px-4 text-right">Transcript</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60">
+                    <tr>
+                        <td class="py-3 px-4 font-mono text-slate-400">14:22</td>
+                        <td class="py-3 px-4 font-semibold text-white">+1 (415) 302-9941 (Marcus V.)</td>
+                        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-medium">BOOKED</span></td>
+                        <td class="py-3 px-4 text-slate-300">Balayage &amp; Blowout w/ Sarah</td>
+                        <td class="py-3 px-4 font-mono text-slate-400">2m 14s</td>
+                        <td class="py-3 px-4 text-right">
+                            <a href="calls.html" class="text-indigo-400 hover:underline font-medium">Listen / View</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-4 font-mono text-slate-400">13:50</td>
+                        <td class="py-3 px-4 font-semibold text-white">+1 (415) 774-1290 (Jessica B.)</td>
+                        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 font-medium">RESCHEDULED</span></td>
+                        <td class="py-3 px-4 text-slate-300">Moved from Friday to Saturday 11 AM</td>
+                        <td class="py-3 px-4 font-mono text-slate-400">1m 02s</td>
+                        <td class="py-3 px-4 text-right">
+                            <a href="calls.html" class="text-indigo-400 hover:underline font-medium">Listen / View</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-4 font-mono text-slate-400">13:12</td>
+                        <td class="py-3 px-4 font-semibold text-white">+1 (510) 901-4432 (David L.)</td>
+                        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-blue-500/10 text-blue-400 font-medium">INQUIRY</span></td>
+                        <td class="py-3 px-4 text-slate-300">Answered pricing &amp; parking info</td>
+                        <td class="py-3 px-4 font-mono text-slate-400">0m 48s</td>
+                        <td class="py-3 px-4 text-right">
+                            <a href="calls.html" class="text-indigo-400 hover:underline font-medium">Listen / View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', function() {
+        const ctx = document.getElementById('callChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+                datasets: [
+                    {
+                        label: 'Total Calls',
+                        data: [2, 5, 8, 9, 6, 7, 4, 3, 2, 1],
+                        backgroundColor: '#6366f1'
+                    },
+                    {
+                        label: 'Appointments Booked',
+                        data: [1, 3, 6, 7, 4, 5, 3, 2, 1, 1],
+                        backgroundColor: '#f43f5e'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#cbd5e1', font: { size: 11 } } } },
+                scales: {
+                    x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    });
+</script>
+
+        </main>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Stitch-sites | Start Free Trial</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%236366f1'/><path d='M30 45 Q50 25 70 45 T70 65 Q50 80 30 65 Z' fill='white'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6">
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr   flex items-center justify-center text-white text-2xl font-bold mx-auto shadow-lg shadow-indigo-500/20">
+                <i data-lucide="headset" class="fas"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Start 14-Day Free Trial</h1>
+            <p class="text-xs text-slate-400">Deploy an AI voice receptionist for your business in 5 minutes</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); window.location.href='index.html';" class="space-y-4 text-xs">
+            <div>
+                <label class="block text-slate-300 mb-1">Business Name</label>
+                <input type="text" required placeholder="Lumière Hair Salon" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+            </div>
+            <div>
+                <label class="block text-slate-300 mb-1">Work Email</label>
+                <input type="email" required placeholder="manager@salon.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+            </div>
+            <div>
+                <label class="block text-slate-300 mb-1">Password</label>
+                <input type="password" required placeholder="At least 8 characters" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+            </div>
+            <div class="flex items-center space-x-2 text-[11px] text-slate-400">
+                <input type="checkbox" required class="rounded bg-slate-950 border-slate-700 text-indigo-500">
+                <span>I agree to the Terms of Service &amp; 14-day free trial</span>
+            </div>
+            <button type="submit" class="w-full py-3    hover: hover: text-white rounded-xl font-semibold transition shadow-lg shadow-indigo-500/25">
+                Create Account &amp; Provision Phone Line
+            </button>
+        </form>
+
+        <div class="text-center text-xs text-slate-400 pt-2">
+            Already have an account? <a href="login.html" class="text-indigo-400 hover:underline">Sign in</a>
+        </div>
+    </div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nexa — Your autonomous operations layer</title>
+<meta name="description" content="Nexa deploys AI agents that read your inbox, chats and CRM, then run the workflows your team used to do by hand. Observable, approvable, and production-ready.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nexa — Your autonomous operations layer">
+<meta property="og:description" content="AI agents that connect Telegram, LLMs, workflows and your CRM into one autonomous operations layer.">
+<meta property="og:image" content="og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a78bfa'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='%2307070b'/%3E%3Cpath d='M9 23V9l14 14V9' fill='none' stroke='url(%23g)' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="logo" href="#top" aria-label="Nexa home">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="#12121c"/><path d="M9 23V9l14 14V9" fill="none" stroke="url(#lg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Nexa</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#how">Product</a>
+      <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="link-quiet" href="#pricing">Sign in</a>
+      <a class="btn btn--sm btn--light" href="#cta">Start free</a>
+      <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a href="#how">Product</a><a href="#features">Features</a><a href="#demo">Demo</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+    <a class="btn btn--light" href="#cta">Start free</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <canvas class="hero__gl" id="hero-gl" aria-hidden="true"></canvas>
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="container hero__content">
+      <a class="pill reveal" href="#how"><span class="pill__tag">New</span> Nexa Agents 2.0 — multi-agent handoffs <span aria-hidden="true">→</span></a>
+      <h1 class="hero__title reveal">Your <em>autonomous</em><br> operations layer.</h1>
+      <p class="hero__sub reveal">Nexa deploys AI agents that read your chats, inbox and CRM — then run the workflows your team used to do by hand. Observable, approvable, production-ready.</p>
+      <div class="hero__actions reveal">
+        <a class="btn btn--grad" href="#cta">Deploy your first agent <span aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="#demo"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg> Watch it work</a>
+      </div>
+      <dl class="hero__stats reveal">
+        <div><dt>Tasks automated / day</dt><dd data-count="1.8" data-suffix="M" data-dec="1">0</dd></div>
+        <div><dt>Median step latency</dt><dd data-count="240" data-suffix="ms">0</dd></div>
+        <div><dt>Human approvals saved</dt><dd data-count="92" data-suffix="%">0</dd></div>
+      </dl>
+    </div>
+    <div class="logos container" aria-label="Teams running on Nexa">
+      <p>Trusted by operations teams at</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Orbitalis</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 12 5l8 13z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>Kestrel</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M4 12h16" stroke="currentColor" stroke-width="2.4"/></svg>Monograph</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 0 1 14 0M8 12a4 4 0 0 1 8 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Fieldnote</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v16M12 4v16M18 4v16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Parallax</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 9-8 9-8-9z" fill="currentColor"/></svg>Arcwell</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS / WORKFLOW -->
+  <section class="section" id="how">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow"><span class="dot"></span>How it works</p>
+        <h2>From a message to a closed deal.<br><span class="muted">No one touched a keyboard.</span></h2>
+        <p class="lede">Agents listen on any channel, reason with the model of your choice, run deterministic workflows for the parts that must be exact, and write the result back to your systems of record.</p>
+      </header>
+
+      <div class="flow reveal" id="flow">
+        <svg class="flow__wires" id="flow-wires" aria-hidden="true"></svg>
+        <div class="flow__nodes">
+          <article class="node" data-node="0">
+            <div class="node__icon node__icon--tg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 13 8-6" stroke="currentColor" stroke-width="1.8"/></svg></div>
+            <div><p class="node__kind">Trigger</p><h3>Telegram</h3><p class="node__meta">New message in @acme_sales</p></div>
+            <span class="node__status"></span>
+          </article>
+          <article class="node node--ai" data-node="1">
+            <div class="node__icon node__icon--ai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg></div>
+            <div><p class="node__kind">Agent · LLM</p><h3>Intent &amp; extraction</h3><p class="node__meta">Classifies, extracts seats, budget</p></div>
+            <span class="node__status"></span>
+          </article>
+          <article class="node" data-node="2">
+            <div class="node__icon node__icon--wf"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="14" width="7" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 7h4a3 3 0 0 1 3 3v4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+            <div><p class="node__kind">Workflow</p><h3>Enrich &amp; score</h3><p class="node__meta">4 steps · deterministic</p></div>
+            <span class="node__status"></span>
+          </article>
+          <article class="node" data-node="3">
+            <div class="node__icon node__icon--crm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <div><p class="node__kind">Action</p><h3>CRM</h3><p class="node__meta">Deal created · owner assigned</p></div>
+            <span class="node__status"></span>
+          </article>
+        </div>
+        <div class="flow__log" aria-live="off">
+          <div class="flow__logbar"><span></span><span></span><span></span><p>run_8f2c · live trace</p></div>
+          <ol id="flow-log"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES BENTO -->
+  <section class="section" id="features">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow"><span class="dot"></span>Platform</p>
+        <h2>Everything an agent needs<br><span class="muted">to be trusted with real work.</span></h2>
+      </header>
+      <div class="bento">
+        <article class="card card--wide reveal">
+          <div class="card__copy">
+            <h3>Multi-agent orchestration</h3>
+            <p>Planner, researcher and executor agents hand work to each other with typed contracts, so a failure in one step never silently corrupts the next.</p>
+          </div>
+          <div class="viz-orch" aria-hidden="true">
+            <div class="orb orb--a">Planner</div>
+            <div class="orb orb--b">Research</div>
+            <div class="orb orb--c">Executor</div>
+            <svg viewBox="0 0 300 160" preserveAspectRatio="none"><path d="M60 80 C120 20 180 20 240 40" /><path d="M60 80 C120 140 180 140 240 120" /><path d="M240 40 C260 70 260 90 240 120"/></svg>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card__copy">
+            <h3>Human-in-the-loop</h3>
+            <p>Set spend or risk thresholds. Above them, agents pause and ask in Slack or Telegram.</p>
+          </div>
+          <div class="viz-approve" aria-hidden="true">
+            <div class="approve"><p><b>Refund $1,240</b> to order #4471?</p><div><span class="ok">Approve</span><span>Reject</span></div></div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card__copy">
+            <h3>300+ integrations</h3>
+            <p>Native connectors for chat, email, CRMs, billing, databases and any REST or webhook endpoint.</p>
+          </div>
+          <div class="viz-grid" aria-hidden="true">
+            <span>TG</span><span>@</span><span>DB</span><span>$</span><span>{ }</span><span>CRM</span><span>⌘</span><span>API</span><span>MQ</span><span>S3</span><span>✉</span><span>#</span>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card__copy">
+            <h3>Traces for every step</h3>
+            <p>Token-level traces, tool calls and diffs. Replay any run against a new prompt before you ship it.</p>
+          </div>
+          <div class="viz-trace" aria-hidden="true">
+            <div style="--w:92%;--d:0s"><i></i>plan</div>
+            <div style="--w:58%;--d:.2s;--x:12%"><i></i>search_crm</div>
+            <div style="--w:38%;--d:.4s;--x:40%"><i></i>llm.extract</div>
+            <div style="--w:30%;--d:.6s;--x:62%"><i></i>deal.create</div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card__copy">
+            <h3>Long-term memory</h3>
+            <p>Per-customer vector memory that agents read before acting — and forget on request.</p>
+          </div>
+          <div class="viz-mem" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </article>
+        <article class="card card--full card--split reveal">
+          <div class="card__copy">
+            <h3>Bring any model. Keep your keys.</h3>
+            <p>Route between hosted frontier models and self-hosted open weights per task, with automatic fallback and cost caps. Deploy in our cloud or your VPC.</p>
+            <ul class="checks">
+              <li>Region-pinned data residency</li>
+              <li>SSO, SCIM &amp; audit log</li>
+              <li>PII redaction before the model</li>
+            </ul>
+          </div>
+          <div class="viz-router" aria-hidden="true">
+            <div class="router__in">task</div>
+            <div class="router__lanes">
+              <div><span>frontier-xl</span><b style="--p:28%"></b></div>
+              <div><span>fast-mini</span><b style="--p:61%"></b></div>
+              <div><span>local-oss-70b</span><b style="--p:11%"></b></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINAL DEMO -->
+  <section class="section section--demo" id="demo">
+    <div class="container demo">
+      <div class="demo__copy reveal">
+        <p class="eyebrow"><span class="dot"></span>Developer experience</p>
+        <h2>Ship an agent<br><span class="muted">in one file.</span></h2>
+        <p class="lede">Define tools, guardrails and triggers in code. Run locally with full traces, then <code>nexa deploy</code> to production with versioning and instant rollback.</p>
+        <ul class="demo__list">
+          <li><b>Typed tools</b> — schemas generated from your functions</li>
+          <li><b>Guardrails</b> — budgets, allowlists, approval rules</li>
+          <li><b>Evals</b> — regression suites on every deploy</li>
+        </ul>
+      </div>
+      <div class="term reveal" role="img" aria-label="Animated terminal showing a Nexa agent processing a sales lead">
+        <div class="term__bar"><span></span><span></span><span></span><p>~/acme-ops — nexa run sales-intake</p></div>
+        <pre class="term__body" id="term"></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <header class="section__head section__head--center reveal">
+        <p class="eyebrow"><span class="dot"></span>Pricing</p>
+        <h2>Pay for outcomes,<br><span class="muted">not seats.</span></h2>
+        <div class="toggle" role="group" aria-label="Billing period">
+          <button type="button" class="toggle__btn is-active" data-period="monthly" aria-pressed="true">Monthly</button>
+          <button type="button" class="toggle__btn" data-period="yearly" aria-pressed="false">Yearly <span class="save">−20%</span></button>
+          <span class="toggle__thumb" aria-hidden="true"></span>
+        </div>
+      </header>
+      <div class="prices">
+        <article class="price reveal">
+          <h3>Starter</h3>
+          <p class="price__desc">For builders exploring their first agent.</p>
+          <p class="price__amt"><span class="cur">$</span><span class="num" data-m="0" data-y="0">0</span><span class="per">/mo</span></p>
+          <a class="btn btn--ghost btn--block" href="#cta">Start free</a>
+          <ul class="checks"><li>2 agents</li><li>1,000 runs / month</li><li>Community integrations</li><li>7-day trace history</li></ul>
+        </article>
+        <article class="price price--hot reveal">
+          <p class="price__badge">Most popular</p>
+          <h3>Pro</h3>
+          <p class="price__desc">For teams putting agents into production.</p>
+          <p class="price__amt"><span class="cur">$</span><span class="num" data-m="49" data-y="39">49</span><span class="per">/mo</span></p>
+          <a class="btn btn--grad btn--block" href="#cta">Start 14-day trial</a>
+          <ul class="checks"><li>Unlimited agents</li><li>50,000 runs / month</li><li>Human-in-the-loop approvals</li><li>Evals &amp; replay</li><li>90-day trace history</li></ul>
+        </article>
+        <article class="price reveal">
+          <h3>Scale</h3>
+          <p class="price__desc">For orgs with compliance and volume needs.</p>
+          <p class="price__amt"><span class="cur">$</span><span class="num" data-m="199" data-y="159">199</span><span class="per">/mo</span></p>
+          <a class="btn btn--ghost btn--block" href="#cta">Talk to us</a>
+          <ul class="checks"><li>Everything in Pro</li><li>500,000 runs / month</li><li>VPC deploy &amp; SSO</li><li>Dedicated support engineer</li></ul>
+        </article>
+      </div>
+      <p class="prices__note" id="price-note">Billed monthly. Cancel anytime.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section--tight" aria-labelledby="t-title">
+    <div class="container">
+      <header class="section__head section__head--center reveal">
+        <p class="eyebrow"><span class="dot"></span>Loved by operators</p>
+        <h2 id="t-title">The quiet part of the team<br><span class="muted">that never sleeps.</span></h2>
+      </header>
+    </div>
+    <div class="marquee" id="marquee">
+      <div class="marquee__row" data-dir="left"></div>
+      <div class="marquee__row" data-dir="right"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container faq">
+      <header class="section__head reveal">
+        <p class="eyebrow"><span class="dot"></span>FAQ</p>
+        <h2>Questions,<br><span class="muted">answered.</span></h2>
+        <p class="lede">Can't find what you need? Our team replies in under two hours on weekdays.</p>
+      </header>
+      <div class="faq__list reveal">
+        <details open><summary>Which models does Nexa support?</summary><div><p>Any model with a chat-completions style API, plus self-hosted open-weight models via our runner. You can route different steps to different models and set per-run cost caps.</p></div></details>
+        <details><summary>How do approvals work?</summary><div><p>Define a rule — for example “refunds over $500” or “emails to new domains”. When an agent hits it, the run pauses and a reviewer gets a one-tap approve/reject card in Slack, Telegram or the Nexa console.</p></div></details>
+        <details><summary>Is my data used for training?</summary><div><p>No. Prompts, outputs and memory are never used to train models. Data is encrypted at rest and in transit, and Scale customers can pin storage to a region or their own VPC.</p></div></details>
+        <details><summary>Can I self-host?</summary><div><p>Yes. The runner ships as a single container. Use the hosted control plane, or run the full stack on your own infrastructure under the Scale plan.</p></div></details>
+        <details><summary>What counts as a run?</summary><div><p>One trigger to completion — however many steps and tool calls the agent takes in between. Retries of failed steps are free.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="container cta__inner reveal">
+      <div class="cta__ring" aria-hidden="true"></div>
+      <h2>Give your team<br><em>its time back.</em></h2>
+      <p>Deploy your first agent in under ten minutes. Free forever for small workloads.</p>
+      <form class="cta__form" id="cta-form" novalidate>
+        <label class="sr-only" for="cta-email">Work email</label>
+        <input id="cta-email" type="email" placeholder="you@company.com" autocomplete="email" required>
+        <button class="btn btn--light" type="submit">Get early access</button>
+      </form>
+      <p class="cta__msg" id="cta-msg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a class="logo" href="#top" aria-label="Nexa home"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#12121c"/><path d="M9 23V9l14 14V9" fill="none" stroke="url(#lg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Nexa</span></a>
+      <p>The autonomous operations layer for modern teams.</p>
+      <p class="status"><span></span>All systems operational</p>
+    </div>
+    <nav aria-label="Product"><h4>Product</h4><a href="#how">Agents</a><a href="#features">Integrations</a><a href="#demo">CLI</a><a href="#pricing">Pricing</a></nav>
+    <nav aria-label="Company"><h4>Company</h4><a href="#top">About</a><a href="#top">Careers</a><a href="#top">Blog</a><a href="#top">Contact</a></nav>
+    <nav aria-label="Resources"><h4>Resources</h4><a href="#top">Docs</a><a href="#top">Changelog</a><a href="#top">Security</a><a href="#faq">FAQ</a></nav>
+  </div>
+  <div class="container footer__base">
+    <p>© 2026 Nexa (fictional brand — portfolio concept).</p>
+    <p>Designed &amp; built by <a href="https://github.com/pavlohavras73">Pavlo Havras</a></p>
+  </div>
+  <p class="footer__word" aria-hidden="true">nexa</p>
+</footer>
+
+<script src="app.js" defer></script>
+<script type="module" src="hero.js"></script>
+</body>
+</html>
