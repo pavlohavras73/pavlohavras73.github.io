@@ -63,7 +63,9 @@ function prepare(gltf) {
   const g = new THREE.Group();
   root.position.sub(c);
   g.add(root); g.scale.setScalar(s);
-  // props spin about their own up axis: wrap each in a pivot at its centre
+  // props spin about their own shaft: wrap each in a pivot at its centre.
+  // The shaft is the prop's thinnest geometry axis (Blender exports are Z-up inside a rotated
+  // parent, so the parent's Y is NOT the shaft — spinning on it made props tumble like coins).
   const spinners = props.map(p => {
     const pb = new THREE.Box3().setFromObject(p).getCenter(new THREE.Vector3());
     const holder = new THREE.Group();
@@ -72,6 +74,10 @@ function prepare(gltf) {
     holder.position.copy(pb);
     p.position.sub(pb);
     holder.add(p);
+    p.geometry.computeBoundingBox();
+    const ext = p.geometry.boundingBox.getSize(new THREE.Vector3()).toArray();
+    const axis = new THREE.Vector3().setComponent(ext.indexOf(Math.min(...ext)), 1).applyQuaternion(p.quaternion);
+    holder.userData.axis = axis.normalize();
     return holder;
   });
   return { g, spinners };
@@ -182,7 +188,7 @@ renderer.setAnimationLoop(() => {
   pivot.rotation.z = THREE.MathUtils.lerp(pivot.rotation.z, -mx * 0.2, .05);
   pivot.position.y = Math.sin(t * 1.6) * 0.04;             // hover bob
   const spin = reduce ? 0 : 38;
-  for (const d of [current, incoming]) d?.spinners.forEach((h, k) => h.rotation.y += dt * spin * (k % 2 ? 1 : -1));
+  for (const d of [current, incoming]) d?.spinners.forEach((h, k) => h.rotateOnAxis(h.userData.axis, dt * spin * (k % 2 ? 1 : -1)));
   ring.scale.setScalar(.8 + Math.sin(t * 2) * 0.016);
   ringMat.opacity = .4 + Math.sin(t * 2) * .15;
   const p = Math.min(1, (performance.now() - barStart) / HOLD);
