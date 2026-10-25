@@ -82,9 +82,11 @@ function prepare(gltf) {
     g.computeBoundingBox();
     const ext = g.boundingBox.getSize(new THREE.Vector3()).toArray();
     p.userData.axis = new THREE.Vector3().setComponent(ext.indexOf(Math.min(...ext)), 1);  // local space
+    // real quads: diagonal pairs share a direction (FL+RR one way, FR+RL the other)
+    p.userData.dir = /_(fr|rl|br|bl)\b/i.test(p.name) ? 1 : -1;
     return p;
   });
-  return { g, spinners };
+  return { g, spinners, spool: 0 };
 }
 
 function load(id) {
@@ -133,7 +135,7 @@ async function show(i) {
   const d = await load(idx === i ? specs[idx].id : specs[idx].id);
   if (incoming) pivot.remove(incoming.g);
   incoming = d;
-  d.g.scale.multiplyScalar(1);            // keep
+  d.spool = 0;                            // motors spool up again on every appearance
   d.g.userData.base = d.g.userData.base || d.g.scale.x;
   d.g.scale.setScalar(0.0001);
   d.g.rotation.set(0, -1.2, 0);
@@ -171,6 +173,36 @@ stage.parentElement.addEventListener('pointermove', e => {
   mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5;
 });
 
+// drag left/right to turn the drone (mouse + touch), with inertia; auto-turn resumes after a pause
+const AUTO_YAW = 0.45, DRAG_GAIN = 0.009, RESUME_MS = 2500;
+let dragging = false, lastX = 0, lastT = 0, yawVel = 0, resumeAt = 0;
+const cvs = renderer.domElement;
+cvs.style.cursor = 'grab';
+cvs.style.touchAction = 'pan-y';          // vertical swipes still scroll the slides on phones
+const CAROUSEL_RESUME_MS = 8000;           // don't swap the drone while someone is inspecting it
+let carouselResume;
+cvs.addEventListener('pointerdown', e => {
+  dragging = true; lastX = e.clientX; lastT = performance.now(); yawVel = 0;
+  clearInterval(timer); clearTimeout(carouselResume); barStart = Infinity;   // freeze carousel + its progress bar
+  cvs.setPointerCapture(e.pointerId); cvs.style.cursor = 'grabbing';
+});
+cvs.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  const now = performance.now(), dx = e.clientX - lastX;
+  pivot.rotation.y += dx * DRAG_GAIN;
+  yawVel = dx * DRAG_GAIN / Math.max((now - lastT) / 1000, 1 / 240);
+  lastX = e.clientX; lastT = now;
+});
+const endDrag = e => {
+  if (!dragging) return;
+  dragging = false; resumeAt = performance.now() + RESUME_MS; cvs.style.cursor = 'grab';
+  if (performance.now() - lastT > 80) yawVel = 0;   // held still before letting go: no fling
+  carouselResume = setTimeout(() => { barStart = performance.now(); if (visible) restartTimer(); }, CAROUSEL_RESUME_MS);
+  try { cvs.releasePointerCapture(e.pointerId); } catch {}
+};
+cvs.addEventListener('pointerup', endDrag);
+cvs.addEventListener('pointercancel', endDrag);
+
 const clock = new THREE.Clock();
 renderer.setAnimationLoop(() => {
   if (!visible) return;
@@ -187,15 +219,26 @@ renderer.setAnimationLoop(() => {
     }
     if (swapT === 1) { current = incoming; incoming = null; }
   }
-  pivot.rotation.y += dt * (reduce ? 0 : 0.45);
+  if (!dragging) {
+    yawVel *= Math.exp(-3.5 * dt);                          // fling inertia decays
+    const auto = reduce || performance.now() < resumeAt ? 0 : AUTO_YAW;
+    pivot.rotation.y += dt * (yawVel + auto);
+  }
   pivot.rotation.x = THREE.MathUtils.lerp(pivot.rotation.x, 0.18 + my * 0.25, .05);
   pivot.rotation.z = THREE.MathUtils.lerp(pivot.rotation.z, -mx * 0.2, .05);
   pivot.position.y = Math.sin(t * 1.6) * 0.04;             // hover bob
-  const spin = reduce ? 0 : 38;
-  for (const d of [current, incoming]) d?.spinners.forEach((p, k) => p.rotateOnAxis(p.userData.axis, dt * spin * (k % 2 ? 1 : -1)));
+  // Props: ~2.2 rev/s reads as smooth rotation; real motor speeds (hundreds of rev/s) strobe on a
+  // 60 Hz screen and a symmetric 3-blade prop then looks frozen. Spool up when a drone appears.
+  const PROP_RAD_S = reduce ? 0 : 14;
+  for (const d of [current, incoming]) {
+    if (!d) continue;
+    d.spool = Math.min(1, d.spool + dt / 1.2);
+    const w = PROP_RAD_S * (1 - Math.pow(1 - d.spool, 3)) * dt;
+    d.spinners.forEach(p => p.rotateOnAxis(p.userData.axis, w * p.userData.dir));
+  }
   ring.scale.setScalar(.8 + Math.sin(t * 2) * 0.016);
   ringMat.opacity = .4 + Math.sin(t * 2) * .15;
-  const p = Math.min(1, (performance.now() - barStart) / HOLD);
+  const p = Math.max(0, Math.min(1, (performance.now() - barStart) / HOLD));
   $('sp-bar').style.width = (p * 100) + '%';
   renderer.render(scene, camera);
 });
