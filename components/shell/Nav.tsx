@@ -4,7 +4,7 @@ import { TLink } from "./TLink";
 /** Minimal shared nav: logo · projects · contact, plus "← Hangar" inside a world. */
 export function Nav({ world }: { world: WorldId }) {
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+    <header className="nav-fade pointer-events-none fixed inset-x-0 top-0 z-50">
       <nav
         aria-label="Main"
         className="pointer-events-auto mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-4 font-mono text-[13px] uppercase tracking-[0.12em] sm:px-8"

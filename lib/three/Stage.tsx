@@ -15,13 +15,17 @@ type Props = {
   /** Show the poster on phones too (for scenes too heavy for mobile). */
   posterOnMobile?: boolean;
   label?: string;
+  /** Passed to the R3F canvas. */
+  camera?: { position: [number, number, number]; fov?: number };
+  shadows?: boolean;
 };
 
 /**
  * One 3D stage: poster first → WebGL scene after first paint, only while near the viewport.
  * Decorative by default (aria-hidden); the page content never depends on it.
+ * `className` must position the box (relative / absolute / sticky): poster and canvas fill it.
  */
-export function Stage({ poster, Scene, className, posterOnMobile = false, label }: Props) {
+export function Stage({ poster, Scene, className, posterOnMobile = false, label, camera, shadows }: Props) {
   const reduce = useReducedMotion();
   const box = useRef<HTMLDivElement>(null);
   const [mount, setMount] = useState(false);
@@ -43,10 +47,10 @@ export function Stage({ poster, Scene, className, posterOnMobile = false, label 
   }, []);
 
   return (
-    <div ref={box} className={className} style={{ position: "relative" }} aria-hidden={label ? undefined : true} role={label ? "img" : undefined} aria-label={label}>
+    <div ref={box} className={className ?? "relative"} aria-hidden={label ? undefined : true} role={label ? "img" : undefined} aria-label={label}>
       <div style={{ position: "absolute", inset: 0, transition: "opacity .6s", opacity: ready ? 0 : 1 }}>{poster}</div>
       {mount && !reduce ? (
-        <StageCanvas active={visible} onReady={() => setReady(true)}>
+        <StageCanvas active={visible} onReady={() => setReady(true)} camera={camera} shadows={shadows}>
           <Scene />
         </StageCanvas>
       ) : null}

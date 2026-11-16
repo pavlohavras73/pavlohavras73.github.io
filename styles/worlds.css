@@ -14,7 +14,7 @@
 /* Lobby.gg: warm game night (refined in Phase 3) */
 [data-world="lobby"] {
   --bg: #140c08; --bg-2: #22140d; --fg: #fff3e2; --muted: #c9b29a;
-  --accent: #ff5a36; --accent-2: #f5c451; --line: rgb(255 243 226 / 0.12);
+  --accent: #ff4d3a; --accent-2: #f5c451; --line: rgb(255 243 226 / 0.12);
   --grain: 0.06;
 }
 

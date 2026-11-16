@@ -60,6 +60,12 @@ html.lenis, html.lenis body { height: auto; }
 }
 .skip-link:focus { top: 12px; }
 
+/* Nav backdrop: the page colour fading out, so scrolling copy never sits under the links. */
+.nav-fade::before {
+  content: ""; position: absolute; inset: 0 0 -28px; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, var(--bg) 35%, transparent);
+}
+
 /* Film grain overlay: decoration only. */
 .grain::after {
   content: ""; position: fixed; inset: -50%; z-index: 60; pointer-events: none;
