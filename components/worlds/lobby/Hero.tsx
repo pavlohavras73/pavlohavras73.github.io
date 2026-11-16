@@ -55,12 +55,12 @@ export function Hero() {
           <div className="relative z-10 mx-auto flex h-full max-w-[1600px] flex-col px-4 pt-24 pb-8 sm:px-8 sm:pb-12">
             <Kicker>{lobby.hero.kicker}</Kicker>
             <ViewTransition name={names.title} share="morph" default="none">
-              <h1 id="lobby-h" className="mt-4 font-display text-[clamp(3.6rem,13vw,12rem)] leading-[0.82] font-extrabold tracking-[-0.045em]">
+              <h1 id="lobby-h" className={`${s.neon} mt-4 font-accent text-[clamp(3rem,11vw,10rem)] leading-[1] tracking-[0.02em]`}>
                 {worlds.lobby.title}
               </h1>
             </ViewTransition>
             <p className="mt-5 max-w-[22ch] font-display text-[clamp(1.5rem,3vw,2.6rem)] leading-[1.02] font-bold">
-              {lobby.hero.title} <span className="font-accent font-normal italic text-accent-2">{lobby.hero.titleAccent}</span>
+              {lobby.hero.title} <span className={s.glowText}>{lobby.hero.titleAccent}</span>
             </p>
             <div className="mt-auto grid items-end gap-8 md:grid-cols-[1fr_auto]">
               <div>

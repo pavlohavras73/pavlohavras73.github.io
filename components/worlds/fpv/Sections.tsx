@@ -1,6 +1,8 @@
 "use client";
 import { fpv, worlds } from "@/content";
 import { useReducedMotion } from "@/lib/motion/useReducedMotion";
+import { Reveal } from "@/lib/motion/Reveal";
+import { Title } from "./Kit";
 import s from "./fpv.module.css";
 
 // ───────────────────────── Flight-model pipeline ─────────────────────────
@@ -9,8 +11,7 @@ export function Pipeline() {
   const [py, golden, cs] = fpv.pipeline;
   return (
     <section aria-labelledby="pipe-h" className={s.section}>
-      <p className={s.kicker}>Flight model</p>
-      <h2 id="pipe-h" className={s.h2}>Physics first. Proven, then ported.</h2>
+      <Title id="pipe-h" kicker="Flight model" text="Physics first. Proven, then ported." />
       <div className={s.pipe}>
         <svg viewBox="0 0 960 260" className={s.pipeSvg} role="img" aria-label="PID auto-tuner feeds the Python reference; its outputs become golden vectors; the C# engine must match them.">
           <defs>
@@ -131,17 +132,16 @@ const instruments = { pid: Pid, rates: Rates, sag: Sag, vrs: Vrs } as const;
 export function Features() {
   return (
     <section aria-labelledby="feat-h" className={s.section}>
-      <p className={s.kicker}>Flight feel</p>
-      <h2 id="feat-h" className={s.h2}>The effects that matter in real flying</h2>
+      <Title id="feat-h" kicker="Flight feel" text="The effects that matter in real flying" />
       <div className={s.cluster}>
         {fpv.features.map((f, k) => {
           const Inst = instruments[f.id as keyof typeof instruments];
           return (
-            <article key={f.id} className={s.panel}>
+            <Reveal as="article" key={f.id} className={s.panel} variant="scan" delay={k * 120}>
               <header><span className={s.idx}>{`F${k + 1}`}</span><h3>{f.title}</h3></header>
               <Inst />
               <p>{f.body}</p>
-            </article>
+            </Reveal>
           );
         })}
       </div>
@@ -155,8 +155,7 @@ export function Maps() {
   const { maps } = fpv;
   return (
     <section aria-labelledby="maps-h" className={s.section}>
-      <p className={s.kicker}>Content pipeline</p>
-      <h2 id="maps-h" className={s.h2}>{maps.title}</h2>
+      <Title id="maps-h" kicker="Content pipeline" text={maps.title} />
       <p className="mt-5 max-w-[62ch] text-[15px] leading-relaxed text-fg/80">{maps.lead}</p>
       <div className={s.gallery}>
         {maps.shots.map((sh, k) => (

@@ -1,7 +1,7 @@
 /* Jarvis world: calm near-future. Near-black, mint, warm ivory, light Sora type, Geist Mono labels. */
 
 .kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
-.h2 { margin-top: 14px; max-width: 20ch; font-family: var(--f-display); font-weight: 300; font-size: clamp(2.2rem, 4.8vw, 4.4rem); line-height: 1.02; letter-spacing: -0.03em; }
+.h2 { margin-top: 14px; max-width: 20ch; font-family: var(--f-display); font-weight: 900; font-size: clamp(2.2rem, 4.8vw, 4.4rem); line-height: 1.02; letter-spacing: -0.01em; text-shadow: 0 0 18px rgb(140 245 210 / 0.25); }
 .section { max-width: 1600px; margin: 0 auto; padding: 120px 16px; }
 @media (min-width: 640px) { .section { padding: 150px 32px; } }
 .small { margin-top: 18px; max-width: 46ch; font-family: var(--f-mono); font-size: 12px; line-height: 1.6; color: var(--muted); }
@@ -18,7 +18,7 @@
 @media (min-width: 640px) { .heroCopy { padding: 140px 32px 80px; } }
 
 .stats { margin: 40px 0 0; display: flex; flex-wrap: wrap; gap: 28px 48px; }
-.stats dd { margin: 0; font-family: var(--f-display); font-weight: 300; font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stats dd { margin: 0; font-family: var(--f-display); font-weight: 900; color: var(--accent); text-shadow: 0 0 22px rgb(140 245 210 / 0.45); font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .stats dt { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 .cta { display: inline-flex; gap: 12px; align-items: center; padding: 18px 30px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
 .cta:hover { background: var(--accent); color: var(--bg); }
@@ -28,7 +28,7 @@
 @media (min-width: 1024px) { .arch { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; } }
 .chain { margin: 0; padding: 0; list-style: none; position: relative; }
 .chain::before { content: ""; position: absolute; left: 21px; top: 22px; bottom: 22px; width: 1px; background: linear-gradient(var(--accent), transparent); opacity: 0.4; }
-.node { width: 100%; display: flex; gap: 18px; align-items: center; padding: 14px 0; background: none; border: 0; color: var(--muted); font-family: var(--f-display); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; text-align: left; cursor: pointer; transition: color 0.3s; }
+.node { width: 100%; display: flex; gap: 18px; align-items: center; padding: 14px 0; background: none; border: 0; color: var(--muted); font-family: var(--f-display); font-size: clamp(1.3rem, 2.2vw, 1.8rem); font-weight: 700; text-align: left; cursor: pointer; transition: color 0.3s; }
 .node .nodeIdx { position: relative; z-index: 1; width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); transition: border-color 0.3s, box-shadow 0.3s, color 0.3s; }
 .node:hover, .node[aria-pressed="true"] { color: var(--fg); }
 .node[aria-pressed="true"] .nodeIdx { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 6px rgb(140 245 210 / 0.08), 0 0 24px rgb(140 245 210 / 0.35); }
@@ -103,8 +103,18 @@
 .offer { margin: 56px 0 0; padding: 0; list-style: none; display: grid; gap: 0; }
 @media (min-width: 900px) { .offer { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 64px; } }
 .offer li { padding: 28px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 48px 1fr; gap: 6px 12px; }
-.offer h3 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: 1.6rem; letter-spacing: -0.01em; }
+.offer h3 { margin: 0; font-family: var(--f-display); font-weight: 900; font-size: 1.6rem; letter-spacing: -0.01em; }
 .offer p { grid-column: 2; margin: 0; color: rgb(221 230 238 / 0.72); line-height: 1.6; }
 
 /* Phones: the orb sits above the copy instead of behind it (kept last so it wins over the base padding). */
 @media (max-width: 1023px) { .orb { bottom: auto; height: 52svh; top: 56px; } .heroCopy { padding-top: 50svh; } }
+
+/* ───────── Matrix layer ───────── */
+.title { margin: 0; font-family: var(--f-display); font-weight: 900; font-size: clamp(4.2rem, 15vw, 13rem); line-height: 0.85; letter-spacing: -0.02em;
+  color: var(--fg); text-shadow: 0 0 30px rgb(140 245 210 / 0.35); animation: boot 1.4s steps(8) both; }
+@keyframes boot { 0% { clip-path: inset(0 100% 0 0); } 100% { clip-path: inset(0 0 0 0); } }
+.cursor { display: inline-block; width: 0.28em; height: 0.6em; margin-left: 0.08em; background: var(--accent); box-shadow: 0 0 20px var(--accent); vertical-align: baseline; animation: cursorBlink 1s steps(1) infinite; }
+@keyframes cursorBlink { 50% { opacity: 0; } }
+.chat li, .detail, .phone { backdrop-filter: blur(2px); }
+.section, .hero { position: relative; }
+@media (prefers-reduced-motion: reduce) { .title { animation: none; } .cursor { animation: none; } }

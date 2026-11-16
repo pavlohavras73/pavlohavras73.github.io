@@ -61,3 +61,7 @@ html:has([data-world="web"]) { --bg: #0b0b0c; }
 [data-world="hangar"][data-peek="fpv"] { --bg: #020502; --cursor: #3dff8e; }
 [data-world="hangar"][data-peek="jarvis"] { --bg: #050a0d; --cursor: #8cf5d2; }
 [data-world="hangar"][data-peek="web"] { --bg: #0d0f06; --cursor: #c6ff1a; }
+
+/* Lobby faces ship one weight (Righteous, Monoton): never fake bold. */
+[data-world="lobby"] { font-synthesis: none; }
+[data-world="lobby"] :is(h1, h2, h3, dd, .font-display) { font-weight: 400; }

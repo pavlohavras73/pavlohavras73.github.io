@@ -4,4 +4,5 @@ export { useReducedMotion, prefersReducedMotion } from "./useReducedMotion";
 export { useScrollVelocity } from "./useScrollVelocity";
 export { SplitText } from "./SplitText";
 export { Magnetic } from "./Magnetic";
-export { Scramble } from "./Scramble";
+export { Scramble, GLYPHS } from "./Scramble";
+export { Reveal } from "./Reveal";

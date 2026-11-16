@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../styles/worlds.css";
+@import "../styles/reveal.css";
 
 /* Tailwind tokens map onto the current world's CSS variables (set by [data-world]). */
 @theme inline {

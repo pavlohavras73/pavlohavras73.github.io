@@ -55,12 +55,14 @@ function prepare(scene: THREE.Group): Prepared {
 }
 
 function Drone({ id }: { id: string }) {
-  const gltf = useLoader(GLTFLoader, `/drones/${id}.glb`, extendLoader);
+  const gltf = useLoader(GLTFLoader, `/drones/${id}.glb`, extendLoader, (e) => {
+    if (e.total) droneSel.progress = e.loaded / e.total;
+  });
   const d = useMemo(() => prepare(gltf.scene as unknown as THREE.Group), [gltf]);
   const holder = useRef<THREE.Group>(null);
   const spool = useRef(0);
   const grow = useRef(0);
-  useEffect(() => { spool.current = 0; grow.current = 0; }, [id]);
+  useEffect(() => { spool.current = 0; grow.current = 0; droneSel.readyId = id; droneSel.progress = 1; }, [id]);
   useFrame((_, dt) => {
     spool.current = Math.min(1, spool.current + dt / 1.2);
     grow.current = Math.min(1, grow.current + dt / 0.8);
