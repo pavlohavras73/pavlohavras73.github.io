@@ -1,19 +1,8 @@
 import { hangar, site } from "@/content";
 import { Clock } from "./Clock";
 import { Field } from "./Field";
+import { Badge, Cycler, Melt } from "./Melt";
 import s from "./hangar.module.css";
-
-/**
- * The name is one text block (so it is the page's LCP element and paints at first paint).
- * It settles in with a blur/rise that never hides it (no opacity:0), in pure CSS.
- */
-function Name({ text }: { text: string }) {
-  return (
-    <h1 className={`${s.name} font-display text-[clamp(4rem,15.5vw,15rem)] leading-[0.86] font-semibold tracking-[-0.035em]`}>
-      {text}
-    </h1>
-  );
-}
 
 export function Hero() {
   const { heroLine } = hangar;
@@ -30,18 +19,20 @@ export function Hero() {
         </div>
 
         <div className="mt-auto">
-          <Name text={site.name} />
+          <Melt text={site.name} className="text-[clamp(3.2rem,12.5vw,13rem)]" />
           <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
             <div className={s.fadeIn} style={{ ["--d" as string]: "0.75s" }}>
               <p className="font-mono text-[13px] uppercase tracking-[0.16em] text-accent">{site.role}</p>
-              <p className="mt-4 max-w-[46ch] text-lg leading-relaxed text-fg/85 sm:text-xl">
-                {heroLine.before} <mark className={s.mark}>{heroLine.accent}</mark>
-                {heroLine.after}
+              <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-fg/85 sm:text-xl">
+                <span className="sr-only">{heroLine.sentence}</span>
+                <span aria-hidden="true">{heroLine.lead}</span>
+                <br aria-hidden="true" />
+                <Cycler items={heroLine.parts} />
               </p>
             </div>
-            <a href="#projects" className={`${s.fadeIn} ${s.scrollCue} font-mono text-xs uppercase tracking-[0.16em] text-muted hover:text-fg`} style={{ ["--d" as string]: "1.1s" }}>
-              <i aria-hidden="true" /> {hangar.doorsTitle}
-            </a>
+            <div className={s.fadeIn} style={{ ["--d" as string]: "1.1s" }}>
+              <Badge href="#projects" text={hangar.doorsTitle} />
+            </div>
           </div>
         </div>
       </div>

@@ -65,7 +65,7 @@
   radial-gradient(ellipse at 50% 62%, rgb(61 255 142 / 0.08), transparent 60%),
   repeating-linear-gradient(90deg, transparent 0 39px, rgb(61 255 142 / 0.06) 39px 40px),
   repeating-linear-gradient(0deg, transparent 0 39px, rgb(61 255 142 / 0.06) 39px 40px); }
-.dronePoster { position: absolute; inset: 0; background: url("/img/fpv/drone-spec.webp") center / contain no-repeat; opacity: 0.85; }
+.dronePoster { position: absolute; inset: 0; background: url("/img/fpv/drone-poster.webp") center / cover no-repeat; }
 .loading { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; gap: 8px; text-align: center; font-family: var(--f-mono); color: var(--accent-2);
   letter-spacing: 0.2em; font-size: 12px; background: rgb(3 4 3 / 0.82); opacity: 0; pointer-events: none; transition: opacity 0.5s; }
 .loading[data-on="1"] { opacity: 1; }

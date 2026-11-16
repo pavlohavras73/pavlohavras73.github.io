@@ -3,6 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { flight, terrainHeight, TERRAIN_GLSL } from "../flight";
+import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
 
 const SIZE = 700, SEG = 240;
 
@@ -72,6 +73,7 @@ export default function TerrainScene() {
   }), []);
   const st = useRef({ heading: 0, x: 0, z: 0, y: 30, roll: 0, pitch: 0 });
   const touch = size.width < 768;
+  const still = useMemo(() => prefersReducedMotion(), []);
 
   useFrame(({ clock }, rawDt) => {
     const dt = Math.min(rawDt, 1 / 20);
@@ -80,12 +82,13 @@ export default function TerrainScene() {
     // Throttle: base + scroll position + a kick from scroll speed.
     const target = Math.min(1, 0.18 + flight.progress * 0.6 + Math.min(0.3, Math.abs(flight.scrollV) * 0.012));
     flight.throttle += (target - flight.throttle) * Math.min(1, dt * 2.2);
-    const speed = 9 + flight.throttle * 58; // m/s
+    // Reduced motion: hover in place over the terrain (no forward flight, no auto banking).
+    const speed = still ? 0 : 9 + flight.throttle * 58; // m/s
     flight.speed = speed * 3.6;
 
     // Sticks: pointer on desktop, a gentle S-curve on touch screens.
-    const rx = touch ? Math.sin(t * 0.35) * 0.45 : pointer.x;
-    const ry = touch ? Math.sin(t * 0.23) * 0.2 : pointer.y;
+    const rx = still ? 0 : touch ? Math.sin(t * 0.35) * 0.45 : pointer.x;
+    const ry = still ? 0 : touch ? Math.sin(t * 0.23) * 0.2 : pointer.y;
     s.roll += (rx * 0.6 - s.roll) * Math.min(1, dt * 3);
     s.pitch += (ry * 0.18 - s.pitch) * Math.min(1, dt * 3);
     s.heading += s.roll * dt * 0.55; // bank right → turn right

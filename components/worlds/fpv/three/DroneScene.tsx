@@ -69,7 +69,7 @@ function Drone({ id }: { id: string }) {
     const e = 1 - Math.pow(1 - grow.current, 3);
     if (holder.current) { holder.current.scale.setScalar(Math.max(0.001, e)); holder.current.rotation.y = -1.2 * (1 - e); }
     // ~2.2 rev/s reads as rotation; real rpm strobes on a 60 Hz screen.
-    const w = 14 * (1 - Math.pow(1 - spool.current, 3)) * dt;
+    const w = (droneSel.reduce ? 0 : 14) * (1 - Math.pow(1 - spool.current, 3)) * dt;
     d.spinners.forEach((p) => p.rotateOnAxis(p.userData.axis as THREE.Vector3, w * (p.userData.dir as number)));
   });
   return <group ref={holder}><primitive object={d.root} /></group>;
@@ -123,7 +123,8 @@ export default function DroneScene() {
         <Lightformer form="rect" intensity={1.5} color="#3dff8e" position={[-4, 1, -3]} rotation={[0, Math.PI / 3, 0]} scale={[3, 2, 1]} />
         <Lightformer form="ring" intensity={1.5} color="#ffb020" position={[3, 1, 3]} scale={1.5} />
       </Environment>
-      <directionalLight position={[3, 4, 2]} intensity={2.4} color="#ffe2cc" />
+      <directionalLight position={[3, 4, 2]} intensity={3.6} color="#ffe2cc" />
+      <ambientLight intensity={0.35} />
       <directionalLight position={[-4, 2, -3]} intensity={1.6} color="#7dffb6" />
       <pointLight position={[0, -0.6, 0]} intensity={4} distance={4} color="#ffb020" />
       <mesh ref={ring} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.36, 0]}>

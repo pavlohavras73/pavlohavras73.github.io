@@ -3,7 +3,11 @@
 export const hangar = {
   heroKicker: "Portfolio · 2026",
   /** Split so the accent word can be set in the serif italic. Same facts as the old cover lead. */
-  heroLine: { before: "I build complete products", accent: "on my own", after: ": the UI, the backend, the real-time protocol, and the Linux server it all runs on." },
+  heroLine: {
+    sentence: "I build complete products on my own: the UI, the backend, the real-time protocol, and the Linux server it all runs on.",
+    lead: "I build complete products on my own:",
+    parts: ["the UI", "the backend", "the real-time protocol", "the Linux server"],
+  },
   clockLabel: "Local time in Duisburg",
   doorsTitle: "Four doors",
   doorsLead: "Each project is its own world. Pick one.",

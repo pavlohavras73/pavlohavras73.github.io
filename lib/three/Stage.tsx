@@ -1,14 +1,13 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
-import { useReducedMotion } from "@/lib/motion/useReducedMotion";
 import { afterFirstPaint, hasWebGL } from "./support";
 import { onFirstInteraction } from "./interaction";
 
 const StageCanvas = dynamic(() => import("./StageCanvas"), { ssr: false });
 
 type Props = {
-  /** Static frame shown first, and forever without WebGL or with reduced motion. */
+  /** Static frame shown first (and forever without WebGL). */
   poster: ReactNode;
   /** The R3F scene (already wrapped in next/dynamic by the world, so three.js stays out of the main bundle). */
   Scene: ComponentType;
@@ -27,7 +26,6 @@ type Props = {
  * `className` must position the box (relative / absolute / sticky): poster and canvas fill it.
  */
 export function Stage({ poster, Scene, className, posterOnMobile = false, label, camera, shadows }: Props) {
-  const reduce = useReducedMotion();
   const box = useRef<HTMLDivElement>(null);
   const [mount, setMount] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -38,12 +36,13 @@ export function Stage({ poster, Scene, className, posterOnMobile = false, label,
   const [near, setNear] = useState(false);
   const [alive, setAlive] = useState(false);
   useEffect(() => {
-    if (reduce || !hasWebGL()) return;
+    // Reduced motion still gets the real (still, draggable) 3D: scenes stop their own movement.
+    if (!hasWebGL()) return;
     if (posterOnMobile && window.matchMedia("(max-width: 767px)").matches) return;
     let cancelPaint = () => {};
     const cancelWait = onFirstInteraction(() => { cancelPaint = afterFirstPaint(() => setAlive(true)); });
     return () => { cancelWait(); cancelPaint(); };
-  }, [reduce, posterOnMobile]);
+  }, [posterOnMobile]);
 
   useEffect(() => {
     const el = box.current;
@@ -63,7 +62,7 @@ export function Stage({ poster, Scene, className, posterOnMobile = false, label,
   return (
     <div ref={box} className={className ?? "relative"} aria-hidden={label ? undefined : true} role={label ? "img" : undefined} aria-label={label}>
       <div style={{ position: "absolute", inset: 0, transition: "opacity .6s", opacity: ready ? 0 : 1 }}>{poster}</div>
-      {mount && !reduce ? (
+      {mount ? (
         <StageCanvas active={visible} onReady={() => setReady(true)} camera={camera} shadows={shadows}>
           <Scene />
         </StageCanvas>

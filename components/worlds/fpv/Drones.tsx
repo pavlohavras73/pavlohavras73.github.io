@@ -86,7 +86,7 @@ export function Drones() {
   return (
     <section ref={box} aria-labelledby="drones-h" className={s.drones}>
       <div className={s.dronesStage}>
-        <Stage className="absolute inset-0" Scene={DroneScene} camera={{ position: [0, 0.85, 4.4], fov: 32 }} poster={<div className={s.dronePoster} />} />
+        <Stage className="absolute inset-0" Scene={DroneScene} camera={{ position: [0, 0.7, 3.2], fov: 32 }} poster={<div className={s.dronePoster} />} />
         <LoadOverlay id={d.id} name={d.name} />
         <p className={s.dragHint} aria-hidden="true">← drag to turn →</p>
       </div>
