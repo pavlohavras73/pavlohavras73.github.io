@@ -24,10 +24,11 @@ export const site = {
     github: "https://github.com/pavlohavras73",
     telegram: { handle: "@rainar_73", href: "https://t.me/rainar_73" },
     /**
-     * Lead form → n8n webhook on Pavlo's server → Telegram + Obsidian Inbox.
-     * Empty until the workflow exists; the form then falls back to email / Telegram.
+     * Lead form → n8n "Portfolio — Lead Form" on Pavlo's server → his Telegram.
+     * The only public webhook (Caddy), CORS pinned to this site, validated + rate-limited in n8n.
+     * If it fails, the form falls back to email / Telegram.
      */
-    formEndpoint: "",
+    formEndpoint: "https://my-first-jarvis.duckdns.org/webhook/portfolio-lead",
   },
 } as const;
 
