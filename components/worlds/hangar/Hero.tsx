@@ -3,21 +3,14 @@ import { Clock } from "./Clock";
 import { Field } from "./Field";
 import s from "./hangar.module.css";
 
-/** Name rises letter by letter in pure CSS, so it paints immediately (LCP) and needs no JS. */
+/**
+ * The name is one text block (so it is the page's LCP element and paints at first paint).
+ * It settles in with a blur/rise that never hides it (no opacity:0), in pure CSS.
+ */
 function Name({ text }: { text: string }) {
-  let i = 0;
   return (
-    <h1 aria-label={text} className="font-display text-[clamp(4rem,15.5vw,15rem)] leading-[0.86] font-semibold tracking-[-0.035em]">
-      {text.split(" ").map((w, wi) => (
-        <span key={wi}>
-        {wi > 0 ? " " : null}
-        <span aria-hidden="true" className={s.word}>
-          {[...w].map((c) => (
-            <span key={i} className={s.char} style={{ ["--i" as string]: i++ }}>{c}</span>
-          ))}
-        </span>
-        </span>
-      ))}
+    <h1 className={`${s.name} font-display text-[clamp(4rem,15.5vw,15rem)] leading-[0.86] font-semibold tracking-[-0.035em]`}>
+      {text}
     </h1>
   );
 }

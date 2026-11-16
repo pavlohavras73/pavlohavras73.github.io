@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
 import { afterFirstPaint } from "@/lib/three/support";
+import { onFirstInteraction } from "@/lib/three/interaction";
 
 const VERT = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
 
@@ -110,8 +111,9 @@ export function ShaderField({ frag, accent, className, maxDpr = 1.5 }: Props) {
       };
     };
 
-    const cancel = afterFirstPaint(start);
-    return () => { disposed = true; cancel(); cleanup(); };
+    let cancelPaint = () => {};
+    const cancelWait = onFirstInteraction(() => { cancelPaint = afterFirstPaint(start); });
+    return () => { disposed = true; cancelWait(); cancelPaint(); cleanup(); };
   }, [frag, accent, maxDpr]);
 
   return (

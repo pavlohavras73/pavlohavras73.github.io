@@ -4,7 +4,11 @@ import { Environment, Lightformer } from "@react-three/drei";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { drones } from "@/content";
+
+/** Ready for meshopt-compressed models; the decoder ships with three (no CDN). */
+const extendLoader = (loader: GLTFLoader) => { loader.setMeshoptDecoder(MeshoptDecoder); };
 import { droneSel } from "../droneSel";
 
 // Ported from the old portfolio's drones.js (props spin about their hub, on the shaft axis,
@@ -51,7 +55,7 @@ function prepare(scene: THREE.Group): Prepared {
 }
 
 function Drone({ id }: { id: string }) {
-  const gltf = useLoader(GLTFLoader, `/drones/${id}.glb`);
+  const gltf = useLoader(GLTFLoader, `/drones/${id}.glb`, extendLoader);
   const d = useMemo(() => prepare(gltf.scene as unknown as THREE.Group), [gltf]);
   const holder = useRef<THREE.Group>(null);
   const spool = useRef(0);
@@ -79,8 +83,6 @@ export default function DroneScene() {
   const drag = useRef({ on: false, x: 0, v: 0, resume: 0 });
 
   useEffect(() => {
-    // Preload the rest in the background so switching is instant.
-    drones.forEach((dr) => useLoader.preload(GLTFLoader, `/drones/${dr.id}.glb`));
     const el = gl.domElement;
     el.style.touchAction = "pan-y";
     el.style.cursor = "grab";
@@ -94,7 +96,11 @@ export default function DroneScene() {
 
   useFrame(({ clock }, dt) => {
     const want = drones[droneSel.index].id;
-    if (want !== id) setId(want);
+    if (want !== id) {
+      setId(want);
+      // Fetch only the next drone in the background, not the whole fleet.
+      useLoader.preload(GLTFLoader, `/drones/${drones[(droneSel.index + 1) % drones.length].id}.glb`, extendLoader);
+    }
     const p = pivot.current;
     if (!p) return;
     if (!drag.current.on) {

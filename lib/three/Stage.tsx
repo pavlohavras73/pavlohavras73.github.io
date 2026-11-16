@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
 import { useReducedMotion } from "@/lib/motion/useReducedMotion";
 import { afterFirstPaint, hasWebGL } from "./support";
+import { onFirstInteraction } from "./interaction";
 
 const StageCanvas = dynamic(() => import("./StageCanvas"), { ssr: false });
 
@@ -32,19 +33,32 @@ export function Stage({ poster, Scene, className, posterOnMobile = false, label,
   const [visible, setVisible] = useState(false);
   const [ready, setReady] = useState(false);
 
+  // Mount the canvas only when (a) the visitor has interacted, (b) the stage is within about a
+  // screen of the viewport. Once mounted it stays, but renders only while visible.
+  const [near, setNear] = useState(false);
+  const [alive, setAlive] = useState(false);
   useEffect(() => {
     if (reduce || !hasWebGL()) return;
     if (posterOnMobile && window.matchMedia("(max-width: 767px)").matches) return;
-    return afterFirstPaint(() => setMount(true));
+    let cancelPaint = () => {};
+    const cancelWait = onFirstInteraction(() => { cancelPaint = afterFirstPaint(() => setAlive(true)); });
+    return () => { cancelWait(); cancelPaint(); };
   }, [reduce, posterOnMobile]);
 
   useEffect(() => {
     const el = box.current;
     if (!el) return;
     const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { rootMargin: "200px 0px" });
-    io.observe(el);
-    return () => io.disconnect();
+    const ioNear = new IntersectionObserver(([e]) => { if (e.isIntersecting) setNear(true); }, { rootMargin: "100% 0px" });
+    io.observe(el); ioNear.observe(el);
+    return () => { io.disconnect(); ioNear.disconnect(); };
   }, []);
+
+  useEffect(() => {
+    // Publishing the mount decision once both conditions hold.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (alive && near) setMount(true);
+  }, [alive, near]);
 
   return (
     <div ref={box} className={className ?? "relative"} aria-hidden={label ? undefined : true} role={label ? "img" : undefined} aria-label={label}>
