@@ -4,7 +4,7 @@ import { Room } from "@/components/worlds/lobby/Room";
 import { Chapter } from "@/components/worlds/lobby/Chapter";
 import { Reconnect } from "@/components/worlds/lobby/Reconnect";
 import { Numbers } from "@/components/worlds/lobby/Numbers";
-import { StickyPlay } from "@/components/worlds/lobby/Bits";
+import { StickyPlay } from "@/components/worlds/lobby/StickyPlay";
 import { Bokeh } from "@/components/worlds/lobby/Bokeh";
 import { ChessScene, MafiaScene, PokerCloseupScene } from "@/components/worlds/lobby/scenes";
 

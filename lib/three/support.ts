@@ -8,11 +8,19 @@ export function hasWebGL(): boolean {
   if (typeof window === "undefined") return false;
   try {
     const c = document.createElement("canvas");
-    cached = !!(c.getContext("webgl2") || c.getContext("webgl"));
+    const gl = (c.getContext("webgl2") || c.getContext("webgl")) as WebGLRenderingContext | null;
+    cached = !!gl;
+    // Free the probe's context right away: iOS only allows a few live WebGL contexts.
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
   } catch {
     cached = false;
   }
   return cached;
+}
+
+/** Phone-class device: touch-first or a narrow screen. Used to keep GPU memory low. */
+export function isPhone(): boolean {
+  return typeof window !== "undefined" && window.matchMedia("(pointer: coarse), (max-width: 767px)").matches;
 }
 
 /** Run after the first paint and when the main thread is idle (Safari has no requestIdleCallback). */

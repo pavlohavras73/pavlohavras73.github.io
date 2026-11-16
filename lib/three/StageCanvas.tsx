@@ -2,8 +2,11 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import { useRef, useState, type ReactNode } from "react";
+import { isPhone } from "./support";
 
-const MAX_DPR = 1.75;
+// Phones get a lower pixel ratio and no shadow maps: iOS shares GPU memory with the page itself.
+const PHONE = typeof window !== "undefined" && isPhone();
+const MAX_DPR = PHONE ? 1.4 : 1.75;
 
 function FirstFrame({ onReady }: { onReady: () => void }) {
   const done = useRef(false);
@@ -14,7 +17,7 @@ function FirstFrame({ onReady }: { onReady: () => void }) {
 }
 
 /** The actual R3F canvas: capped pixel ratio, adaptive quality, paused off-screen. */
-export default function StageCanvas({ active, onReady, children, camera, shadows }: { active: boolean; onReady: () => void; children: ReactNode; camera?: { position: [number, number, number]; fov?: number }; shadows?: boolean }) {
+export default function StageCanvas({ active, onReady, onLost, children, camera, shadows }: { active: boolean; onReady: () => void; onLost?: () => void; children: ReactNode; camera?: { position: [number, number, number]; fov?: number }; shadows?: boolean }) {
   const [dpr, setDpr] = useState(Math.min(typeof window === "undefined" ? 1 : window.devicePixelRatio, MAX_DPR));
   return (
     <Canvas
@@ -22,8 +25,12 @@ export default function StageCanvas({ active, onReady, children, camera, shadows
       dpr={dpr}
       frameloop={active ? "always" : "never"}
       camera={camera ? { fov: 35, ...camera } : undefined}
-      shadows={shadows ? "percentage" : false}
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      shadows={shadows && !PHONE ? "percentage" : false}
+      gl={{ antialias: !PHONE, alpha: true, powerPreference: PHONE ? "default" : "high-performance" }}
+      onCreated={({ gl }) => {
+        // If the browser drops the context anyway, the stage falls back to its poster.
+        gl.domElement.addEventListener("webglcontextlost", (e) => { e.preventDefault(); onLost?.(); }, { once: true });
+      }}
     >
       <PerformanceMonitor
         onDecline={() => setDpr((d) => Math.max(1, d - 0.5))}

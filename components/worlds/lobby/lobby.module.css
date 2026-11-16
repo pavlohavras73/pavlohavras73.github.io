@@ -14,6 +14,8 @@
 
 .sticky { position: fixed; z-index: 70; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); display: none; }
 .sticky .play { width: 100%; justify-content: center; }
+.sticky { transition: transform 0.35s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.35s; }
+.sticky[data-hide="1"] { transform: translateY(140%); opacity: 0; pointer-events: none; }
 @media (max-width: 767px) { .sticky { display: block; } }
 
 /* ───────── Phone frame ───────── */
@@ -128,6 +130,12 @@
 .bokeh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0.32; }
 .bokehLayer { position: absolute; inset: 0; transform: translate3d(calc(var(--tx, 0) * var(--z) * -46px), calc(var(--ty, 0) * var(--z) * -40px), 0); }
 .bokeh i { position: absolute; border-radius: 50%; filter: blur(28px); transform: translate(-50%, -50%); mix-blend-mode: screen; animation: drift linear infinite alternate; }
+/* Phones: no blur filter / blend mode on fixed full-screen layers (iOS GPU memory); the radial
+   gradients are soft on their own. Fewer lights. */
+@media (pointer: coarse), (max-width: 767px) {
+  .bokeh i { filter: none; mix-blend-mode: normal; }
+  .bokehLayer:nth-child(n + 6) { display: none; }
+}
 @keyframes drift { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-38%, -62%) scale(1.15); } 100% { transform: translate(-62%, -42%) scale(0.92); } }
 
 

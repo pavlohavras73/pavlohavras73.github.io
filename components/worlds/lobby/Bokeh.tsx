@@ -28,7 +28,9 @@ export function Bokeh() {
         const fp = focusPoint();
         if (fp) { tx = (fp.x / innerWidth - 0.5) * 2 * fp.w; ty = (fp.y / innerHeight - 0.5) * 2 * fp.w; }
       }
-      x += (tx - x) * 0.06; y += (ty - y) * 0.06;
+      const nx = x + (tx - x) * 0.06, ny = y + (ty - y) * 0.06;
+      if (Math.abs(nx - x) + Math.abs(ny - y) < 0.0015) return; // settled: no style writes
+      x = nx; y = ny;
       el.style.setProperty("--tx", x.toFixed(3));
       el.style.setProperty("--ty", y.toFixed(3));
     };

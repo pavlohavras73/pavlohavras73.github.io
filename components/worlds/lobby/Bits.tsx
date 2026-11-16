@@ -17,17 +17,6 @@ export function PlayButton({ size = "lg", label = play.label }: { size?: "lg" | 
   );
 }
 
-/** Mobile: Play now stays at the bottom of the screen. */
-export function StickyPlay() {
-  return (
-    <div className={s.sticky}>
-      <a href={play.href} target="_blank" rel="noopener noreferrer" className={s.play}>
-        <span>{play.label}</span>
-        <span aria-hidden="true" className={s.playArrow}>↗</span>
-      </a>
-    </div>
-  );
-}
 
 /** A phone frame around a real screenshot from the live game. */
 export function Phone({ src, alt, className }: { src: string; alt: string; className?: string }) {
