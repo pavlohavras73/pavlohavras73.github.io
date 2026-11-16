@@ -8,6 +8,8 @@ import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
 import { Magnetic } from "@/lib/motion/Magnetic";
 import { TLink } from "@/components/shell/TLink";
 import { pulse } from "./pulse";
+import { GLYPHS, Scramble } from "@/lib/motion/Scramble";
+import { Reveal } from "@/lib/motion/Reveal";
 import s from "./jarvis.module.css";
 
 const OrbScene = dynamic(() => import("./three/OrbScene"), { ssr: false });
@@ -37,7 +39,7 @@ export function Hero() {
         <div className={s.heroCopy}>
           <p className={s.kicker}>{jarvis.hero.kicker}</p>
           <ViewTransition name={names.title} share="morph" default="none">
-            <h1 id="jv-h" className="font-display text-[clamp(4rem,14vw,12rem)] leading-[0.85] font-light tracking-[-0.04em]">{worlds.jarvis.title}</h1>
+            <h1 id="jv-h" className={s.title}>{worlds.jarvis.title}<span className={s.cursor} aria-hidden="true" /></h1>
           </ViewTransition>
           <p className="mt-6 max-w-[44ch] text-lg leading-relaxed text-fg/80">{jarvis.hero.lead}</p>
           <dl className={s.stats}>
@@ -71,7 +73,7 @@ export function Architecture() {
   return (
     <section ref={box} aria-labelledby="arch-h" className={s.section}>
       <p className={s.kicker}>How it works</p>
-      <h2 id="arch-h" className={s.h2}>One message, all the way down.</h2>
+      <Reveal variant="decode"><h2 id="arch-h" className={s.h2}><Scramble text="One message, all the way down." glyphs={GLYPHS.matrix} duration={1100} /></h2></Reveal>
       <div className={s.arch}>
         <ol className={s.chain}>
           {nodes.map((nd, i) => (
@@ -85,7 +87,7 @@ export function Architecture() {
         </ol>
         <div className={s.detail} aria-live="polite">
           <p className={s.detailIdx}>{String(active + 1).padStart(2, "0")} / {String(nodes.length).padStart(2, "0")}</p>
-          <p className="mt-4 font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-light">{n.title}</p>
+          <p className="mt-4 font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-black"><Scramble text={n.title} glyphs={GLYPHS.matrix} duration={500} trigger={active} /></p>
           <p className="mt-4 max-w-[40ch] text-lg leading-relaxed text-fg/75">{n.body}</p>
         </div>
       </div>
@@ -116,7 +118,7 @@ export function Exchange() {
     <section ref={ref} aria-labelledby="ex-h" className={`${s.section} ${s.exchange}`}>
       <div>
         <p className={s.kicker}>Safe by construction</p>
-        <h2 id="ex-h" className={s.h2}>It does the work. You keep the keys.</h2>
+        <Reveal variant="decode"><h2 id="ex-h" className={s.h2}><Scramble text="It does the work. You keep the keys." glyphs={GLYPHS.matrix} duration={1100} /></h2></Reveal>
         <p className="mt-6 max-w-[44ch] text-lg leading-relaxed text-fg/75">
           Harmless things happen on their own. Anything that deletes, moves, restarts or sends in my name stops and asks for a tap. Secrets never reach the model.
         </p>
@@ -170,7 +172,7 @@ export function Day() {
   return (
     <section aria-labelledby="day-h" className={s.section}>
       <p className={s.kicker}>A day of Jarvis</p>
-      <h2 id="day-h" className={s.h2}>21 automations, on a clock.</h2>
+      <Reveal variant="decode"><h2 id="day-h" className={s.h2}><Scramble text="21 automations, on a clock." glyphs={GLYPHS.matrix} duration={1100} /></h2></Reveal>
       <div className={s.day}>
         <svg viewBox="0 0 360 400" className={s.dial} role="img" aria-label={`Scheduled runs: ${timed.map((a) => `${a.t} ${a.name}`).join(", ")}`}>
           <circle cx={C} cy={C} r={R} className={s.dialRing} />
@@ -284,7 +286,7 @@ export function Brain() {
     <section aria-labelledby="brain-h" className={`${s.section} ${s.brain}`}>
       <div>
         <p className={s.kicker}>Memory</p>
-        <h2 id="brain-h" className={s.h2}>A second brain it can read.</h2>
+        <Reveal variant="decode"><h2 id="brain-h" className={s.h2}><Scramble text="A second brain it can read." glyphs={GLYPHS.matrix} duration={1100} /></h2></Reveal>
         <p className="mt-6 max-w-[42ch] text-lg leading-relaxed text-fg/75">
           My Obsidian vault is its long-term memory: {fmt(notes.value)} notes, {fmt(links.value)} links between them. It looks things up there before it answers, and writes down what it learns.
         </p>
@@ -300,7 +302,7 @@ export function Offer() {
   return (
     <section aria-labelledby="offer-h" className={s.section}>
       <p className={s.kicker}>For you</p>
-      <h2 id="offer-h" className={s.h2}>{jarvis.pitch}</h2>
+      <Reveal variant="decode"><h2 id="offer-h" className={s.h2}><Scramble text={jarvis.pitch} glyphs={GLYPHS.matrix} duration={1400} /></h2></Reveal>
       <ol className={s.offer}>
         {jarvis.offer.map((o, i) => (
           <li key={o.title}><span className={s.nodeIdx}>{String(i + 1).padStart(2, "0")}</span><h3>{o.title}</h3><p>{o.body}</p></li>

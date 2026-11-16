@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { lobby } from "@/content";
 import { useSceneProgress } from "./useSceneProgress";
+import { Reveal } from "@/lib/motion/Reveal";
 import { Kicker, Phone } from "./Bits";
 import s from "./lobby.module.css";
 
@@ -20,9 +21,9 @@ export function Room() {
   return (
     <section ref={ref} aria-labelledby="room-h" className="mx-auto grid max-w-[1600px] items-center gap-14 px-4 py-28 sm:px-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
       <div>
-        <Kicker>Multiplayer</Kicker>
+        <Reveal variant="float"><Kicker>Multiplayer</Kicker>
         <h2 id="room-h" className="mt-4 font-display text-[clamp(2.4rem,5.5vw,5rem)] leading-[0.92] font-extrabold tracking-[-0.03em]">{lobby.room.title}</h2>
-        <p className="mt-5 max-w-[42ch] text-lg text-fg/80">{lobby.room.lead}</p>
+        <p className="mt-5 max-w-[42ch] text-lg text-fg/80">{lobby.room.lead}</p></Reveal>
 
         <div className={s.table} aria-label={`${filled} of ${seats} seats taken`} role="img">
           <div className={s.tableFelt}>

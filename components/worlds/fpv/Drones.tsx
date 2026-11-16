@@ -3,8 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { classLabel, drones, fpv, isTodo } from "@/content";
 import { Stage } from "@/lib/three/Stage";
 import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
+import { hasWebGL } from "@/lib/three/support";
 import { DroneScene } from "./scenes";
 import { droneSel } from "./droneSel";
+import { GLYPHS, Scramble } from "@/lib/motion/Scramble";
 import s from "./fpv.module.css";
 
 const HOLD = 5200;
@@ -29,6 +31,35 @@ function Num({ value, dec = 0 }: { value: number; dec?: number }) {
     return () => cancelAnimationFrame(raf);
   }, [value, dec]);
   return <span ref={ref}>{value.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })}</span>;
+}
+
+/**
+ * Covers the stage until the selected model is actually on screen (the canvas itself is ready
+ * long before a 0.5 MB model arrives). OSD-style progress, read from droneSel every frame.
+ */
+function LoadOverlay({ id, name }: { id: string; name: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const pct = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    // No 3D at all (reduced motion / no WebGL): the poster is the final state, no loader.
+    if (prefersReducedMotion() || !hasWebGL()) { if (ref.current) ref.current.dataset.on = ""; return; }
+    let raf = 0;
+    const tick = () => {
+      const ready = droneSel.readyId === id;
+      if (ref.current) ref.current.dataset.on = ready ? "" : "1";
+      if (pct.current) pct.current.textContent = String(Math.round(droneSel.progress * 100)).padStart(2, "0");
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [id]);
+  return (
+    <div ref={ref} className={s.loading} data-on="1" aria-hidden="true">
+      <p>LINK · {name.toUpperCase()}</p>
+      <p className={s.loadingPct}><span ref={pct}>00</span>%</p>
+      <i />
+    </div>
+  );
 }
 
 /** Datasheet + 3D carousel of the eight modelled drones. */
@@ -56,11 +87,12 @@ export function Drones() {
     <section ref={box} aria-labelledby="drones-h" className={s.drones}>
       <div className={s.dronesStage}>
         <Stage className="absolute inset-0" Scene={DroneScene} camera={{ position: [0, 0.85, 4.4], fov: 32 }} poster={<div className={s.dronePoster} />} />
+        <LoadOverlay id={d.id} name={d.name} />
         <p className={s.dragHint} aria-hidden="true">← drag to turn →</p>
       </div>
       <div className={s.sheet}>
-        <p className={s.kicker}>Fleet · {drones.length} drones</p>
-        <h2 id="drones-h" className="mt-3 font-display text-[clamp(2.4rem,5vw,4.6rem)] leading-[0.9] font-semibold uppercase">From a 22 g whoop to a 1.1 kg long-range</h2>
+        <p className={s.kicker}>{"// "}Fleet · {drones.length} drones</p>
+        <h2 id="drones-h" className={s.h2}><Scramble text="From a 22 g whoop to a 1.1 kg long-range" glyphs={GLYPHS.block} duration={900} /></h2>
         <p className="mt-4 max-w-[52ch] text-[14px] leading-relaxed text-fg/75">{fpv.modelling}</p>
 
         <div className={s.card} aria-live="polite">

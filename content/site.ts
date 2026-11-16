@@ -18,7 +18,6 @@ export const site = {
     { k: "Experience", v: "1.5 years of AI automation and full-stack projects" },
     { k: "Languages", v: "Ukrainian, Russian, English, German (B1)" },
   ],
-  photo: { src: "/img/pavlo.jpg", alt: "Photo of Pavlo Havras" },
   contact: {
     email: "pavlo.havras73@gmail.com",
     github: "https://github.com/pavlohavras73",

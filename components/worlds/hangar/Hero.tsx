@@ -35,7 +35,7 @@ export function Hero() {
             <div className={s.fadeIn} style={{ ["--d" as string]: "0.75s" }}>
               <p className="font-mono text-[13px] uppercase tracking-[0.16em] text-accent">{site.role}</p>
               <p className="mt-4 max-w-[46ch] text-lg leading-relaxed text-fg/85 sm:text-xl">
-                {heroLine.before} <em className="font-accent text-[1.18em] italic text-accent-2">{heroLine.accent}</em>
+                {heroLine.before} <mark className={s.mark}>{heroLine.accent}</mark>
                 {heroLine.after}
               </p>
             </div>

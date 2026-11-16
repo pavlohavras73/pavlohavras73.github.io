@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { lobby } from "@/content";
 import { useSceneProgress } from "./useSceneProgress";
+import { Reveal } from "@/lib/motion/Reveal";
 import { Kicker } from "./Bits";
 import s from "./lobby.module.css";
 
@@ -21,7 +22,7 @@ export function Reconnect() {
     <section ref={ref} aria-labelledby="rc-h" className="mx-auto max-w-[1600px] px-4 py-28 sm:px-8">
       <Kicker>The engineering behind the fun</Kicker>
       <h2 id="rc-h" className="mt-4 max-w-[18ch] font-display text-[clamp(2.4rem,5.5vw,5rem)] leading-[0.92] font-extrabold tracking-[-0.03em]">
-        {reconnect.title} <span className="font-accent font-normal italic text-accent-2">{reconnect.titleAccent}</span>
+        {reconnect.title} <span className={s.glowText}>{reconnect.titleAccent}</span>
       </h2>
       <p className="mt-5 max-w-[46ch] text-lg text-fg/80">{reconnect.lead}</p>
 
@@ -58,13 +59,13 @@ export function Reconnect() {
       <h3 className="mt-24 font-display text-[clamp(1.8rem,3.5vw,3rem)] leading-none font-extrabold tracking-[-0.02em]">{lobby.honestTitle}</h3>
       <ol className={s.honest}>
         {lobby.engineering.map((e, i) => (
-          <li key={e.title}>
+          <Reveal as="li" key={e.title} variant="float" delay={(i % 2) * 120}>
             <span className={s.pointNum}>{String(i + 1).padStart(2, "0")}</span>
             <div>
               <p className="font-display text-[clamp(1.3rem,2.2vw,1.9rem)] leading-tight font-bold">{e.title}</p>
               <p className="mt-2 max-w-[52ch] text-fg/70">{e.body}</p>
             </div>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </section>

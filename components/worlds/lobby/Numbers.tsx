@@ -51,7 +51,7 @@ export function Numbers() {
       </section>
 
       <section aria-labelledby="final-h" className={s.final}>
-        <h2 id="final-h" className="font-display text-[clamp(4rem,16vw,15rem)] leading-[0.8] font-extrabold tracking-[-0.05em]">{lobby.finalCta.title}</h2>
+        <h2 id="final-h" className={`${s.neon} font-accent text-[clamp(3rem,11vw,10rem)] leading-[1]`}>{lobby.finalCta.title}</h2>
         <p className="mt-6 max-w-[40ch] text-lg text-fg/80">{lobby.finalCta.lead}</p>
         <div className="mt-10"><PlayButton size="xl" /></div>
       </section>

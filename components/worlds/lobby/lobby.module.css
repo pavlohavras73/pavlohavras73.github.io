@@ -112,3 +112,20 @@
   .heroTrack { height: auto; }
   .heroPin { position: relative; }
 }
+
+/* ───────── Lounge layer ───────── */
+.neon { color: #fff4f8; font-weight: 400;
+  text-shadow: 0 0 3px #fff, 0 0 10px var(--neon, #ff3d7f), 0 0 26px var(--neon, #ff3d7f), 0 0 56px var(--neon2, #ff6a2b);
+  animation: neonOn 2.4s steps(1) both, buzz 7s 3s infinite; }
+@keyframes neonOn { 0% { opacity: 0.12; } 8% { opacity: 1; } 11% { opacity: 0.25; } 18% { opacity: 1; } 21% { opacity: 0.45; } 26%, 100% { opacity: 1; } }
+@keyframes buzz { 0%, 95%, 100% { opacity: 1; } 96% { opacity: 0.72; } 97% { opacity: 1; } 98.5% { opacity: 0.82; } }
+.neonTone[data-tone="poker"] { --neon: #ff3d3d; --neon2: #f5c451; }
+.neonTone[data-tone="mafia"] { --neon: #ff2e88; --neon2: #ff6a2b; }
+.neonTone[data-tone="chess"] { --neon: #39d5ff; --neon2: #f5c451; }
+.glowText { color: var(--accent-2); text-shadow: 0 0 22px rgb(245 196 81 / 0.55); }
+
+.bokeh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0.32; }
+.bokeh i { position: absolute; border-radius: 50%; filter: blur(28px); transform: translate(-50%, -50%); mix-blend-mode: screen; animation: drift linear infinite alternate; }
+@keyframes drift { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-38%, -62%) scale(1.15); } 100% { transform: translate(-62%, -42%) scale(0.92); } }
+
+@media (prefers-reduced-motion: reduce) { .neon { animation: none; } .bokeh i { animation: none; } }

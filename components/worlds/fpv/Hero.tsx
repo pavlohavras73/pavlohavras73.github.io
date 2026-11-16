@@ -63,6 +63,11 @@ function Osd() {
         <p className={s.mid}><b data-k="v">25.2</b>V</p>
         <p className={s.dim}>6S</p>
       </div>
+      <ol className={s.boot}>
+        {["SYS CHECK ........ OK", "RADIO · RADIOMASTER POCKET", "BATTERY · 6S 25.2V", "MODE · ACRO", "ARMED"].map((l, i) => (
+          <li key={l} style={{ ["--i" as string]: i }}>{l}</li>
+        ))}
+      </ol>
       <div className={s.osdTop}><span className={s.rec}>● REC</span><b data-k="time">00:00</b><span data-k="roll">R00°</span></div>
     </div>
   );
@@ -98,7 +103,7 @@ export function Hero() {
           <div className={s.heroCopy}>
             <p className={s.kicker}>{fpv.hero.kicker}</p>
             <ViewTransition name={names.title} share="morph" default="none">
-              <h1 id="fpv-h" className="font-display text-[clamp(3.4rem,11vw,10rem)] leading-[0.82] font-semibold uppercase tracking-[-0.01em]">
+              <h1 id="fpv-h" className={s.title} data-text={worlds.fpv.title}>
                 {worlds.fpv.title}
               </h1>
             </ViewTransition>

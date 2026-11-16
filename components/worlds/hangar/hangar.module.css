@@ -22,6 +22,11 @@
 .scrollCue i::after { content: ""; position: absolute; inset: 0; background: var(--accent); animation: cue 1.8s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
 @keyframes cue { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
 
+/* Highlighter: an amber bar wipes in behind the words. */
+.mark { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 88% / 0% 0.5em; color: inherit; padding: 0 0.12em; margin: 0 -0.06em;
+  animation: wipe 0.9s cubic-bezier(0.7, 0, 0.2, 1) 1.2s forwards; }
+@keyframes wipe { to { background-size: 100% 0.5em; } }
+
 /* ───────────────────────── Doors ───────────────────────── */
 .doors { display: flex; flex-direction: column; gap: 10px; }
 @media (min-width: 1024px) {

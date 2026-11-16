@@ -1,8 +1,9 @@
-import { Bricolage_Grotesque, Familjen_Grotesk, Fraunces } from "next/font/google";
+import { Monoton, Outfit, Righteous } from "next/font/google";
 
-const display = Bricolage_Grotesque({ subsets: ["latin"], weight: ["700", "800"], variable: "--f-display", display: "swap" });
-const body = Familjen_Grotesk({ subsets: ["latin"], weight: ["400", "600"], variable: "--f-body", display: "swap" });
-const accent = Fraunces({ subsets: ["latin"], style: "italic", weight: "400", variable: "--f-accent", display: "swap", preload: false });
+// Lounge: Monoton neon tubes for the big names, Righteous for headings, Outfit for reading.
+const display = Righteous({ subsets: ["latin"], weight: "400", variable: "--f-display", display: "swap" });
+const neon = Monoton({ subsets: ["latin"], weight: "400", variable: "--f-accent", display: "swap" });
+const body = Outfit({ subsets: ["latin"], weight: ["300", "400", "600"], variable: "--f-body", display: "swap" });
 
 // Lobby has no mono voice: --f-mono falls back to the body face.
-export const lobbyFonts = `${[display, body, accent].map((f) => f.variable).join(" ")} [--f-mono:var(--f-body)]`;
+export const lobbyFonts = `${[display, neon, body].map((f) => f.variable).join(" ")} [--f-mono:var(--f-body)]`;

@@ -1,6 +1,7 @@
-import { Barlow_Condensed, JetBrains_Mono } from "next/font/google";
+import { Share_Tech_Mono, Tektur } from "next/font/google";
 
-const display = Barlow_Condensed({ subsets: ["latin"], weight: ["600"], variable: "--f-display", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--f-mono", display: "swap" });
+// Aggressive tech: angular Tektur for display, Share Tech Mono for every readout and paragraph.
+const display = Tektur({ subsets: ["latin"], weight: ["700", "900"], variable: "--f-display", display: "swap" });
+const mono = Share_Tech_Mono({ subsets: ["latin"], weight: "400", variable: "--f-mono", display: "swap" });
 
 export const fpvFonts = `${display.variable} ${mono.variable} [--f-body:var(--f-mono)] [--f-accent:var(--f-display)]`;
