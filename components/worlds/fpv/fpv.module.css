@@ -49,7 +49,9 @@
   .osdL, .osdR { top: 30%; }
   .thrTrack { height: 90px; }
   .big { font-size: 26px; }
-  .ladder { width: 80vw; }
+  .ladder { width: 80vw; top: 27%; height: 26vh; }
+  .cross { top: 27%; }
+  .rung span { display: none; }
 }
 
 /* ───────── Shared section ───────── */

@@ -25,6 +25,7 @@
 .heroPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
 .heroShade { position: absolute; inset: 0; pointer-events: none; background:
   linear-gradient(180deg, rgb(20 12 8 / 0.82) 0%, rgb(20 12 8 / 0.15) 32%, rgb(20 12 8 / 0) 55%, rgb(20 12 8 / 0.88) 100%); }
+@media (max-width: 767px) { .heroShade { background: linear-gradient(180deg, rgb(20 12 8 / 0.85) 0%, rgb(20 12 8 / 0.1) 30%, rgb(20 12 8 / 0.35) 48%, rgb(20 12 8 / 0.94) 66%); } }
 .steps { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 520px; }
 .steps li { display: flex; align-items: baseline; gap: 12px; font-size: 15px; opacity: 0.32; transform: translateX(-6px); transition: opacity 0.5s, transform 0.5s; }
 .steps li[data-on="1"] { opacity: 1; transform: none; }

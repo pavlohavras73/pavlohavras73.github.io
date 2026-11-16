@@ -127,6 +127,11 @@
 .sched li span { color: #8cf5d2; margin-right: 10px; }
 
 /* Web: paper + scrolling names */
+/* door titles carry their world's character */
+.lobby .doorTitle { font-weight: 400; color: #fff4f8; text-shadow: 0 0 3px #fff, 0 0 10px #ff3d7f, 0 0 26px #ff3d7f; font-size: clamp(1.9rem, 3.4vw, 3.6rem); font-size: clamp(1.4rem, 12cqi, 3.6rem); line-height: 1.05; }
+.fpv .doorTitle { text-transform: uppercase; letter-spacing: -0.02em; }
+.jarvis .doorTitle { font-weight: 900; text-shadow: 0 0 22px rgb(140 245 210 / 0.45); }
+.web .doorTitle { text-transform: uppercase; }
 .web { --door-bg: #0b0b0c; --door-fg: #f2f2ee; --door-muted: #a3a39b; --door-accent: #c6ff1a; --door-font: var(--pf-web); }
 .names { position: absolute; left: 22px; right: 22px; top: 54px; bottom: 45%; overflow: hidden;
   -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
