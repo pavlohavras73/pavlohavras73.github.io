@@ -49,7 +49,7 @@ export function FpvPreview() {
 }
 
 export function JarvisPreview() {
-  const lines = jarvis.day.filter((x) => x.time !== "—").slice(1, 5);
+  const lines = jarvis.automations.filter((a) => a.kind === "daily").slice(1, 5).map((a) => ({ time: a.at![0], name: a.name }));
   return (
     <div className={s.preview}>
       <div className={s.orb}>
