@@ -2,7 +2,22 @@
 
 My portfolio site: **https://pavlohavras73.github.io**
 
-A scroll-snapping deck (vanilla JS, no build step) with my main projects, plus a showcase of seven websites I designed and built:
+A hangar with doors: a short home page, and a separate world with its own art direction for each project.
+
+| Route | World |
+|---|---|
+| `/` | Hangar: who I am, and the doors |
+| `/lobby/` | Lobby.gg, multiplayer browser games |
+| `/fpv/` | FPV drone simulator |
+| `/jarvis/` | Jarvis, my personal AI agent |
+| `/web/` | Web showcase: seven sites |
+
+Built with Next.js (App Router, static export), TypeScript, Tailwind, GSAP + ScrollTrigger, Lenis and React Three Fiber.
+All copy and numbers live in `content/*.ts`; numbers carry the date they were measured.
+
+## Web showcase
+
+The seven showcase sites are static and served unchanged from `public/sites/`:
 
 | Site | What it is |
 |---|---|
@@ -16,4 +31,13 @@ A scroll-snapping deck (vanilla JS, no build step) with my main projects, plus a
 
 All brands are fictional concept projects.
 
-The deck uses three.js for the rotating drone models (from my [FPV simulator](https://github.com/pavlohavras73)) and d3-force for the knowledge-graph visual of my AI agent's memory.
+## Develop
+
+```bash
+npm ci
+npm run dev            # http://localhost:3000
+npx next build         # static export → out/
+node scripts/shots.mjs # screenshots at 1440 / 768 / 390 px + console/overflow check
+```
+
+Deployed by GitHub Actions (`.github/workflows/pages.yml`) on push to `main`.

@@ -1,0 +1,86 @@
+@import "tailwindcss";
+@import "../styles/worlds.css";
+
+/* Tailwind tokens map onto the current world's CSS variables (set by [data-world]). */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-line: var(--line);
+  --font-display: var(--f-display);
+  --font-body: var(--f-body);
+  --font-mono: var(--f-mono);
+  --font-accent: var(--f-accent);
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #07090c;
+  --fg: #e9ecef;
+  -webkit-text-size-adjust: 100%;
+}
+
+html {
+  background: var(--bg);
+  transition: background-color 0.5s ease;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--f-body, ui-sans-serif, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+::selection { background: var(--accent); color: var(--bg); }
+
+.skip-link {
+  position: fixed; left: 12px; top: -60px; z-index: 100;
+  padding: 10px 14px; background: var(--accent); color: var(--bg); font-weight: 600;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 12px; }
+
+/* Film grain overlay: decoration only. */
+.grain::after {
+  content: ""; position: fixed; inset: -50%; z-index: 60; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  opacity: var(--grain, 0.05);
+  mix-blend-mode: overlay;
+}
+
+/* View transitions (Chromium / Safari 18+). Others get the GSAP curtain. */
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 0.45s; }
+::view-transition-group(.morph) { animation-duration: 0.7s; animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1); }
+::view-transition-image-pair(.morph) { animation-name: vt-blur; }
+@keyframes vt-blur { 35% { filter: blur(4px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

@@ -1,0 +1,57 @@
+/*
+ * One block per world. Only the shell (nav, footer, curtain) is shared; it reads these tokens,
+ * so it takes on each world's palette. Contrast: --fg and --muted are ≥ 4.5:1 on --bg.
+ * Fonts come from each world's layout via next/font (--f-* set on the world wrapper).
+ */
+
+/* Hangar: graphite + one amber accent */
+[data-world="hangar"] {
+  --bg: #07090c; --bg-2: #0e1217; --fg: #e9ecef; --muted: #98a2ad;
+  --accent: #ffb020; --accent-2: #ffd27a; --line: rgb(255 255 255 / 0.09);
+  --grain: 0.05;
+}
+
+/* Lobby.gg: warm game night (refined in Phase 3) */
+[data-world="lobby"] {
+  --bg: #140c08; --bg-2: #22140d; --fg: #fff3e2; --muted: #c9b29a;
+  --accent: #ff5a36; --accent-2: #f5c451; --line: rgb(255 243 226 / 0.12);
+  --grain: 0.06;
+}
+
+/* FPV: goggle OSD + datasheet */
+[data-world="fpv"] {
+  --bg: #030403; --bg-2: #0a0d0a; --fg: #e4f1e4; --muted: #8fa391;
+  --accent: #ffb020; --accent-2: #3dff8e; --line: rgb(61 255 142 / 0.16);
+  --grain: 0.07;
+}
+
+/* Jarvis: calm near-future */
+[data-world="jarvis"] {
+  --bg: #05070a; --bg-2: #0b1016; --fg: #dde6ee; --muted: #8995a3;
+  --accent: #8cf5d2; --accent-2: #f2f0e6; --line: rgb(221 230 238 / 0.1);
+  --grain: 0.04;
+}
+
+/* Web: light design studio, a different temperature */
+[data-world="web"] {
+  color-scheme: light;
+  --bg: #f1eee7; --bg-2: #e6e2d8; --fg: #121212; --muted: #555049;
+  --accent: #e8380d; --accent-2: #121212; --line: rgb(18 18 18 / 0.14);
+  --grain: 0.08;
+}
+
+/* The page background follows the current world (iOS 15.4+ supports :has; older keeps the default). */
+html:has([data-world="hangar"]) { --bg: #07090c; }
+html:has([data-world="lobby"]) { --bg: #140c08; }
+html:has([data-world="fpv"]) { --bg: #030403; }
+html:has([data-world="jarvis"]) { --bg: #05070a; }
+html:has([data-world="web"]) { --bg: #f1eee7; color-scheme: light; }
+
+[data-world] {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
