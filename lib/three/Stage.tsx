@@ -1,0 +1,73 @@
+"use client";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
+import { useReducedMotion } from "@/lib/motion/useReducedMotion";
+import { afterFirstPaint, hasWebGL } from "./support";
+import { onFirstInteraction } from "./interaction";
+
+const StageCanvas = dynamic(() => import("./StageCanvas"), { ssr: false });
+
+type Props = {
+  /** Static frame shown first, and forever without WebGL or with reduced motion. */
+  poster: ReactNode;
+  /** The R3F scene (already wrapped in next/dynamic by the world, so three.js stays out of the main bundle). */
+  Scene: ComponentType;
+  className?: string;
+  /** Show the poster on phones too (for scenes too heavy for mobile). */
+  posterOnMobile?: boolean;
+  label?: string;
+  /** Passed to the R3F canvas. */
+  camera?: { position: [number, number, number]; fov?: number };
+  shadows?: boolean;
+};
+
+/**
+ * One 3D stage: poster first → WebGL scene after first paint, only while near the viewport.
+ * Decorative by default (aria-hidden); the page content never depends on it.
+ * `className` must position the box (relative / absolute / sticky): poster and canvas fill it.
+ */
+export function Stage({ poster, Scene, className, posterOnMobile = false, label, camera, shadows }: Props) {
+  const reduce = useReducedMotion();
+  const box = useRef<HTMLDivElement>(null);
+  const [mount, setMount] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  // Mount the canvas only when (a) the visitor has interacted, (b) the stage is within about a
+  // screen of the viewport. Once mounted it stays, but renders only while visible.
+  const [near, setNear] = useState(false);
+  const [alive, setAlive] = useState(false);
+  useEffect(() => {
+    if (reduce || !hasWebGL()) return;
+    if (posterOnMobile && window.matchMedia("(max-width: 767px)").matches) return;
+    let cancelPaint = () => {};
+    const cancelWait = onFirstInteraction(() => { cancelPaint = afterFirstPaint(() => setAlive(true)); });
+    return () => { cancelWait(); cancelPaint(); };
+  }, [reduce, posterOnMobile]);
+
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { rootMargin: "200px 0px" });
+    const ioNear = new IntersectionObserver(([e]) => { if (e.isIntersecting) setNear(true); }, { rootMargin: "100% 0px" });
+    io.observe(el); ioNear.observe(el);
+    return () => { io.disconnect(); ioNear.disconnect(); };
+  }, []);
+
+  useEffect(() => {
+    // Publishing the mount decision once both conditions hold.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (alive && near) setMount(true);
+  }, [alive, near]);
+
+  return (
+    <div ref={box} className={className ?? "relative"} aria-hidden={label ? undefined : true} role={label ? "img" : undefined} aria-label={label}>
+      <div style={{ position: "absolute", inset: 0, transition: "opacity .6s", opacity: ready ? 0 : 1 }}>{poster}</div>
+      {mount && !reduce ? (
+        <StageCanvas active={visible} onReady={() => setReady(true)} camera={camera} shadows={shadows}>
+          <Scene />
+        </StageCanvas>
+      ) : null}
+    </div>
+  );
+}

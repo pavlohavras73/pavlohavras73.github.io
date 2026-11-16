@@ -1,0 +1,114 @@
+/* ───────── Play button (the product's red→orange) ───────── */
+.play {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 18px 28px; border-radius: 999px;
+  background: linear-gradient(100deg, #ff2e4d, #ff6a2b);
+  color: #fff; font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.01em;
+  box-shadow: 0 18px 50px -14px rgb(255 60 50 / 0.75), inset 0 1px 0 rgb(255 255 255 / 0.35);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.play:hover { transform: translateY(-2px); box-shadow: 0 26px 70px -14px rgb(255 60 50 / 0.95), inset 0 1px 0 rgb(255 255 255 / 0.35); }
+.playXl { padding: 26px 44px; font-size: clamp(1.4rem, 2.4vw, 2rem); }
+.playArrow { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: rgb(255 255 255 / 0.18); font-size: 0.85em; transition: transform 0.3s; }
+.play:hover .playArrow { transform: rotate(45deg); }
+
+.sticky { position: fixed; z-index: 70; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); display: none; }
+.sticky .play { width: 100%; justify-content: center; }
+@media (max-width: 767px) { .sticky { display: block; } }
+
+/* ───────── Phone frame ───────── */
+.phone { margin: 0; padding: 10px; border-radius: 44px; background: linear-gradient(145deg, #3a2a22, #120b08); box-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.8), inset 0 0 0 1px rgb(255 255 255 / 0.12); }
+.phone img { display: block; width: 100%; height: auto; border-radius: 34px; }
+
+/* ───────── Hero ───────── */
+.heroTrack { position: relative; height: 270vh; }
+.heroPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.heroShade { position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(180deg, rgb(20 12 8 / 0.82) 0%, rgb(20 12 8 / 0.15) 32%, rgb(20 12 8 / 0) 55%, rgb(20 12 8 / 0.88) 100%); }
+.steps { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 520px; }
+.steps li { display: flex; align-items: baseline; gap: 12px; font-size: 15px; opacity: 0.32; transform: translateX(-6px); transition: opacity 0.5s, transform 0.5s; }
+.steps li[data-on="1"] { opacity: 1; transform: none; }
+.stepNum { display: inline-grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--accent-2); color: var(--accent-2); font-size: 12px; font-weight: 700; }
+.steps li[data-on="1"] .stepNum { background: var(--accent-2); color: var(--bg); }
+
+/* ───────── Room ───────── */
+.table { position: relative; margin-top: 48px; width: min(560px, 100%); aspect-ratio: 16 / 10; }
+.tableFelt { position: absolute; inset: 18% 14%; border-radius: 50%; display: grid; place-content: center; text-align: center;
+  background: radial-gradient(ellipse at 50% 40%, #237a52, #12432c 70%); box-shadow: inset 0 0 0 10px #2b110b, inset 0 0 0 13px #6b3a1e, 0 30px 60px -20px rgb(0 0 0 / 0.7); }
+.seat { position: absolute; transform: translate(-50%, -50%) scale(0.6); opacity: 0; display: grid; justify-items: center; gap: 4px;
+  transition: transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1), opacity 0.3s; }
+.seat[data-on="1"] { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.seat i { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; font-style: normal; font-weight: 800; font-family: var(--f-display);
+  background: linear-gradient(135deg, #ff2e4d, #ff6a2b); color: #fff; box-shadow: 0 8px 20px -6px rgb(255 60 50 / 0.7); }
+.seat[data-bot="1"] i { background: #2a2f3a; color: #b9c2d3; box-shadow: none; font-size: 13px; }
+.seat b { font-size: 12px; font-weight: 600; color: var(--muted); }
+
+/* ───────── Chapters ───────── */
+.chapter { position: relative; display: grid; max-width: 1600px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 640px) { .chapter { padding: 0 32px; } }
+.chapterVisual { position: relative; height: 62svh; z-index: 0; margin: 0 -16px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent); mask-image: linear-gradient(to bottom, #000 78%, transparent); }
+.chapterPhone { display: none; }
+.chapterCopy { position: relative; z-index: 1; padding: 32px 0 80px; }
+.chapterBlock { padding: 28px 0; }
+.chapterPoints { margin: 0; padding: 0; list-style: none; }
+.pointNum { display: block; margin-bottom: 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); }
+.chapterPhoneMobile { width: min(280px, 70vw); margin: 24px auto 0; }
+@media (min-width: 1024px) {
+  .chapter { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+  .chapterVisual { position: sticky; top: 0; order: 2; height: 100svh; margin: 0 -32px 0 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%); mask-image: linear-gradient(to right, transparent 0%, #000 22%); }
+  .chapterCopy { order: 1; padding: 22vh 0 30vh; }
+  .chapterBlock { min-height: 46vh; display: flex; flex-direction: column; justify-content: center; }
+  .chapterPhone { display: block; position: absolute; right: 4%; bottom: 6%; width: min(190px, 13vw); transform: rotate(4deg); }
+  .chapterPhoneMobile { display: none; }
+}
+@media (max-width: 1023px) {
+  .chapterCopy { padding-top: 8px; }
+  .chapterBlock { padding: 20px 0; }
+}
+
+/* ───────── Reconnect diagram ───────── */
+.diagram { margin-top: 48px; padding: clamp(16px, 3vw, 36px); border-radius: 28px; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); }
+.dServer { fill: #1a110c; stroke: rgb(245 196 81 / 0.35); }
+.dLabel { fill: var(--muted); font: 600 15px var(--f-body); }
+.dSeat { fill: #2a1d16; }
+.dSeatYou { fill: #ff4d3a; }
+.dSeatHeld { fill: transparent; stroke: #f5c451; stroke-width: 2; stroke-dasharray: 6 5; animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.45; } }
+.dSeatText { fill: #fff3e2; font: 800 15px var(--f-display); }
+.dState { fill: #f5c451; font: 600 14px var(--f-body); }
+.dLink { fill: none; stroke: #46e39a; stroke-width: 3; }
+.dLinkLost { fill: none; stroke: #ff4d3a; stroke-width: 3; stroke-dasharray: 10 12; opacity: 0.7; }
+.dSync { fill: none; stroke: #f5c451; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; animation: sync 0.9s ease-out forwards; }
+@keyframes sync { to { stroke-dashoffset: 0; } }
+.dPhone rect:first-child, .dPhoneOff rect:first-child { fill: #2a1d16; stroke: rgb(255 255 255 / 0.15); }
+.dScreen { fill: #12432c; transition: fill 0.4s; }
+.dPhoneOff .dScreen { fill: #0d0907; }
+.dSteps { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); counter-reset: s; }
+.dSteps li { counter-increment: s; padding-top: 12px; border-top: 2px solid var(--line); color: var(--muted); font-size: 14px; transition: color 0.4s, border-color 0.4s; }
+.dSteps li::before { content: counter(s) " · "; font-weight: 700; }
+.dSteps li[data-on="1"] { color: var(--fg); border-color: var(--accent); }
+
+.honest { margin: 28px 0 0; padding: 0; list-style: none; }
+.honest li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 26px 0; border-top: 1px solid var(--line); }
+@media (min-width: 1024px) { .honest { display: grid; grid-template-columns: 1fr 1fr; column-gap: 64px; } }
+
+/* ───────── Numbers / final ───────── */
+.numbers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; margin: 0; }
+@media (min-width: 1024px) { .numbers { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.numbers dd { margin: 0; }
+.final { max-width: 1600px; margin: 0 auto; padding: 120px 16px 160px; text-align: left; }
+@media (min-width: 640px) { .final { padding: 140px 32px 180px; } }
+
+@media (max-width: 640px) {
+  .dLabel { font-size: 30px; }
+  .dSeatText { font-size: 22px; }
+  .dState { font-size: 24px; }
+}
+
+/* Reduced motion: no scroll-driven deal, so the hero is a single screen. */
+@media (prefers-reduced-motion: reduce) {
+  .heroTrack { height: auto; }
+  .heroPin { position: relative; }
+}
