@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
+import { focusPoint } from "@/lib/motion/sense";
 import { afterFirstPaint } from "@/lib/three/support";
 import { onFirstInteraction } from "@/lib/three/interaction";
 
@@ -71,28 +72,32 @@ export function ShaderField({ frag, accent, className, maxDpr = 1.5 }: Props) {
       ro.observe(canvas);
       resize();
 
-      // Mouse eases toward the pointer; starts off-canvas so nothing glows until it moves.
+      // The glow eases toward the mouse, a finger or the phone's tilt (lib/motion/sense); it starts
+      // off-canvas so nothing glows until one of them moves.
       const mouse = { x: -1e4, y: -1e4, tx: -1e4, ty: -1e4 };
-      const onMove = (e: PointerEvent) => {
+      const follow = () => {
+        const fp = focusPoint();
+        if (!fp) return;
         const r = canvas.getBoundingClientRect();
-        mouse.tx = (e.clientX - r.left) * dpr;
-        mouse.ty = (r.height - (e.clientY - r.top)) * dpr;
+        mouse.tx = (fp.x - r.left) * dpr;
+        mouse.ty = (r.height - (fp.y - r.top)) * dpr;
         if (mouse.x < -1e3) { mouse.x = mouse.tx; mouse.y = mouse.ty; }
       };
-      window.addEventListener("pointermove", onMove, { passive: true });
 
-      const reduce = prefersReducedMotion();
+      // Reduced motion: the field still breathes, at a third of the speed.
+      const rate = prefersReducedMotion() ? 0.33 : 1;
       let visible = true, raf = 0;
       const t0 = performance.now();
       const frame = () => {
         raf = 0;
+        follow();
         mouse.x += (mouse.tx - mouse.x) * 0.08;
         mouse.y += (mouse.ty - mouse.y) * 0.08;
-        gl.uniform1f(uTime, reduce ? 12 : (performance.now() - t0) / 1000);
+        gl.uniform1f(uTime, 12 + ((performance.now() - t0) / 1000) * rate);
         gl.uniform2f(uMouse, mouse.x, mouse.y);
         gl.uniform1f(uScroll, window.scrollY * dpr);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
-        if (!reduce && visible) raf = requestAnimationFrame(frame);
+        if (visible) raf = requestAnimationFrame(frame);
       };
       const io = new IntersectionObserver(([e]) => {
         visible = e.isIntersecting;
@@ -106,7 +111,6 @@ export function ShaderField({ frag, accent, className, maxDpr = 1.5 }: Props) {
         cancelAnimationFrame(raf);
         io.disconnect();
         ro.disconnect();
-        window.removeEventListener("pointermove", onMove);
         gl.getExtension("WEBGL_lose_context")?.loseContext();
       };
     };

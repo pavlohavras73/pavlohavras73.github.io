@@ -3,6 +3,7 @@ import Lenis from "lenis";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { gsap, ScrollTrigger } from "./gsap";
 import { prefersReducedMotion } from "./useReducedMotion";
+import { installSense } from "./sense";
 
 const LenisContext = createContext<Lenis | null>(null);
 
@@ -19,6 +20,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
+    installSense(); // shared mouse / finger / tilt input for the touch-native effects
     if (prefersReducedMotion()) return;
     const l = new Lenis({ lerp: 0.11, wheelMultiplier: 1, touchMultiplier: 1.4 });
     l.on("scroll", ScrollTrigger.update);

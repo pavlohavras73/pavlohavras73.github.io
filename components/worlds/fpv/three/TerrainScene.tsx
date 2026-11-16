@@ -4,6 +4,7 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { flight, terrainHeight, TERRAIN_GLSL } from "../flight";
 import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
+import { sense } from "@/lib/motion/sense";
 
 const SIZE = 700, SEG = 240;
 
@@ -86,9 +87,16 @@ export default function TerrainScene() {
     const speed = still ? 0 : 9 + flight.throttle * 58; // m/s
     flight.speed = speed * 3.6;
 
-    // Sticks: pointer on desktop, a gentle S-curve on touch screens.
-    const rx = still ? 0 : touch ? Math.sin(t * 0.35) * 0.45 : pointer.x;
-    const ry = still ? 0 : touch ? Math.sin(t * 0.23) * 0.2 : pointer.y;
+    // Sticks: the mouse on a laptop. On a phone: tilt the phone (gyro), or hold a finger left /
+    // right of centre; with neither, a gentle S-curve flies itself.
+    let rx = pointer.x, ry = pointer.y;
+    if (touch) {
+      if (sense.tiltOn) { rx = sense.tx * 1.3; ry = -sense.ty * 0.9; }
+      else if (sense.down) { rx = (sense.x / innerWidth - 0.5) * 2.2; ry = 0; }
+      else { rx = Math.sin(t * 0.35) * 0.45; ry = Math.sin(t * 0.23) * 0.2; }
+    }
+    // Reduced motion: no flying by itself, but the phone's own tilt / a held finger still banks the view.
+    if (still && !(touch && (sense.tiltOn || sense.down))) { rx = 0; ry = 0; }
     s.roll += (rx * 0.6 - s.roll) * Math.min(1, dt * 3);
     s.pitch += (ry * 0.18 - s.pitch) * Math.min(1, dt * 3);
     s.heading += s.roll * dt * 0.55; // bank right → turn right

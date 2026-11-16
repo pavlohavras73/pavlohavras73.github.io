@@ -126,7 +126,8 @@
 .glowText { color: var(--accent-2); text-shadow: 0 0 22px rgb(245 196 81 / 0.55); }
 
 .bokeh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0.32; }
+.bokehLayer { position: absolute; inset: 0; transform: translate3d(calc(var(--tx, 0) * var(--z) * -46px), calc(var(--ty, 0) * var(--z) * -40px), 0); }
 .bokeh i { position: absolute; border-radius: 50%; filter: blur(28px); transform: translate(-50%, -50%); mix-blend-mode: screen; animation: drift linear infinite alternate; }
 @keyframes drift { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-38%, -62%) scale(1.15); } 100% { transform: translate(-62%, -42%) scale(0.92); } }
 
-@media (prefers-reduced-motion: reduce) { .neon { animation: none; } .bokeh i { animation: none; } }
+

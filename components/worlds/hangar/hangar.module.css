@@ -41,6 +41,7 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes bob { 50% { transform: translateY(5px); } }
 @media (max-width: 767px) { .badge { width: 104px; height: 104px; } .badge text { font-size: 10.5px; } }
+@media (prefers-reduced-motion: reduce) { .badge svg { animation: none; } }
 
 /* ───────────────────────── Doors ───────────────────────── */
 .doors { display: flex; flex-direction: column; gap: 10px; }
@@ -63,6 +64,24 @@
   .doors .door:hover, .doors .door:focus-visible { flex-grow: 2.4; }
 }
 .door:hover, .door:focus-visible { box-shadow: inset 0 0 0 1px var(--door-accent), 0 40px 120px -40px var(--door-accent); }
+
+/* Phones: a sticky deck (see useDeck in Doors.tsx). --cover 0..1 = how much the next card hides this one. */
+@media (max-width: 1023px) {
+  .doors { gap: 18px; padding-bottom: 8vh; }
+  .door { position: sticky; top: calc(74px + var(--i, 0) * 12px); min-height: min(66svh, 560px);
+    transform-origin: 50% 0; transform: scale(calc(1 - var(--cover, 0) * 0.08)); filter: brightness(calc(1 - var(--cover, 0) * 0.6));
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08), 0 -18px 40px -10px rgb(0 0 0 / 0.75); }
+  .door[data-active="1"] { box-shadow: inset 0 0 0 1px var(--door-accent), 0 -18px 40px -10px rgb(0 0 0 / 0.75), 0 30px 90px -30px var(--door-accent); }
+  .door[data-active="1"] .card { transform: rotate(calc(var(--k) * 19deg)) translateY(-14px); }
+  .door[data-active="1"] .enter span { transform: translateX(6px); }
+  .door:active { transform: scale(0.975); transition: transform 0.15s; }
+}
+/* the moment a door becomes active (or is hovered) a band of its colour sweeps across it */
+.door::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; transform: translateX(-110%);
+  background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--door-accent) 26%, transparent) 50%, transparent 65%); }
+.door[data-active="1"]::after { animation: doorSweep 0.9s cubic-bezier(0.3, 0.6, 0.2, 1) both; }
+@media (hover: hover) { .door:hover::after { animation: doorSweep 0.9s cubic-bezier(0.3, 0.6, 0.2, 1) both; } }
+@keyframes doorSweep { to { transform: translateX(110%); } }
 
 .doorTop { display: flex; justify-content: space-between; gap: 12px; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--door-muted); }
 .doorTitle { font-family: var(--door-font); font-size: clamp(2.4rem, 4.2vw, 4.4rem); font-size: clamp(1.6rem, 15cqi, 4.4rem); transition: font-size 0.7s cubic-bezier(0.7, 0, 0.2, 1); line-height: 0.92; letter-spacing: -0.01em; margin: 0; }

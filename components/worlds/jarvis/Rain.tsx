@@ -6,8 +6,8 @@ import { GLYPHS } from "@/lib/motion/Scramble";
 
 /**
  * Digital rain behind the Jarvis world: sparse columns of katakana and digits, mint heads with
- * fading tails. ~24 fps on a 2D canvas, paused when the tab is hidden, a still frame for reduced
- * motion. Decorative only.
+ * fading tails. ~24 fps on a 2D canvas, paused when the tab is hidden; slower and fainter for
+ * reduced motion. A tap (or click) splashes a burst of code out of that spot. Decorative only.
  */
 export function Rain() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -30,12 +30,14 @@ export function Rain() {
     resize();
     addEventListener("resize", resize);
 
+    const calm = prefersReducedMotion();
+    const rate = calm ? 0.45 : 1;
     const draw = (still = false) => {
       ctx.clearRect(0, 0, W, H);
       ctx.font = `${size - 2}px ui-monospace, monospace`;
       cols.forEach((c, i) => {
         if (i % 3 === 1) return; // leave gaps: two of every three columns
-        if (!still) { c.y += c.speed * size * 0.35; if (c.y - c.len * size > H) { c.y = Math.random() * -200; c.speed = 0.4 + Math.random() * 0.9; } }
+        if (!still) { c.y += c.speed * size * 0.35 * rate; if (c.y - c.len * size > H) { c.y = Math.random() * -200; c.speed = 0.4 + Math.random() * 0.9; } }
         for (let k = 0; k < c.len; k++) {
           const y = c.y - k * size;
           if (y < -size || y > H + size) continue;
@@ -46,7 +48,18 @@ export function Rain() {
       });
     };
 
-    if (prefersReducedMotion()) { cols.forEach((c) => { c.y = Math.random() * H * 1.4; }); draw(true); return () => removeEventListener("resize", resize); }
+    const splash = (x: number, y: number) => {
+      const ci = Math.round(x / size);
+      for (let k = ci - 5; k <= ci + 5; k++) {
+        const c = cols[k];
+        if (!c) continue;
+        c.y = y + Math.random() * 30 - Math.abs(k - ci) * 6;
+        c.speed = 1.4 + Math.random() * 1.2;
+        c.len = 5 + Math.random() * 12;
+      }
+    };
+    const tap = (e: PointerEvent) => splash(e.clientX, e.clientY);
+    addEventListener("pointerdown", tap, { passive: true });
 
     let raf = 0, last = 0, running = false;
     const loop = (t: number) => {
@@ -55,9 +68,9 @@ export function Rain() {
       last = t;
       draw();
     };
-    const start = () => { if (!running) { running = true; raf = requestAnimationFrame(loop); cv.style.opacity = "1"; } };
+    const start = () => { if (!running) { running = true; raf = requestAnimationFrame(loop); cv.style.opacity = calm ? "0.6" : "1"; } };
     const cancel = onFirstInteraction(start);
-    return () => { cancel(); cancelAnimationFrame(raf); removeEventListener("resize", resize); };
+    return () => { cancel(); cancelAnimationFrame(raf); removeEventListener("resize", resize); removeEventListener("pointerdown", tap); };
   }, []);
 
   return <canvas ref={ref} aria-hidden="true" style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", opacity: 0, transition: "opacity 1.5s" }} />;

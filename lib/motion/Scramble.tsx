@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { prefersReducedMotion } from "./useReducedMotion";
 
 export const GLYPHS = {
   latin: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&/<>_",
@@ -17,7 +16,7 @@ export function Scramble({ text, className, duration = 700, trigger, glyphs = GL
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el) return;
     const set = [...glyphs];
     let raf = 0;
     const run = () => {

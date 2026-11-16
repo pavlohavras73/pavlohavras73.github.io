@@ -5,6 +5,7 @@ import { jarvis, site, worlds } from "@/content";
 import { Stage } from "@/lib/three/Stage";
 import { portalName } from "@/lib/portal";
 import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
+import { focusPoint, installSense } from "@/lib/motion/sense";
 import { Magnetic } from "@/lib/motion/Magnetic";
 import { TLink } from "@/components/shell/TLink";
 import { pulse } from "./pulse";
@@ -62,7 +63,7 @@ export function Architecture() {
   const box = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!auto || prefersReducedMotion()) return;
+    if (!auto) return;
     const id = window.setInterval(() => { setActive((a) => (a + 1) % nodes.length); pulse.kick(0.5); }, 2600);
     return () => clearInterval(id);
   }, [auto, nodes.length]);
@@ -103,7 +104,6 @@ export function Exchange() {
   const [typing, setTyping] = useState(false);
 
   useInView(ref, () => {
-    if (prefersReducedMotion()) { setShown(msgs.length); return; }
     const timers: number[] = [];
     let t = 300;
     msgs.forEach((m, i) => {
@@ -229,9 +229,8 @@ export function Brain() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => { W = el.clientWidth; H = el.clientHeight; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
     const ro = new ResizeObserver(resize); ro.observe(el); resize();
-    let mx = -1e9, my = -1e9;
-    const move = (e: PointerEvent) => { const r = el.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; };
-    el.addEventListener("pointermove", move);
+    let mx = -1e9, my = -1e9; // mouse, finger or tilt (see lib/motion/sense)
+    installSense();
 
     (async () => {
       const [{ forceSimulation, forceLink, forceManyBody, forceX, forceY, forceCollide }, data] = await Promise.all([
@@ -245,18 +244,19 @@ export function Brain() {
       type N = { i: number; g: number; d: number; r: number; x?: number; y?: number };
       const nodes: N[] = data.g.map((g, i) => ({ i, g, d: deg[i], r: 1.4 + Math.sqrt(deg[i]) * 1.3 }));
       const links = data.e.map(([s0, t]) => ({ source: s0, target: t }));
-      const sim = forceSimulation(nodes as never)
+      forceSimulation(nodes as never)
         .force("link", forceLink(links).distance(16).strength(0.55))
         .force("charge", forceManyBody().strength(-7).distanceMax(150))
         .force("x", forceX(0).strength(0.05)).force("y", forceY(0).strength(0.07))
         .force("collide", forceCollide((d: N) => d.r + 0.6))
-        .alphaDecay(reduce ? 0.2 : 0.012);
-      if (reduce) sim.tick(300);
+        .alphaDecay(0.012);
       let scale = 1, t = 0;
       const draw = () => {
         if (stop) return;
         raf = requestAnimationFrame(draw);
-        t += reduce ? 0 : 0.0025;
+        t += reduce ? 0.0008 : 0.0025; // calm: a slow turn instead of none
+        const fp = focusPoint();
+        if (fp && fp.w > 0.2) { const r = el.getBoundingClientRect(); mx = fp.x - r.left; my = fp.y - r.top; } else { mx = my = -1e9; }
         let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
         for (const n of nodes) { x0 = Math.min(x0, n.x!); x1 = Math.max(x1, n.x!); y0 = Math.min(y0, n.y!); y1 = Math.max(y1, n.y!); }
         scale += (Math.min(W / (x1 - x0 + 40), H / (y1 - y0 + 40)) - scale) * 0.05;
@@ -278,7 +278,7 @@ export function Brain() {
       draw();
     })();
 
-    return () => { stop = true; cancelAnimationFrame(raf); ro.disconnect(); el.removeEventListener("pointermove", move); cv.remove(); };
+    return () => { stop = true; cancelAnimationFrame(raf); ro.disconnect(); cv.remove(); };
   }, 0.1);
 
   const [notes, links] = [jarvis.stats[1], jarvis.stats[2]];

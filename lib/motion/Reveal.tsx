@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, type ElementType, type ReactNode } from "react";
-import { prefersReducedMotion } from "./useReducedMotion";
 
 /**
  * Marks its element `data-in="1"` the first time it scrolls into view. Each world styles
@@ -13,7 +12,6 @@ export function Reveal({ as: Tag = "div", children, className, delay = 0, varian
     const el = ref.current;
     if (!el) return;
     el.dataset.armed = "1"; // hidden state only once JS is running
-    if (prefersReducedMotion()) { el.dataset.in = "1"; return; }
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) { el.dataset.in = "1"; io.disconnect(); }
     }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });

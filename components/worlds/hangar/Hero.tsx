@@ -2,6 +2,7 @@ import { hangar, site } from "@/content";
 import { Clock } from "./Clock";
 import { Field } from "./Field";
 import { Badge, Cycler, Melt } from "./Melt";
+import { TiltChip } from "@/components/shell/TiltChip";
 import s from "./hangar.module.css";
 
 export function Hero() {
@@ -30,8 +31,9 @@ export function Hero() {
                 <Cycler items={heroLine.parts} />
               </p>
             </div>
-            <div className={s.fadeIn} style={{ ["--d" as string]: "1.1s" }}>
+            <div className={`${s.fadeIn} flex items-end justify-between gap-4`} style={{ ["--d" as string]: "1.1s" }}>
               <Badge href="#projects" text={hangar.doorsTitle} />
+              <TiltChip label="Tilt to melt" className="md:hidden" />
             </div>
           </div>
         </div>

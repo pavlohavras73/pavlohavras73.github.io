@@ -10,6 +10,7 @@ import { drones } from "@/content";
 /** Ready for meshopt-compressed models; the decoder ships with three (no CDN). */
 const extendLoader = (loader: GLTFLoader) => { loader.setMeshoptDecoder(MeshoptDecoder); };
 import { droneSel } from "../droneSel";
+import { sense } from "@/lib/motion/sense";
 
 // Ported from the old portfolio's drones.js (props spin about their hub, on the shaft axis,
 // diagonal pairs in opposite directions, spool-up on every appearance).
@@ -69,7 +70,7 @@ function Drone({ id }: { id: string }) {
     const e = 1 - Math.pow(1 - grow.current, 3);
     if (holder.current) { holder.current.scale.setScalar(Math.max(0.001, e)); holder.current.rotation.y = -1.2 * (1 - e); }
     // ~2.2 rev/s reads as rotation; real rpm strobes on a 60 Hz screen.
-    const w = (droneSel.reduce ? 0 : 14) * (1 - Math.pow(1 - spool.current, 3)) * dt;
+    const w = 14 * (1 - Math.pow(1 - spool.current, 3)) * dt;
     d.spinners.forEach((p) => p.rotateOnAxis(p.userData.axis as THREE.Vector3, w * (p.userData.dir as number)));
   });
   return <group ref={holder}><primitive object={d.root} /></group>;
@@ -107,11 +108,14 @@ export default function DroneScene() {
     if (!p) return;
     if (!drag.current.on) {
       drag.current.v *= Math.exp(-3.5 * dt);
-      const auto = performance.now() < drag.current.resume || droneSel.reduce ? 0 : 0.45;
+      const auto = performance.now() < drag.current.resume ? 0 : droneSel.reduce ? 0.18 : 0.45;
       p.rotation.y += dt * (auto + drag.current.v);
     }
-    p.rotation.x += (0.18 + pointer.y * 0.2 - p.rotation.x) * 0.05;
-    p.rotation.z += (-pointer.x * 0.18 - p.rotation.z) * 0.05;
+    // Mouse on a laptop; on a phone the drone banks and pitches with the phone itself.
+    const sx = sense.tiltOn ? sense.tx * 1.6 : pointer.x, sy = sense.tiltOn ? -sense.ty * 1.4 : pointer.y;
+    if (sense.tiltOn && !drag.current.on) p.rotation.y += sense.tx * dt * 1.4; // tilt also yaws it round
+    p.rotation.x += (0.18 + sy * 0.2 - p.rotation.x) * 0.05;
+    p.rotation.z += (-sx * 0.18 - p.rotation.z) * 0.05;
     p.position.y = Math.sin(clock.elapsedTime * 1.6) * 0.04;
     if (ring.current) ring.current.scale.setScalar(0.8 + Math.sin(clock.elapsedTime * 2) * 0.016);
   });

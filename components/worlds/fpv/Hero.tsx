@@ -5,6 +5,7 @@ import { Stage } from "@/lib/three/Stage";
 import { portalName } from "@/lib/portal";
 import { ScrollTrigger } from "@/lib/motion/gsap";
 import { useScrollVelocity } from "@/lib/motion/useScrollVelocity";
+import { TiltChip } from "@/components/shell/TiltChip";
 import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
 import { TerrainScene } from "./scenes";
 import { flight } from "./flight";
@@ -109,6 +110,7 @@ export function Hero() {
             </ViewTransition>
             <p className="mt-5 max-w-[46ch] text-[15px] leading-relaxed text-fg/85">{fpv.hero.lead}</p>
             <p className={s.hint}>{fpv.hero.hint} <span className={s.hintPointer}>{fpv.hero.hintPointer}</span></p>
+            <TiltChip label="Tilt phone to fly" className="mt-4" />
           </div>
         </div>
       </ViewTransition>

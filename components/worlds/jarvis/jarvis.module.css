@@ -117,4 +117,4 @@
 @keyframes cursorBlink { 50% { opacity: 0; } }
 .chat li, .detail, .phone { backdrop-filter: blur(2px); }
 .section, .hero { position: relative; }
-@media (prefers-reduced-motion: reduce) { .title { animation: none; } .cursor { animation: none; } }
+

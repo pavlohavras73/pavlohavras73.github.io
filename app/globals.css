@@ -82,12 +82,24 @@ html.lenis, html.lenis body { height: auto; }
 ::view-transition-image-pair(.morph) { animation-name: vt-blur; }
 @keyframes vt-blur { 35% { filter: blur(4px); } }
 
+/* Reduced motion = calm, not frozen. Each world switches off what travels or spins (parallax,
+   pinned flights, smooth-scroll, spinning stickers) in its own CSS; colour, glow, fades, text
+   decoding and slow ambient drift stay, so phones with the setting on still feel alive. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
+  html { scroll-behavior: auto !important; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* Tilt chip (phones): turns on gyroscope control. */
+.tilt-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px 9px 11px;
+  font: 600 11px/1 var(--f-mono, ui-monospace, monospace); letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 70%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  touch-action: manipulation;
+}
+.tilt-chip i { width: 14px; height: 14px; border: 1.5px solid currentColor; border-radius: 4px; animation: tilt-wobble 1.6s ease-in-out infinite; }
+.tilt-chip[data-state="on"] i { animation: none; background: currentColor; border-radius: 50%; width: 8px; height: 8px; box-shadow: 0 0 10px currentColor; }
+.tilt-chip[data-state="no"] { color: var(--muted); border-color: var(--line); }
+.tilt-chip:active { transform: scale(0.96); }
+@keyframes tilt-wobble { 0%, 100% { transform: rotate(-18deg); } 50% { transform: rotate(18deg); } }

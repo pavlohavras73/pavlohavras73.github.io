@@ -67,6 +67,7 @@
 .rowName { font-family: var(--f-display); font-weight: 900; text-transform: uppercase; font-size: clamp(2.6rem, 8.5vw, 8.5rem); line-height: 0.86; letter-spacing: 0.005em;
   color: transparent; -webkit-text-stroke: 1.5px var(--fg); transition: color 0.3s, -webkit-text-stroke-color 0.3s, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .row[data-on="1"] .rowName { color: #0b0b0c; -webkit-text-stroke-color: #0b0b0c; transform: translateX(18px) skewX(-6deg); }
+@media (max-width: 1023px) { .row[data-on="1"] .rowName { transform: translateX(3px) skewX(-6deg); } }
 .row[data-on="1"] .rowNum { color: #0b0b0c; }
 .rowMeta { grid-column: 2; display: grid; gap: 10px; }
 .rowLine { max-width: 60ch; color: var(--muted); font-size: 15px; transition: color 0.3s; }
@@ -74,7 +75,11 @@
 .rowTags { display: flex; flex-wrap: wrap; gap: 6px; }
 .rowTags i { font-style: normal; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 8px; border: 1px solid var(--line); }
 .row[data-on="1"] .rowTags i { border-color: #0b0b0c; color: #0b0b0c; }
-.rowThumb { grid-column: 2; width: 100%; height: auto; margin-top: 8px; border: 1px solid var(--line); filter: grayscale(0.2) contrast(1.05); }
+.rowThumb { grid-column: 2; position: relative; display: block; margin-top: 8px; border: 1px solid var(--line); overflow: hidden; }
+.rowThumb img, .rowThumb video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; filter: grayscale(0.2) contrast(1.05); }
+.rowThumb video { position: absolute; inset: 0; height: 100%; filter: none; animation: glitchIn 0.5s steps(3) both; }
+.row[data-on="1"] .rowThumb { border-color: #0b0b0c; box-shadow: 6px 6px 0 #0b0b0c; }
+.row:active { transform: scale(0.985); }
 @media (min-width: 1024px) {
   .row { grid-template-columns: 60px minmax(0, 1fr) minmax(0, 360px); padding: 22px 0; }
   .rowMeta { grid-column: 3; align-self: center; }
@@ -112,6 +117,4 @@
 .next b { display: block; margin-top: 8px; font-family: var(--f-display); font-weight: 900; text-transform: uppercase; font-size: clamp(3rem, 10vw, 9rem); line-height: 0.85; color: transparent; -webkit-text-stroke: 1.5px var(--fg); transition: color 0.3s; }
 .next:hover b { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
 
-@media (prefers-reduced-motion: reduce) {
-  .tapeTrack, .titleLine::after, .sticker, .dots { animation: none !important; }
-}
+

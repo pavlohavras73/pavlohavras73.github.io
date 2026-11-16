@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
+import { focusPoint, isTouchDevice } from "@/lib/motion/sense";
 import s from "./hangar.module.css";
 
 /**
@@ -12,28 +12,35 @@ export function Melt({ text, className }: { text: string; className?: string }) 
 
   useEffect(() => {
     const h = ref.current;
-    if (!h || prefersReducedMotion()) return;
+    if (!h) return;
+    // The letters change shape in place (no movement), so this also runs for reduced motion.
     const letters = [...h.querySelectorAll<HTMLSpanElement>("[data-l]")];
-    let mx = -1e4, my = -1e4, raf = 0;
+    const touch = isTouchDevice();
+    let raf = 0, visible = true, lastY = scrollY, speed = 0;
     const cur = letters.map(() => 1979);
-    const move = (e: PointerEvent) => { mx = e.clientX; my = e.clientY; };
-    addEventListener("pointermove", move, { passive: true });
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
+    io.observe(h);
     const t0 = performance.now();
     const tick = (t: number) => {
       raf = requestAnimationFrame(tick);
+      if (!visible) return;
       const time = (t - t0) / 1000;
+      // Phones: scrolling melts the whole name, a finger or the tilt melts the letters nearby.
+      speed = speed * 0.9 + Math.min(1, Math.abs(scrollY - lastY) / 18) * 0.1;
+      lastY = scrollY;
+      const fp = focusPoint();
       letters.forEach((el, i) => {
         const r = el.getBoundingClientRect();
-        const d = Math.hypot(r.left + r.width / 2 - mx, r.top + r.height / 2 - my);
-        const near = Math.max(0, 1 - d / 260);
-        const wave = (Math.sin(time * 1.1 - i * 0.45) + 1) / 2; // 0..1 travelling wave
-        const target = 1979 + (wave * 0.35 + near * 0.9) * 71;
+        let near = 0;
+        if (fp) near = Math.max(0, 1 - Math.hypot(r.left + r.width / 2 - fp.x, r.top + r.height / 2 - fp.y) / (touch ? 200 : 260)) * fp.w;
+        const wave = (Math.sin(time * (touch ? 1.6 : 1.1) - i * 0.45) + 1) / 2; // 0..1 travelling wave
+        const target = 1979 + (wave * (touch ? 0.5 : 0.35) + near * 0.9 + speed * 1.4) * 71;
         cur[i] += (Math.min(2050, target) - cur[i]) * 0.12;
         el.style.fontVariationSettings = `"YEAR" ${cur[i].toFixed(1)}`;
       });
     };
     raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); removeEventListener("pointermove", move); };
+    return () => { cancelAnimationFrame(raf); io.disconnect(); };
   }, []);
 
   return (
@@ -50,7 +57,7 @@ export function Cycler({ items, className }: { items: string[]; className?: stri
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el) return;
     let i = 0;
     const id = window.setInterval(() => {
       i = (i + 1) % items.length;

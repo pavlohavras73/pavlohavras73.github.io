@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { classLabel, drones, fpv, isTodo } from "@/content";
 import { Stage } from "@/lib/three/Stage";
+import { TiltChip } from "@/components/shell/TiltChip";
 import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
 import { hasWebGL } from "@/lib/three/support";
 import { DroneScene } from "./scenes";
@@ -19,7 +20,6 @@ function Num({ value, dec = 0 }: { value: number; dec?: number }) {
     const el = ref.current;
     if (!el) return;
     const fmt = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-    if (prefersReducedMotion()) { el.textContent = fmt(value); from.current = value; return; }
     const a = from.current, t0 = performance.now();
     let raf = 0;
     const step = (t: number) => {
@@ -41,8 +41,8 @@ function LoadOverlay({ id, name }: { id: string; name: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const pct = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    // No 3D at all (reduced motion / no WebGL): the poster is the final state, no loader.
-    if (prefersReducedMotion() || !hasWebGL()) { if (ref.current) ref.current.dataset.on = ""; return; }
+    // No 3D at all (no WebGL): the poster is the final state, no loader.
+    if (!hasWebGL()) { if (ref.current) ref.current.dataset.on = ""; return; }
     let raf = 0;
     const tick = () => {
       const ready = droneSel.readyId === id;
@@ -72,7 +72,7 @@ export function Drones() {
   useEffect(() => { droneSel.index = i; }, [i]);
   useEffect(() => { droneSel.reduce = prefersReducedMotion(); }, []);
   useEffect(() => {
-    if (!auto || prefersReducedMotion()) return;
+    if (!auto) return;
     let visible = false;
     const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
     if (box.current) io.observe(box.current);
@@ -89,6 +89,7 @@ export function Drones() {
         <Stage className="absolute inset-0" Scene={DroneScene} camera={{ position: [0, 0.7, 3.2], fov: 32 }} poster={<div className={s.dronePoster} />} />
         <LoadOverlay id={d.id} name={d.name} />
         <p className={s.dragHint} aria-hidden="true">← drag to turn →</p>
+        <div className={s.tiltSlot}><TiltChip label="Tilt to turn" /></div>
       </div>
       <div className={s.sheet}>
         <p className={s.kicker}>{"// "}Fleet · {drones.length} drones</p>

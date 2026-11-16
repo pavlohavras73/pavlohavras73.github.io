@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import { lobby } from "@/content";
 import { gsap } from "@/lib/motion/gsap";
-import { prefersReducedMotion } from "@/lib/motion/useReducedMotion";
 import { PlayButton } from "./Bits";
 import s from "./lobby.module.css";
 
@@ -15,7 +14,7 @@ export function Numbers() {
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el) return;
     const nodes = [...el.querySelectorAll<HTMLElement>("[data-to]")];
     nodes.forEach((n) => { n.textContent = "0"; });
     const io = new IntersectionObserver(([e]) => {
