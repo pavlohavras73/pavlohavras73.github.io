@@ -44,17 +44,43 @@ export const drones: Drone[] = [
   { id: "longrange7_6s", name: '7" Long Range 6S', maker: null, cls: "longrange7", massG: 1100, kv: 1300, propMm: 178, cells: 6, mah: 3000, twr: 5.0, spinupMs: 60, motor: "2807 1300KV", frame: t('7" long-range frame') },
 ];
 
+// Facts from the public showcase repo README (github.com/pavlohavras73/fpvsim) and its screenshots.
 export const fpv = {
   repoUrl: "https://github.com/pavlohavras73/fpvsim",
   status: "In active development · since Sep 2026",
-  hero: "A physics-first simulator, flown with a real RadioMaster radio.",
-  modelling: "Every drone is modelled from real data: mass, motor KV, thrust, voltage sag, rotor inertia.",
+  sourceNote: "The source is private while the simulator is in development; the showcase repo has the details.",
+  hero: {
+    kicker: "Unity 6 · C# · Python",
+    lead: "A physics-first simulator, flown with a real RadioMaster Pocket radio. The goal: every drone feels like its real counterpart.",
+    hint: "Scroll is the throttle.",
+    hintPointer: "Move the mouse to roll and pitch.",
+  },
+  modelling: "Every model is built from manufacturer data, not tuned by eye: mass, motor KV, prop size, thrust, battery cell count, voltage sag, rotor inertia, motor spin-up time.",
   pipeline: [
-    { step: "Python reference", body: "The flight model is written first as a readable Python reference." },
-    { step: "Golden tests", body: "Its outputs are frozen as golden tests." },
-    { step: "Port to C#", body: "The Unity port has to match the golden outputs." },
+    { id: "py", step: "Python reference", file: "flight_model.py", body: "The flight model is written first as a readable Python reference. It runs without a GPU, so the physics can be checked anywhere, including in CI." },
+    { id: "golden", step: "Golden vectors", file: "golden test vectors", body: "Its outputs are frozen as golden test vectors." },
+    { id: "cs", step: "C# engine", file: "same equations", body: "The Unity engine implements the same equations and has to match the golden vectors." },
   ],
-  features: ["PID auto-tuner", "Acro rates", "Battery voltage sag", "Vortex ring state"],
-  maps: "Procedural maps: a Blender pipeline plus voxel flight checks.",
-  engine: "Unity 6 URP, Linux and Windows builds, CI on my own server.",
+  tuner: "The PID auto-tuner finds gains for each drone class against a target step response, instead of hand-tuning.",
+  features: [
+    { id: "pid", title: "PID auto-tuner", body: "Gains for each drone class, found against a target step response." },
+    { id: "rates", title: "Acro rates", body: "Betaflight-style rates. The curve below uses RC rate 1.00, super rate 0.70, expo 0.00, as set in the simulator's menu." },
+    { id: "sag", title: "Voltage sag", body: "The battery drops under load, so a punch-out feels different at the end of a pack." },
+    { id: "vrs", title: "Vortex ring state", body: "Descend straight into your own downwash and the drone loses lift, like the real thing." },
+  ],
+  rates: { rcRate: 1.0, superRate: 0.7, expo: 0.0 },
+  maps: {
+    title: "Procedural maps",
+    lead: "A 4-storey abandoned building, 48 × 28 m, with an atrium, stairwells, collapsed floors and 22 gates, generated from a single layout file, so visuals, colliders and race gates never drift apart.",
+    voxel: "A voxel flyability check proves every gate is reachable before the map is built.",
+    steps: ["Layout script", "Voxel flyability check", "Blender: meshes, FBX", "Unity prefab builder"],
+    shots: [
+      { src: "/img/fpv/aerial.webp", alt: "The abandoned building map from above, with the simulator's flight HUD" },
+      { src: "/img/fpv/atrium.webp", alt: "Flying inside the building's atrium" },
+      { src: "/img/fpv/ruins.webp", alt: "Collapsed floors inside the building" },
+    ],
+  },
+  hardware: "RadioMaster Pocket over USB, with configurable rates and key bindings.",
+  menuShot: { src: "/img/fpv/menu-main.webp", alt: "The simulator's main menu: a 5-inch freestyle drone on a pedestal with its spec card, rates and live radio channels" },
+  stack: ["Unity 6 (URP)", "C#", "Python", "Blender (bpy)", "Linux & Windows builds", "CI on my own server"],
 };

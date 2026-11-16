@@ -1,11 +1,16 @@
-import { worlds } from "@/content";
-import { WorldIntro } from "@/components/shell/WorldIntro";
+import { Hero } from "@/components/worlds/fpv/Hero";
+import { Drones } from "@/components/worlds/fpv/Drones";
+import { Features, Maps, Pipeline, Status } from "@/components/worlds/fpv/Sections";
 
-// Phase 1 placeholder: real content, final art direction comes in this world's phase.
 export default function FpvPage() {
   return (
     <>
-      <WorldIntro world={worlds.fpv} />
+      <Hero />
+      <Drones />
+      <Pipeline />
+      <Features />
+      <Maps />
+      <Status />
     </>
   );
 }
