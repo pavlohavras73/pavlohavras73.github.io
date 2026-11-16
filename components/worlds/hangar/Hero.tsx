@@ -20,7 +20,7 @@ export function Hero() {
         </div>
 
         <div className="mt-auto">
-          <Melt text={site.name} className="text-[clamp(3.2rem,12.5vw,13rem)]" />
+          <Melt text={site.name} className="text-[clamp(2.4rem,12.5vw,13rem)]" />
           <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
             <div className={s.fadeIn} style={{ ["--d" as string]: "0.75s" }}>
               <p className="font-mono text-[13px] uppercase tracking-[0.16em] text-accent">{site.role}</p>
