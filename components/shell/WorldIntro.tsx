@@ -1,6 +1,7 @@
 import { ViewTransition } from "react";
 import type { Stat, WorldMeta } from "@/content";
 import { TLink } from "./TLink";
+import { portalName } from "@/lib/portal";
 
 /**
  * Phase-1 placeholder hero for a world: real title, tagline, CTA and numbers.
@@ -8,12 +9,12 @@ import { TLink } from "./TLink";
  * Each world replaces this with its own hero in its phase.
  */
 export function WorldIntro({ world, stats }: { world: WorldMeta; stats?: Stat[] }) {
+  const names = portalName(world.id as Parameters<typeof portalName>[0]);
   return (
+    <ViewTransition name={names.frame} share="morph" default="none">
     <section className="mx-auto flex min-h-[100svh] max-w-[1600px] flex-col justify-end px-4 pb-16 pt-32 sm:px-8">
-      <ViewTransition name={`portal-${world.id}`} share="morph" default="none">
-        <div>
-          <h1 className="font-display text-[clamp(3rem,11vw,10rem)] leading-[0.9] font-semibold tracking-[-0.02em]">{world.title}</h1>
-        </div>
+      <ViewTransition name={names.title} share="morph" default="none">
+        <h1 className="font-display text-[clamp(3rem,11vw,10rem)] leading-[0.9] font-semibold tracking-[-0.02em]">{world.title}</h1>
       </ViewTransition>
       <p className="mt-6 max-w-[40ch] text-lg text-muted sm:text-xl">{world.tagline}</p>
       {stats?.length ? (
@@ -40,5 +41,6 @@ export function WorldIntro({ world, stats }: { world: WorldMeta; stats?: Stat[] 
         )}
       </div>
     </section>
+    </ViewTransition>
   );
 }

@@ -9,10 +9,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   turbopack: {
     rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
+      // Keep CSS Modules as modules: a plain `as: "*.css"` would turn *.module.css into global CSS
+      // (unhashed classes in the CSS, hashed ones in the HTML → no styles).
+      "*.css": [
+        { condition: { not: { path: /\.module\.css$/ } }, loaders: ["@tailwindcss/turbopack"], as: "*.css" },
+        { condition: { path: /\.module\.css$/ }, loaders: ["@tailwindcss/turbopack"], as: "*.module.css" },
+      ],
     },
   },
 };

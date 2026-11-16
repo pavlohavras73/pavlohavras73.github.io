@@ -18,6 +18,8 @@ export type WorldMeta = {
   title: string;
   /** One line under the title on the portal tile. */
   tagline: string;
+  /** Short category label on the portal door, e.g. "AI agent". */
+  kind: string;
   /** Page <title> and description. */
   metaTitle: string;
   metaDescription: string;

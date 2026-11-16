@@ -3,6 +3,7 @@ import type { WorldId, WorldMeta } from "./types";
 export const worlds: Record<Exclude<WorldId, "hangar">, WorldMeta> = {
   lobby: {
     id: "lobby",
+    kind: "Multiplayer games",
     route: "/lobby/",
     title: "Lobby.gg",
     tagline: "Game night with friends: 28 browser games, one link.",
@@ -12,6 +13,7 @@ export const worlds: Record<Exclude<WorldId, "hangar">, WorldMeta> = {
   },
   fpv: {
     id: "fpv",
+    kind: "Unity · C# · Python",
     route: "/fpv/",
     title: "FPV Drone Simulator",
     tagline: "Physics-first, flown with a real RadioMaster radio.",
@@ -21,6 +23,7 @@ export const worlds: Record<Exclude<WorldId, "hangar">, WorldMeta> = {
   },
   jarvis: {
     id: "jarvis",
+    kind: "AI agent",
     route: "/jarvis/",
     title: "Jarvis",
     tagline: "My own AI agent, running around the clock.",
@@ -30,6 +33,7 @@ export const worlds: Record<Exclude<WorldId, "hangar">, WorldMeta> = {
   },
   web: {
     id: "web",
+    kind: "Frontend",
     route: "/web/",
     title: "Web Showcase",
     tagline: "Seven sites, seven art directions.",

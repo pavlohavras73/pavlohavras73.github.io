@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { WorldId } from "@/content";
+import { Cursor } from "./Cursor";
 import { Footer } from "./Footer";
 import { Nav } from "./Nav";
 
@@ -14,6 +15,7 @@ export function WorldShell({ world, fontVars, children }: { world: WorldId; font
       <Nav world={world} />
       <main id="main" className="flex-1">{children}</main>
       <Footer />
+      <Cursor />
     </div>
   );
 }

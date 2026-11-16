@@ -55,3 +55,10 @@ html:has([data-world="web"]) { --bg: #f1eee7; color-scheme: light; }
   display: flex;
   flex-direction: column;
 }
+
+/* Hangar peek: hovering a portal door tints the hangar toward that world (kept dark for contrast). */
+[data-world="hangar"] { transition: background-color 0.6s ease; }
+[data-world="hangar"][data-peek="lobby"] { --bg: #170d09; --cursor: #ff5a36; }
+[data-world="hangar"][data-peek="fpv"] { --bg: #020502; --cursor: #3dff8e; }
+[data-world="hangar"][data-peek="jarvis"] { --bg: #050a0d; --cursor: #8cf5d2; }
+[data-world="hangar"][data-peek="web"] { --bg: #14110d; --cursor: #e8380d; }
