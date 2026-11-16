@@ -32,12 +32,11 @@
   --grain: 0.04;
 }
 
-/* Web: light design studio, a different temperature */
+/* Web: street — asphalt black, one acid accent, a spray-orange second */
 [data-world="web"] {
-  color-scheme: light;
-  --bg: #f1eee7; --bg-2: #e6e2d8; --fg: #121212; --muted: #555049;
-  --accent: #e8380d; --accent-2: #121212; --line: rgb(18 18 18 / 0.14);
-  --grain: 0.08;
+  --bg: #0b0b0c; --bg-2: #151517; --fg: #f2f2ee; --muted: #a3a39b;
+  --accent: #c6ff1a; --accent-2: #ff4b1f; --line: rgb(242 242 238 / 0.12);
+  --grain: 0.13;
 }
 
 /* The page background follows the current world (iOS 15.4+ supports :has; older keeps the default). */
@@ -45,7 +44,7 @@ html:has([data-world="hangar"]) { --bg: #07090c; }
 html:has([data-world="lobby"]) { --bg: #140c08; }
 html:has([data-world="fpv"]) { --bg: #030403; }
 html:has([data-world="jarvis"]) { --bg: #05070a; }
-html:has([data-world="web"]) { --bg: #f1eee7; color-scheme: light; }
+html:has([data-world="web"]) { --bg: #0b0b0c; }
 
 [data-world] {
   background: var(--bg);
@@ -61,4 +60,4 @@ html:has([data-world="web"]) { --bg: #f1eee7; color-scheme: light; }
 [data-world="hangar"][data-peek="lobby"] { --bg: #170d09; --cursor: #ff5a36; }
 [data-world="hangar"][data-peek="fpv"] { --bg: #020502; --cursor: #3dff8e; }
 [data-world="hangar"][data-peek="jarvis"] { --bg: #050a0d; --cursor: #8cf5d2; }
-[data-world="hangar"][data-peek="web"] { --bg: #14110d; --cursor: #e8380d; }
+[data-world="hangar"][data-peek="web"] { --bg: #0d0f06; --cursor: #c6ff1a; }

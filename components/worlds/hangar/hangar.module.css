@@ -108,12 +108,13 @@
 .sched li span { color: #8cf5d2; margin-right: 10px; }
 
 /* Web: paper + scrolling names */
-.web { --door-bg: #f1eee7; --door-fg: #121212; --door-muted: #555049; --door-accent: #e8380d; --door-font: var(--pf-web); }
+.web { --door-bg: #0b0b0c; --door-fg: #f2f2ee; --door-muted: #a3a39b; --door-accent: #c6ff1a; --door-font: var(--pf-web); }
 .names { position: absolute; left: 22px; right: 22px; top: 54px; bottom: 45%; overflow: hidden;
   -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
 .names ul { margin: 0; padding: 0; list-style: none; animation: roll 16s linear infinite; }
-.names li { font-family: var(--pf-web); font-size: clamp(1.6rem, 2.4vw, 2.3rem); font-size: clamp(1.3rem, 10.5cqi, 2.3rem); line-height: 1.15; color: #121212; white-space: nowrap; }
-.names li:nth-child(3n + 2) { color: #e8380d; }
+.names li { font-family: var(--pf-web); font-size: clamp(1.8rem, 2.8vw, 2.8rem); font-size: clamp(1.5rem, 13cqi, 2.8rem); line-height: 1; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1px rgb(242 242 238 / 0.55); white-space: nowrap; }
+.names li:nth-child(3n + 2) { color: #c6ff1a; -webkit-text-stroke: 0; }
+.names li:nth-child(5n + 4) { color: #ff4b1f; -webkit-text-stroke: 0; }
 @keyframes roll { to { transform: translateY(-50%); } }
 
 /* ───────────────────────── About / stack ───────────────────────── */

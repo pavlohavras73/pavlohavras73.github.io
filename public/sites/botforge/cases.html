@@ -299,46 +299,7 @@
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-        function raf(time) { lenis.raf(time); requestAnimationFrame(raf);
-
-        // Page transition
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.4s ease';
-        setTimeout(() => document.body.style.opacity = '1', 50);
-        
-        document.querySelectorAll('a').forEach(a => {
-            a.addEventListener('click', e => {
-                if(a.href && !a.href.startsWith('#') && !a.href.startsWith('javascript') && a.hostname === window.location.hostname && !a.closest('.app-sidebar')) {
-                    e.preventDefault();
-                    document.body.style.opacity = '0';
-                    setTimeout(() => window.location = a.href, 400);
-                }
-            });
-        });
-
-        // Animated numbers
-        gsap.utils.toArray('.font-tnum').forEach(el => {
-            const text = el.textContent.trim();
-            const num = parseFloat(text.replace(/[^0-9.]/g, ''));
-            if(!isNaN(num) && text.match(/[0-9]/)) {
-                const isPercent = text.includes('%');
-                const isDec = text.includes('.');
-                const suffix = text.replace(/[0-9.]/g, '');
-                
-                gsap.fromTo(el, { innerHTML: 0 }, {
-                    innerHTML: num,
-                    duration: 2,
-                    ease: "power2.out",
-                    scrollTrigger: { trigger: el, start: "top 90%" },
-                    onUpdate: function() {
-                        let val = this.targets()[0].innerHTML;
-                        val = isDec ? Number(val).toFixed(1) : Math.round(val);
-                        el.textContent = val + suffix;
-                    }
-                });
-            }
-        });
- }
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
         // Page transition
