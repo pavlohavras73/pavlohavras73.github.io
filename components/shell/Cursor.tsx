@@ -22,7 +22,8 @@ export function Cursor() {
       if (!shown) { shown = true; gsap.to([d, r], { autoAlpha: 1, duration: 0.3 }); }
       dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY);
       const hot = (e.target as Element | null)?.closest?.("a, button, [data-cursor]");
-      r.dataset.hot = hot ? "1" : "";
+      const v = hot ? "1" : "";
+      if (r.dataset.hot !== v) r.dataset.hot = v;
     };
     const leave = () => { shown = false; gsap.to([d, r], { autoAlpha: 0, duration: 0.3 }); };
     window.addEventListener("pointermove", move, { passive: true });
@@ -37,11 +38,14 @@ export function Cursor() {
   return (
     <div aria-hidden="true">
       <div ref={dot} className={`${base} -ml-[3px] -mt-[3px] h-[6px] w-[6px]`} style={{ background: "var(--cursor, var(--accent))" }} />
-      <div
-        ref={ring}
-        className={`${base} -ml-5 -mt-5 h-10 w-10 border transition-[transform,background-color,border-color] duration-300 data-[hot=1]:scale-150 data-[hot=1]:bg-[color-mix(in_srgb,var(--cursor,var(--accent))_12%,transparent)]`}
-        style={{ borderColor: "var(--cursor, var(--accent))" }}
-      />
+      {/* The ring is moved by GSAP (transform), so it must not have a CSS transform transition — the two
+          fight every frame and the ring lags. Hover scale and tint live on the inner element. */}
+      <div ref={ring} data-hot="" className={`${base} group -ml-5 -mt-5 h-10 w-10`}>
+        <div
+          className="h-full w-full rounded-full border transition-[scale,background-color] duration-300 group-data-[hot=1]:scale-150 group-data-[hot=1]:bg-[color-mix(in_srgb,var(--cursor,var(--accent))_12%,transparent)]"
+          style={{ borderColor: "var(--cursor, var(--accent))" }}
+        />
+      </div>
     </div>
   );
 }

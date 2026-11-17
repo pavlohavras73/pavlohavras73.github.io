@@ -99,7 +99,8 @@
 /* ───────── Detail ───────── */
 .detail { max-width: 1600px; margin: 0 auto; padding: 120px 16px 80px; overflow-x: hidden; }
 @media (min-width: 640px) { .detail { padding: 130px 32px 100px; } }
-.detailTop { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; }
+.detailTop { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; position: relative; z-index: 2; }
+/* The giant title's text box overhangs its line (line-height 0.82), so it would swallow clicks on the row above. */
 .back { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 .back:hover { color: var(--accent); }
 .detailName { margin-top: 24px; font-family: var(--f-display); font-weight: 900; text-transform: uppercase; font-size: clamp(3.4rem, 13vw, 13rem); line-height: 0.82; }
