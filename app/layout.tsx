@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { site } from "@/content";
 import { LenisProvider } from "@/lib/motion/LenisProvider";
 import { TransitionProvider } from "@/components/shell/TransitionProvider";
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <body>
+        <Script src="/a.js" strategy="afterInteractive" />
         <LenisProvider>
           <TransitionProvider>{children}</TransitionProvider>
         </LenisProvider>
