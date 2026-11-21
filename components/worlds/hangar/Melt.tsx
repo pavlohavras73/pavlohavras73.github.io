@@ -76,8 +76,17 @@ export function Melt({ text, className }: { text: string; className?: string }) 
 
   return (
     <h1 ref={ref} className={`${s.melt} ${className ?? ""}`} aria-label={text}>
-      {[...text].map((c, i) => (
-        <span key={i} data-l aria-hidden="true">{c}</span>
+      {/* Each word is an unbreakable group: letters are inline-blocks (fixed widths, see measure()),
+          and without this wrapper the line could break INSIDE the name ("PAVLOHA / VRAS"). */}
+      {text.split(" ").map((word, w, words) => (
+        <span key={w}>
+          <span style={{ whiteSpace: "nowrap", display: "inline-block" }}>
+            {[...word].map((c, i) => (
+              <span key={i} data-l aria-hidden="true">{c}</span>
+            ))}
+          </span>
+          {w < words.length - 1 ? " " : null}
+        </span>
       ))}
     </h1>
   );
