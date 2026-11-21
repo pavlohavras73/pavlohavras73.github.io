@@ -60,7 +60,7 @@ export function ShaderField({ frag, accent, className, maxDpr = 1.5 }: Props) {
       const uRes = u("uRes"), uTime = u("uTime"), uMouse = u("uMouse"), uAccent = u("uAccent"), uScroll = u("uScroll");
       gl.uniform3f(uAccent, accent[0], accent[1], accent[2]);
 
-      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+      let dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
       let w = 0, h = 0;
       const resize = () => {
         w = canvas.clientWidth; h = canvas.clientHeight;
@@ -88,8 +88,15 @@ export function ShaderField({ frag, accent, className, maxDpr = 1.5 }: Props) {
       const rate = prefersReducedMotion() ? 0.33 : 1;
       let visible = true, raf = 0;
       const t0 = performance.now();
+      let lastDraw = 0, lateFrames = 0;
       const frame = () => {
         raf = 0;
+        const now = performance.now();
+        // 30 fps: the field drifts slowly, 60 fps only doubled the GPU work on weak laptops
+        if (now - lastDraw < 32) { if (visible) raf = requestAnimationFrame(frame); return; }
+        // adaptive: frames keep arriving late -> render at a lower resolution
+        if (lastDraw && now - lastDraw > 55) { if (++lateFrames === 15 && dpr > 0.75) { dpr = Math.max(0.75, dpr * 0.6); resize(); } }
+        lastDraw = now;
         follow();
         mouse.x += (mouse.tx - mouse.x) * 0.08;
         mouse.y += (mouse.ty - mouse.y) * 0.08;

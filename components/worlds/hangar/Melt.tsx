@@ -16,31 +16,62 @@ export function Melt({ text, className }: { text: string; className?: string }) 
     // The letters change shape in place (no movement), so this also runs for reduced motion.
     const letters = [...h.querySelectorAll<HTMLSpanElement>("[data-l]")];
     const touch = isTouchDevice();
-    let raf = 0, visible = true, lastY = scrollY, speed = 0;
+    // Weak machines (friend's laptop lagged): no idle wave, only pointer/scroll melt.
+    const weak = (navigator.hardwareConcurrency || 8) <= 4 || ("deviceMemory" in navigator && (navigator as { deviceMemory?: number }).deviceMemory! <= 4);
+    let raf = 0, visible = true, lastY = scrollY, speed = 0, lastT = 0, slow = 0, idleWave = !weak;
     const cur = letters.map(() => 1979);
+    const shown = letters.map(() => 1979);
+    // Letter centres in PAGE coordinates, measured once (and on resize/font load) — reading
+    // getBoundingClientRect for every letter after writing styles forced a layout per letter per frame.
+    let centres: { x: number; y: number }[] = [];
+    const measure = () => {
+      // Fix each letter's box at its resting width: the YEAR axis changes glyph widths, which made
+      // the neighbours shift sideways ("the letters twitch").
+      letters.forEach((el) => { el.style.width = ""; el.style.fontVariationSettings = `"YEAR" 1979`; });
+      centres = letters.map((el) => {
+        const r = el.getBoundingClientRect();
+        el.style.width = `${r.width}px`;
+        return { x: r.left + r.width / 2 + scrollX, y: r.top + r.height / 2 + scrollY };
+      });
+      shown.fill(-1); // force a repaint of the current values
+    };
+    letters.forEach((el) => { el.style.display = "inline-block"; el.style.textAlign = "center"; });
+    measure();
+    document.fonts?.ready.then(measure);
+    const ro = new ResizeObserver(() => measure());
+    ro.observe(h);
     const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
     io.observe(h);
     const t0 = performance.now();
     const tick = (t: number) => {
       raf = requestAnimationFrame(tick);
       if (!visible) return;
+      if (t - lastT < 32) return; // ~30 fps is plenty for a slow melt
+      // adaptive: if frames keep arriving late, drop the idle wave
+      if (lastT && t - lastT > 60) { if (++slow > 20) idleWave = false; } else slow = Math.max(0, slow - 1);
+      lastT = t;
       const time = (t - t0) / 1000;
       // Phones: scrolling melts the whole name, a finger or the tilt melts the letters nearby.
       speed = speed * 0.9 + Math.min(1, Math.abs(scrollY - lastY) / 18) * 0.1;
       lastY = scrollY;
       const fp = focusPoint();
-      letters.forEach((el, i) => {
-        const r = el.getBoundingClientRect();
+      const fx = fp ? fp.x + scrollX : 0, fy = fp ? fp.y + scrollY : 0;
+      for (let i = 0; i < letters.length; i++) {
+        const c = centres[i];
         let near = 0;
-        if (fp) near = Math.max(0, 1 - Math.hypot(r.left + r.width / 2 - fp.x, r.top + r.height / 2 - fp.y) / (touch ? 200 : 260)) * fp.w;
-        const wave = (Math.sin(time * (touch ? 1.6 : 1.1) - i * 0.45) + 1) / 2; // 0..1 travelling wave
+        if (fp && c) near = Math.max(0, 1 - Math.hypot(c.x - fx, c.y - fy) / (touch ? 200 : 260)) * fp.w;
+        const wave = idleWave ? (Math.sin(time * (touch ? 1.6 : 1.1) - i * 0.45) + 1) / 2 : 0; // travelling wave
         const target = 1979 + (wave * (touch ? 0.5 : 0.35) + near * 0.9 + speed * 1.4) * 71;
-        cur[i] += (Math.min(2050, target) - cur[i]) * 0.12;
-        el.style.fontVariationSettings = `"YEAR" ${cur[i].toFixed(1)}`;
-      });
+        cur[i] += (Math.min(2050, target) - cur[i]) * 0.2;
+        // write only real changes (each write re-shapes the glyph)
+        if (Math.abs(cur[i] - shown[i]) >= 0.6) {
+          shown[i] = cur[i];
+          letters[i].style.fontVariationSettings = `"YEAR" ${cur[i].toFixed(0)}`;
+        }
+      }
     };
     raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); io.disconnect(); };
+    return () => { cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); };
   }, []);
 
   return (
